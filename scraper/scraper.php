@@ -18,7 +18,7 @@ require_once("simple_html_dom.php");
         echo "<script>alert('Connect Gagal')</script>";
     }
 
-    $html = file_get_html('https://www.polygonbikes.com/dj-bmx/');
+    $html = file_get_html('https://www.polygonbikes.com/junior/');
     $divData = $html->find('div[class=product-list__image]');
     foreach ($divData as $key => $value) {  
         $img = $value->find('img');
@@ -80,6 +80,7 @@ require_once("simple_html_dom.php");
         }
     }
 
+    print_r($listHarga);
     $count = 19;
     for ($i=0; $i < sizeof($listDesc); $i++) { 
         $r = rand(0,100);

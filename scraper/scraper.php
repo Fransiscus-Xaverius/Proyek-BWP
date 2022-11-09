@@ -39,7 +39,7 @@ require_once("simple_html_dom.php");
     if($SubURL){
         foreach ($SubURL as $key => $value) {
             $link = $value->href;
-            echo $link;
+            echo $link. '<br>';
             array_push($listSubURL,$link);
         }
     }
@@ -47,6 +47,7 @@ require_once("simple_html_dom.php");
         echo "Tidak dapet";
     }
 
+    //ambil harga dari web.
     foreach ($listSubURL as $key => $value) {
         $subPage = file_get_html($value);
         $target = $subPage->find('bdi');

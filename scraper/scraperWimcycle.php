@@ -28,9 +28,30 @@ require_once("simple_html_dom.php");
     $dataNama = $html->find('h2[class="title"]');
     foreach($dataNama as $key => $value){
         $text = $value->text();
-        array_push($listNama,$text);
+        $nama = str_replace("   ", "", $text);
+        array_push($listNama,$nama);
     }
 
-    
+    $dataPrice = $html->find('div[class="price"]');
+    foreach ($dataPrice as $key => $value) {
+        $text = $value->text();
+        $hilang = str_replace(",-", "", $text);
+        $hilang2 = str_replace(".", "", $hilang);
+        $duit = str_replace("IDR ", "", $hilang2);
+        array_push($listHarga,$duit);
+    }
+
+    $desc = "A Classic Urban Bike for City use from the prestigious local brand, Wimcycle.";
+
+    $count = 56;
+    for ($i=0; $i < sizeof($listHarga); $i++) { 
+        $r = rand(0,100);
+        $insert = "INSERT INTO SEPEDA (id_sepeda, nama_sepeda, id_kategori, id_merk, image_sepeda, deskripsi_sepeda, stok_sepeda, harga_sepeda, status_sepeda) values ('spd_$count', '$listNama[$i]', 'kat_2', 'merk_2', '$listImage[$i]', '$desc', '$r', $listHarga[$i] ,1)"; 
+        echo $insert."<br>";
+        if ($conn->query($insert) === TRUE) {
+            echo "<script>alert('Berhasil add!')</script>";
+        }
+        $count++; 
+    }
 
 ?>

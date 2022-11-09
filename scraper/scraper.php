@@ -7,15 +7,24 @@ require_once("simple_html_dom.php");
     $listHarga = [];
     $listNama = [];
 
-    $html = file_get_html('https://www.polygonbikes.com/mountain-bikes/');
+    $host = 'localhost';
+    $user = 'root';
+    $password = '';
+    $database = 'db_toko_sepeda';
+    $port = '3306';
+    $conn = new mysqli($host, $user, $password, $database);
+    if ($conn->connect_errno) {
+        die("gagal connect : " . $conn->connect_error);
+        echo "<script>alert('Connect Gagal')</script>";
+    }
+
+    $html = file_get_html('https://www.polygonbikes.com/dj-bmx/');
     $divData = $html->find('div[class=product-list__image]');
     foreach ($divData as $key => $value) {  
         $img = $value->find('img');
         foreach ($img as $temp) {
             $text = $temp->src;
-            echo $text;
             array_push($listImage,$text);
-            echo "<img src='$text'><br>";
         }
         
     }
@@ -25,8 +34,8 @@ require_once("simple_html_dom.php");
     //print_r($Data);
     if($Data){
         foreach ($Data as $key => $value) {
-            echo $value;
-            array_push($listDesc,$value);
+            $txt = $value->text();
+            array_push($listDesc,$txt);
         }
     }
     else{
@@ -39,12 +48,19 @@ require_once("simple_html_dom.php");
     if($SubURL){
         foreach ($SubURL as $key => $value) {
             $link = $value->href;
-            echo $link. '<br>';
             array_push($listSubURL,$link);
         }
     }
     else{
         echo "Tidak dapet";
+    }
+
+    $namaProduk = $html->find('div[class=product-list__title]');
+    if($namaProduk){
+        foreach($namaProduk as $key => $value){
+            $name = $value->text();
+            array_push($listNama,$name);
+        }
     }
 
     //ambil harga dari web.
@@ -59,13 +75,23 @@ require_once("simple_html_dom.php");
                 $temp = str_replace(",", "", $price);
                 $temps = substr($temp, 2);
                 $temps = substr($temps, 3);
-                echo $temps. "<br>";
                 array_push($listHarga, $temps);
             }
         }
     }
 
-    
+    $count = 19;
+    for ($i=0; $i < sizeof($listDesc); $i++) { 
+        $r = rand(0,100);
+        $insert = "INSERT INTO SEPEDA (id_sepeda, nama_sepeda, id_kategori, id_merk, image_sepeda, deskripsi_sepeda, stok_sepeda, harga_sepeda, status_sepeda) values ('spd_$count', '$listNama[$i]', 'kat_2', 'merk_1', '$listImage[$i]', '$listDesc[$i]', '$r', ($listHarga[$i]*15500) ,1)"; 
+        echo $insert."<br>";
+        if ($conn->query($insert) === TRUE) {
+            echo "<script>alert('Berhasil add!')</script>";
+        }
+        $count++; 
+    }
+
+
 
 
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2022 at 06:14 PM
+-- Generation Time: Nov 10, 2022 at 04:16 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -20,6 +20,165 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_toko_sepeda`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer`
+--
+
+CREATE TABLE `customer` (
+  `id_customer` varchar(6) NOT NULL,
+  `username_customer` varchar(100) NOT NULL,
+  `email_customer` varchar(100) NOT NULL,
+  `password_customer` varchar(100) NOT NULL,
+  `nama_customer` varchar(100) NOT NULL,
+  `jk_customer` int(10) NOT NULL,
+  `alamat_customer` varchar(255) NOT NULL,
+  `noTelp_customer` int(12) NOT NULL,
+  `status_customer` int(11) NOT NULL COMMENT '1 : active\r\n0 : non active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `d_beli`
+--
+
+CREATE TABLE `d_beli` (
+  `nota_beli` varchar(15) NOT NULL,
+  `id_sepeda` varchar(6) NOT NULL,
+  `harga_beli` int(11) NOT NULL,
+  `jumlah_beli` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `d_jual`
+--
+
+CREATE TABLE `d_jual` (
+  `nota_jual` varchar(15) NOT NULL,
+  `id_sepeda` varchar(5) NOT NULL,
+  `jumlah` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `h_beli`
+--
+
+CREATE TABLE `h_beli` (
+  `nota_beli` varchar(15) NOT NULL,
+  `id_karyawan` varchar(6) NOT NULL,
+  `id_supplier` varchar(5) NOT NULL,
+  `subtotal_beli` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `h_jual`
+--
+
+CREATE TABLE `h_jual` (
+  `nota_jual` varchar(15) NOT NULL,
+  `id_customer` varchar(6) NOT NULL,
+  `id_karyawan` varchar(6) NOT NULL,
+  `harga_total` int(11) NOT NULL,
+  `metode_pembayaran` varchar(10) NOT NULL,
+  `kode_promo` varchar(5) NOT NULL,
+  `subtotal_jual` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `karyawan`
+--
+
+CREATE TABLE `karyawan` (
+  `id_karyawan` varchar(6) NOT NULL,
+  `username_karyawan` varchar(100) NOT NULL,
+  `password_karyawan` varchar(100) NOT NULL,
+  `nama_karyawan` varchar(100) NOT NULL,
+  `jk_karyawan` int(10) NOT NULL,
+  `alamat_karyawan` varchar(255) NOT NULL,
+  `noTelp_karyawan` varchar(12) NOT NULL,
+  `dob_karyawan` date NOT NULL COMMENT 'date of birth',
+  `tglMasuk_karyawan` date NOT NULL,
+  `status_karyawan` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kategori`
+--
+
+CREATE TABLE `kategori` (
+  `id_kategori` varchar(5) NOT NULL,
+  `nama_kategori` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
+('kat_1', 'MTB'),
+('kat_2', 'Urban'),
+('kat_3', 'BMX'),
+('kat_4', 'Junior'),
+('kat_5', 'Electric');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `merk`
+--
+
+CREATE TABLE `merk` (
+  `id_merk` varchar(10) NOT NULL,
+  `nama_merk` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `merk`
+--
+
+INSERT INTO `merk` (`id_merk`, `nama_merk`) VALUES
+('merk_1', 'Polygon'),
+('merk_2', 'Wimcycle'),
+('merk_3', 'KONA');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `promo`
+--
+
+CREATE TABLE `promo` (
+  `kode_promo` varchar(15) NOT NULL,
+  `besar_potongan` int(11) NOT NULL,
+  `maks_potongan` int(11) NOT NULL,
+  `min_pembelian` int(11) NOT NULL,
+  `metode_pembayaran` varchar(50) NOT NULL COMMENT 'pisahkan dengan , (koma) apabila lebih dari 1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rating_sepeda`
+--
+
+CREATE TABLE `rating_sepeda` (
+  `nota_jual` varchar(13) NOT NULL,
+  `id_sepeda` varchar(6) NOT NULL,
+  `rating` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -151,9 +310,88 @@ INSERT INTO `sepeda` (`id_sepeda`, `nama_sepeda`, `id_kategori`, `id_merk`, `ima
 ('spd_98', 'Libre EL', 'kat_5', 'merk_3', 'https://images.konaworld.com/2022/thumb/libre_el.jpg', 'THE UPTOWN, DOWNTOWN, COMMUTE-FRIENDLY, INTERURBAN PATH-CRUISING, GROCERY-GETTING WORKHORSE', 44, 6360297, 1),
 ('spd_99', 'Dew-E DL', 'kat_5', 'merk_3', 'https://images.konaworld.com/2022/thumb/dew_e_dl.jpg', 'THE UPTOWN, DOWNTOWN, COMMUTE-FRIENDLY, INTERURBAN PATH-CRUISING, GROCERY-GETTING WORKHORSE', 28, 5651722, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier`
+--
+
+CREATE TABLE `supplier` (
+  `id_supplier` varchar(5) NOT NULL,
+  `nama_supplier` varchar(100) NOT NULL,
+  `cp_supplier` varchar(25) NOT NULL,
+  `pn_supplier` varchar(12) NOT NULL,
+  `alamat_supplier` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`id_customer`);
+
+--
+-- Indexes for table `d_beli`
+--
+ALTER TABLE `d_beli`
+  ADD PRIMARY KEY (`nota_beli`,`id_sepeda`) USING BTREE;
+
+--
+-- Indexes for table `d_jual`
+--
+ALTER TABLE `d_jual`
+  ADD PRIMARY KEY (`nota_jual`);
+
+--
+-- Indexes for table `h_beli`
+--
+ALTER TABLE `h_beli`
+  ADD PRIMARY KEY (`nota_beli`),
+  ADD KEY `FK_Karyawan_HBeli` (`id_karyawan`),
+  ADD KEY `FK_Supplier_HBeli` (`id_supplier`);
+
+--
+-- Indexes for table `h_jual`
+--
+ALTER TABLE `h_jual`
+  ADD PRIMARY KEY (`nota_jual`),
+  ADD KEY `FK_Customer_HJual` (`id_customer`),
+  ADD KEY `FK_Karyawan_HJual` (`id_karyawan`),
+  ADD KEY `FK_Promo_HJual` (`kode_promo`);
+
+--
+-- Indexes for table `karyawan`
+--
+ALTER TABLE `karyawan`
+  ADD PRIMARY KEY (`id_karyawan`);
+
+--
+-- Indexes for table `kategori`
+--
+ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`id_kategori`);
+
+--
+-- Indexes for table `merk`
+--
+ALTER TABLE `merk`
+  ADD PRIMARY KEY (`id_merk`);
+
+--
+-- Indexes for table `promo`
+--
+ALTER TABLE `promo`
+  ADD PRIMARY KEY (`kode_promo`);
+
+--
+-- Indexes for table `rating_sepeda`
+--
+ALTER TABLE `rating_sepeda`
+  ADD PRIMARY KEY (`nota_jual`);
 
 --
 -- Indexes for table `sepeda`
@@ -162,6 +400,12 @@ ALTER TABLE `sepeda`
   ADD PRIMARY KEY (`id_sepeda`),
   ADD KEY `FK_Kategori_Sepeda` (`id_kategori`),
   ADD KEY `FK_Merk_Sepeda` (`id_merk`);
+
+--
+-- Indexes for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`id_supplier`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

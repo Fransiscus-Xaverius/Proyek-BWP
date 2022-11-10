@@ -1,8 +1,6 @@
 <?php
   require("helper.php");
-  if(isset($_POST['search'])){
-
-  }
+  
 ?>
 
 <!doctype html>
@@ -11,9 +9,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Proyek BWP</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   </head>
+
+  <style>
+    .catalog{
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      align-items: center;
+    }
+  </style>
+
   <body>
     <div class="bg">
       <!-- Navbar Start-->
@@ -38,11 +46,11 @@
             </ul>
             <form class="d-flex" method="post"> 
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" style="width:300px">
-              <button type="submit" name="search" class="btn">
+              <button type="submit" name="searchBtn" class="btn">
                 <img src="assets/search.png" alt="search" height="30px">
               </button>
                 <li class="nav-item navbar-nav">
-                  <a class="nav-link fs-5 fw-bold active" href="#">Login</a>
+                  <a class="nav-link fs-5 fw-bold active" href="login.php">Login</a>
                 </li>
             </form>
             </div>
@@ -94,6 +102,36 @@
       </div>
     <!-- carousel end -->
 
+    <!-- start of catalog -->
+    <div class="d-flex flex-wrap">
+      <?php
+        if(isset($_POST['searchBtn'])){
+            $keyword = $_POST["search"];
+            $searchBrand = $con->query("select * from merk where nama_merk like '%".$keyword."%'");
+            if($searchBrand->num_rows == 0) {
+                $result = $con->query("select * from sepeda where nama_sepeda like '%".$keyword."%'");
+            } else {
+                $brand = $searchBrand->fetch_assoc();
+                $id = $brand["id_merk"];
+                $result = $con->query("select * from sepeda where id_merk like '%".$id."%'");
+            }
+        }
+        else{
+          $result = mysqli_query($con , "select * from sepeda");
+        }
+        foreach ($result as $key => $value) {
+          echo '<div class="card" style="width: 18rem;">
+          <img src="'.$value["image_sepeda"].'" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
+            <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
+            <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
+            <a href="#" class="btn btn-primary">Beli</a>
+          </div>
+        </div>';
+        }
+    ?>
+    </div>
     </div>
 
 

@@ -1,15 +1,15 @@
 <?php
-    session_start();
+session_start();
 
-    $conn = mysqli_connect("localhost", "root", "", "db_toko_sepeda");
+function alert($message)
+{
+    echo "<script>alert(" . $message . ")</script>";
+}
 
-    if(mysqli_connect_errno()){
-        echo mysqli_error($conn);
-    }
+$con = mysqli_connect('localhost', 'root', '', 'db_toko_sepeda');
 
-    function iniAlert($message){
-        echo "<script>";
-        echo "alert($message)";
-        echo "</script>";
-    }
+if (mysqli_connect_errno()) {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+
 ?>

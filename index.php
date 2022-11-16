@@ -5,6 +5,8 @@
     //mailer.
   }
 
+  $sekarang = 0;
+  $ctr = 0;
 ?>
 
 <!doctype html>
@@ -120,33 +122,72 @@
       <?php
         if(isset($_POST['searchBtn'])){
             $keyword = $_POST["search"];
-            $searchBrand = $con->query("select * from merk where nama_merk like '%".$keyword."%'");
-            if($searchBrand->num_rows == 0) {
-                $result = $con->query("select * from sepeda where nama_sepeda like '%".$keyword."%'");
-            } else {
-                $brand = $searchBrand->fetch_assoc();
-                $id = $brand["id_merk"];
-                $result = $con->query("select * from sepeda where id_merk like '%".$id."%'");
-            }
+            $search = $con->query("select * from merk m, sepeda s where m.nama_merk like '%".$keyword."%' or s.nama_sepeda like '%".$keyword."%' and m.id_merk = s.id_merk");
+            $banyakbarang = mysqli_fetch_assoc(mysqli_query($con, "select count(*) as 'jumlah' from merk m, sepeda s where m.nama_merk like '%".$keyword."%' or s.nama_sepeda like '%".$keyword."%' and m.id_merk = s.id_merk"));
+            // if($searchBrand->num_rows == 0) {
+            //     $result = $con->query("select * from sepeda where nama_sepeda like '%".$keyword."%'");
+            // } else {
+            //     $brand = $searchBrand->fetch_assoc();
+            //     $id = $brand["id_merk"];
+            //     $result = $con->query("select * from sepeda where id_merk like '%".$id."%'");
+            // }
         }
         else{
           $result = mysqli_query($con , "select * from sepeda");
+          $banyakbarang = mysqli_fetch_assoc(mysqli_query($con, "select count(*) as'jumlah' from sepeda"));
         }
-        foreach ($result as $key => $value) {
-          echo 
-          '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
-            <div class="card" style="height=350px">
-              <img src="'.$value["image_sepeda"].'" class="card-img-top" alt="sepeda" style="max-height : 200px">
-              <div class="card-body" style = "">
-                <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
-                <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
-                <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
-                <a href="#" class="btn btn-primary">Beli</a>
+        
+        $maksPage = floor($banyakbarang['jumlah']/12) + 1;
+        for ($i=0; $i < $maksPage; $i++) {    
+          if(isset($_POST["halaman".$i])){
+            $ctr = 0;
+            $sekarang = $i;
+            break;
+          } 
+        }
+        
+        $min = ($sekarang * 12);
+        $max = 12 + ($sekarang * 12);
+        echo "<script>alert('$min')</script>";
+        echo "<script>alert('$max')</script>";
+        for ($i=0; $i < $banyakbarang['jumlah']; $i++) {
+          $hasil = mysqli_fetch_assoc($result);
+          $tempId = substr($hasil["id_sepeda"], 4);
+          if($tempId < $max && $tempId >= $min){
+            echo 
+            '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
+              <div class="card" style="height=350px">
+                <img src="'.$hasil["image_sepeda"].'" class="card-img-top" alt="sepeda" style="max-height : 200px">
+                <div class="card-body" style = "">
+                  <h5 class="card-title">'.$hasil["id_sepeda"].'</h5>
+                  <h5 class="card-title">'.$hasil["nama_sepeda"].'</h5>
+                  <p class="card-text"> Rp.'.$hasil["harga_sepeda"].'</p>
+                  <p class="card-text">'.$hasil["deskripsi_sepeda"].'</p>
+                  <a href="#" class="btn btn-primary">Beli</a>
+                </div>
               </div>
-            </div>
-          </div>';
+            </div>';
+          }
         }
       ?>
+      <div class="pagination col-9 ms-5 justify-content-end">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+          <form action="" method="post">
+            <button class="page-item" jumlah = '-1'  name='buttonPrev'>Previous</button>
+            <?php
+              $banyakbarang = mysqli_fetch_assoc(mysqli_query($con, "select count(*) as'jumlah' from sepeda"));
+              $maksPage = floor($banyakbarang['jumlah']/12) + 1;
+              for ($i=0; $i < $maksPage; $i++) { 
+                echo "<button type='submit' name = 'halaman".$i."'>".($i+1)."</button>";
+              }
+            ?>
+            <!-- <button type="submit" name = "halaman"></button> -->
+            <button class="page-item"  jumlah = '-1' name='buttonNext'>Next</button>
+          </form>
+        </ul>
+      </nav>
+      </div>
     </div>
 
     <!-- END OF CATALOGUE-->

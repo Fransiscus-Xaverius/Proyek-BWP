@@ -11,10 +11,16 @@ if(!isset($_SESSION['barang'])){
 $cart = [];
 if(isset($_SESSION['cart'])){
     $cart = $_SESSION['cart'];
+    print_r($cart);
+}
+
+if(isset($_POST["back"])){
+  header("location: homeUser.php");
 }
 
 $temp = $_SESSION['login'];
 $user = mysqli_fetch_array(mysqli_query($con, "select * from customer where id_customer = '".$temp."'"));
+$IDuser = reset($user);
 
 $idBarang = $_SESSION['barang'];
 $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$idBarang."'"));
@@ -136,10 +142,26 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                     echo "<h4 class='text-center fw-bold'>Barang Akan Dikirimkan Melalui Jasa Pengiriman JNE</h4>";
                     echo "<h4 class='text-center fw-bold'>Nomor Resi : 123456789</h4>";
                     echo "<h4 class='text-center fw-bold'>Terima Kasih</h4>";
+                    $id = -1;
+                    for ($i=0; $i < sizeof($cart); $i++) { 
+                      $tempArr = $cart[$i];
+                      if($tempArr["idUser"]==$IDuser){
+                        $id=$i;
+                      }
+                    }
+                    if($id!=-1){
+                      array_splice($cart, $id, 1);
+                      $_SESSION['cart'] = $cart;
+                    }
                 ?>
             </div>
             
         </div>
+    </div>
+    <div style="width:100%; display:flex; flex-direction:column; align-items:center; justify-items:center;">
+      <form action="" method="POST">
+        <button type=submit name="back" class="bg-danger text-white">Back</button>
+      </form>
     </div>
     <!-- Invoice end -->
 

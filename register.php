@@ -40,19 +40,19 @@ if(isset($_POST['register'])){
           } else {
             $kueri = mysqli_query($con, "select id_customer from customer order by id_customer desc limit 1");
             $result_row = mysqli_fetch_array($kueri);
-              if ($result_row != NULL) {
-                $temp = substr($result_row['id'], 2, 3);
-                $id = (int)$temp + 1;
-              } else {
-                $id = 1;
-              }
-              $id = "US" . str_pad($id, 3, "0", STR_PAD_LEFT);
-              $kueri = mysqli_query($con, "insert into customer values('" . $id . "', '" . $username . "', '" . $email . "', '" . $pass . "', '" . $fullName . "', '" . $jk .  "', '" . $alamat . "', '" . $noTelp . "', 1 )");
-              if(!$kueri){
-                $error = "Gagal mendaftar";
-              } else {
-                $success = "Berhasil mendaftar";
-              }
+            $temp = substr($result_row['id'], 2, 3);
+            if ($result_row != NULL) {
+              $id = (int)$temp + 1;
+            } else {
+              $id = 1;
+            }
+            $id = "US" . str_pad($id, 3, "0", STR_PAD_LEFT);
+            $kueri = mysqli_query($con, "insert into customer values('" . $id . "', '" . $username . "', '" . $email . "', '" . $pass . "', '" . $fullName . "', '" . $jk .  "', '" . $alamat . "', '" . $noTelp . "', 1 )");
+            if(!$kueri){
+              $error = "Gagal mendaftar";
+            } else {
+              $success = "Berhasil mendaftar";
+            }
           }
         }
       }

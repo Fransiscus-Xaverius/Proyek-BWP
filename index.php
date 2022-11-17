@@ -6,7 +6,21 @@
   }
   $banyakPage = 0;
 
-  
+  if(isset($_SESSION['maks'])){
+    $maks = $_SESSION["maks"];
+  } else {
+    $maks = 0;
+  }
+  echo "<script>alert('".$maks."')</script>";
+  for ($i=0; $i < $maks; $i++) { 
+    // echo "<script>alert('btn".$i."')</script>";
+    // echo $_POST['btn'.$i];
+    if(isset($_POST['btn'.$i])){
+      echo "<script>alert('ada')</script>";
+      $dex = $i*12;
+      echo '<script>alert("keluar '.$dex.'")</script>';
+    }
+  }
 ?>
 
 <!doctype html>
@@ -161,24 +175,19 @@
     </div>
     <!-- END OF CATALOGUE-->
     <div class="pagination justify-content-end">
-      <form action="" method="POST">
+      
         <?php
+          echo "<form action='' method='POST'>";
           $maksPage = floor($banyakPage['jumlah']/12) + 1;
+          $_SESSION['maks'] = $maksPage;
           echo "<script>alert('".$maksPage."')</script>";
           for ($i=0; $i < $maksPage; $i++) { 
-            echo "<button type=submit value=".$i." id=btn".$i." name=btn".$i."'>".($i+1)."</button>";
+            $temp = "btn".$i;
+            echo $temp;
+            echo "<button type='submit' value = '".$i."' name='".$temp."'>".($i+1)."</button>";
           }
+          echo "</form>";
         ?>
-      </form>
-      <?php
-        for ($i=0; $i < $maksPage; $i++) { 
-          echo "<script>alert('btn".$i."')</script>";
-            if(isset($_POST["btn".$i])){
-              $dex = $i*12;
-              echo '<script>alert("keluar '.$dex.'")</script>';
-            }
-          }
-      ?>
     </div>
 
 

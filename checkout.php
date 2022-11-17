@@ -155,13 +155,12 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                     }
                 ?>
             </div>
-            
+            <div style="width:100%; display:flex; flex-direction:column; align-items:center; justify-items:center;">
+            <form action="" method="POST">
+                <button type=submit name="back" class="text-white" style='border-radius: 5px; border:none; background-color: red;'>Back to Menu</button>
+            </form>
+            </div>
         </div>
-    </div>
-    <div style="width:100%; display:flex; flex-direction:column; align-items:center; justify-items:center;">
-      <form action="" method="POST">
-        <button type=submit name="back" class="bg-danger text-white">Back</button>
-      </form>
     </div>
     <!-- Invoice end -->
 

@@ -202,7 +202,7 @@
                 <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
                 <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
                 <form method="POST">
-                <button type="submit" name="beli">Beli</button>
+                <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>
                 </form>
               </div>
             </div>

@@ -216,7 +216,7 @@
                 <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
                 <form method="POST">
                 <input type="hidden" value="'.$value['id_sepeda'].'" name="id">
-                <button type="submit" name="beli">Beli</button>
+                <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>
                 </form>
               </div>
             </div>

@@ -2,6 +2,7 @@
 session_start();
 // session_destroy();
 $dex = 0;
+$grandTotal = 0;
 
 function alert($message)
 {

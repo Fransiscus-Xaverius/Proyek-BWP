@@ -1,5 +1,4 @@
 <?php
-
 require_once("helper.php");
 if(!isset($_SESSION['login'])){
   header("Location: index.php");
@@ -30,11 +29,23 @@ if(isset($_POST["update"])){
     exit;
 }
 
-// if(isset($_POST["beli"])){
-//   $id = $_POST["id"];
-//   $_SESSION['barang'] = $id;
-//   header("Location: detail.php");
-// }
+if(isset($_POST["checkout"])){
+  $banyakCart = 0;
+  $nominal = $_REQUEST['nominal'];
+  for ($i=0; $i < sizeof($cart); $i++) { 
+    if($cart[$i]['idUser'] == $temp){
+        $banyakCart++;
+        $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
+    }
+  }
+  if($banyakCart > 0){
+    header("Location: checkout.php?nominal=".$nominal."");
+    exit;
+  }
+  else{
+    echo "<script>alert('Keranjang Kosong')</script>";
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -139,9 +150,9 @@ if(isset($_POST["update"])){
                                     <h3 class="fw-bold fs-2">Biaya Pengiriman</h3>
                                     <h5 class="fs-3"><?php if($grandTotal <= 0){$biayaPengiriman = 0;} echo $biayaPengiriman;?></h5>
                                     <h3 class="fw-bold fs-2">Grand Total</h3>
-                                    <h5 class="fs-3"><?php echo ($grandTotal+$biayaPengiriman);?></h5>
-
-                                    <form action="checkout.php" method="post">
+                                    <h5 class="fs-3"><?php $total = ($grandTotal+$biayaPengiriman);echo $total;?></h5>
+                                    <form method="post">
+                                        <input type="hidden" name="nominal" value='<?php echo $total?>'>
                                         <button type="submit" name="checkout" class="btn btn-primary ps-5 pe-5">Checkout</button>
                                     </form>
                                 </div>

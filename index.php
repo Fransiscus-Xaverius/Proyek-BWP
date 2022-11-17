@@ -1,6 +1,8 @@
 <?php
   require("helper.php");
   
+  $dex = 0;
+
   if(isset($_POST["subscribe"])){
     //mailer.
   }
@@ -122,15 +124,15 @@
             $keyword = $_POST["search"];
             $searchBrand = $con->query("select * from merk where nama_merk like '%".$keyword."%'");
             if($searchBrand->num_rows == 0) {
-                $result = $con->query("select * from sepeda where nama_sepeda like '%".$keyword."%'");
+                $result = $con->query("select * from sepeda where nama_sepeda like '%".$keyword."%' LIMIT 10 OFFSET ".$dex);
             } else {
                 $brand = $searchBrand->fetch_assoc();
                 $id = $brand["id_merk"];
-                $result = $con->query("select * from sepeda where id_merk like '%".$id."%'");
+                $result = $con->query("select * from sepeda where id_merk like '%".$id."%' LIMIT 10 OFFSET ".$dex);
             }
         }
         else{
-          $result = mysqli_query($con , "select * from sepeda");
+          $result = mysqli_query($con , "SELECT * FROM sepeda LIMIT 10 OFFSET ".$dex);
         }
         foreach ($result as $key => $value) {
           echo 

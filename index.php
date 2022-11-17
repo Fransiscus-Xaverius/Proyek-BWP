@@ -6,7 +6,7 @@
   if(isset($_POST["subscribe"])){
     //mailer.
   }
-
+  $banyakPage = 0;
 ?>
 
 <!doctype html>
@@ -124,16 +124,25 @@
             $keyword = $_POST["search"];
             $searchBrand = $con->query("select * from merk where nama_merk like '%".$keyword."%'");
             if($searchBrand->num_rows == 0) {
-                $result = $con->query("select * from sepeda where nama_sepeda like '%".$keyword."%' LIMIT 10 OFFSET ".$dex);
+                $result = $con->query("select * from sepeda where nama_sepeda like '%".$keyword."%' LIMIT 12 OFFSET ".$dex);
+                $banyak = $con->query("select count(*) as 'jumlah' from sepeda where nama_sepeda like '%".$keyword."%'");
+                $banyakPage = mysqli_fetch_array($banyak);
             } else {
                 $brand = $searchBrand->fetch_assoc();
                 $id = $brand["id_merk"];
-                $result = $con->query("select * from sepeda where id_merk like '%".$id."%' LIMIT 10 OFFSET ".$dex);
+                $result = $con->query("select * from sepeda where id_merk like '%".$id."%' LIMIT 12 OFFSET ".$dex);
+                $banyak = $con->query("select count(*) as 'jumlah' from sepeda where id_merk like '%".$id."%'");
+                $banyakPage = mysqli_fetch_array($banyak);
             }
         }
         else{
-          $result = mysqli_query($con , "SELECT * FROM sepeda LIMIT 10 OFFSET ".$dex);
+          $result = mysqli_query($con , "SELECT * FROM sepeda LIMIT 12 OFFSET ".$dex);
+          $banyak = mysqli_query($con , "SELECT count(*) as'jumlah' FROM sepeda LIMIT 12 OFFSET ".$dex);
+          $banyakPage = mysqli_fetch_array($banyak);
         }
+
+        // var_dump($banyak);
+        // var_dump($banyakPage['jumlah']);
         foreach ($result as $key => $value) {
           echo 
           '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
@@ -150,8 +159,16 @@
         }
       ?>
     </div>
-
     <!-- END OF CATALOGUE-->
+    <div class="pagination justify-content-end">
+      <?php
+        $maksPage = floor($banyakPage['jumlah']/12) + 1;
+        echo "<script>alert('".$maksPage."')</script>";
+        for ($i=0; $i < $maksPage; $i++) { 
+          echo "<button>".($i+1)."</button>";
+        }
+      ?>
+    </div>
 
 
     <!-- Start of Footer-->

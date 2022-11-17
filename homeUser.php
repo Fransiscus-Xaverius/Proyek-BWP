@@ -95,6 +95,9 @@
                   <a class="nav-link fs-5 fw-bold active" href="#"><?php echo $user['nama_customer']?></a>
                 </li>
                 <li class="nav-item navbar-nav">
+                  <a class="nav-link fs-5 fw-bold active" href="cart.php">Cart</a>
+                </li>
+                <li class="nav-item navbar-nav">
                   <a class="nav-link fs-5 fw-bold active" href="index.php">Logout</a>
                 </li>
             </form>
@@ -113,27 +116,12 @@
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="4000">
             <img src="assets/img-1.png" class="d-block" height="500px" style="margin:auto" alt="img">
-            <!-- <div class="carousel-caption d-none d-md-block bg-light">
-              <h5>First slide label</h5>
-              <p>Some representative placeholder content for the first slide.</p>
-              <button>BUY NOW</button>
-            </div> -->
           </div>
           <div class="carousel-item" data-bs-interval="2000">
             <img src="assets/img-2.png" class="d-block" height="500px" alt="img" style="margin:auto">
-            <!-- <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
-              <p>Some representative placeholder content for the second slide.</p>
-              <button>BUY NOW</button>
-            </div> -->
           </div>
           <div class="carousel-item">
             <img src="assets/img-3.png" height="500px" class="d-block" alt="img" style="margin:auto">
-            <!-- <div class="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
-              <p>Some representative placeholder content for the third slide.</p>
-              <button>BUY NOW</button>
-            </div> -->
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">

@@ -1,5 +1,6 @@
 <?php
   require_once("helper.php");
+  unset($_SESSION['login']);
 
   if(isset($_POST["subscribe"])){
     //mailer.
@@ -28,6 +29,10 @@
     if($dex+12 <= ($maks*12)){
       $dex += 12;
     }
+  }
+
+  if(isset($_POST["beli"])){
+    echo "<script>alert('Harap Login Dulu')</script>";
   }
 ?>
 
@@ -102,27 +107,12 @@
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="4000">
             <img src="assets/img-1.png" class="d-block" height="500px" style="margin:auto" alt="img">
-            <!-- <div class="carousel-caption d-none d-md-block bg-light">
-              <h5>First slide label</h5>
-              <p>Some representative placeholder content for the first slide.</p>
-              <button>BUY NOW</button>
-            </div> -->
           </div>
           <div class="carousel-item" data-bs-interval="2000">
             <img src="assets/img-2.png" class="d-block" height="500px" alt="img" style="margin:auto">
-            <!-- <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
-              <p>Some representative placeholder content for the second slide.</p>
-              <button>BUY NOW</button>
-            </div> -->
           </div>
           <div class="carousel-item">
             <img src="assets/img-3.png" height="500px" class="d-block" alt="img" style="margin:auto">
-            <!-- <div class="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
-              <p>Some representative placeholder content for the third slide.</p>
-              <button>BUY NOW</button>
-            </div> -->
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -201,6 +191,7 @@
           $banyak = mysqli_query($con , "SELECT count(*) as'jumlah' FROM sepeda LIMIT 12 OFFSET ".$dex);
           $banyakPage = mysqli_fetch_array($banyak);
         }
+        // echo '<form action="" method="post">';
         foreach ($result as $key => $value) {
           echo 
           '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
@@ -210,11 +201,14 @@
                 <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
                 <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
                 <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
-                <a href="#" class="btn btn-primary">Beli</a>
+                <form method="POST">
+                <button type="submit" name="beli">Beli</button>
+                </form>
               </div>
             </div>
           </div>';
         }
+        // echo '</form>';
       ?>
     </div>
     <!-- END OF CATALOGUE-->

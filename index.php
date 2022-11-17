@@ -178,12 +178,15 @@
       
         <?php
           echo "<form action='' method='POST'>";
-          $maksPage = floor($banyakPage['jumlah']/12) + 1;
-          $_SESSION['maks'] = $maksPage;
-          echo "<script>alert('".$maksPage."')</script>";
-          for ($i=0; $i < $maksPage; $i++) { 
+          if(isset($_SESSION['maks'])){
+            $maks = $_SESSION['maks'];
+          } else {
+            $maks = floor($banyakPage['jumlah']/12) + 1;
+            $_SESSION['maks'] = $maks;
+          }
+          echo "<script>alert('".$maks."')</script>";
+          for ($i=0; $i < $maks; $i++) { 
             $temp = "btn".$i;
-            echo $temp;
             echo "<button type='submit' value = '".$i."' name='".$temp."'>".($i+1)."</button>";
           }
           echo "</form>";

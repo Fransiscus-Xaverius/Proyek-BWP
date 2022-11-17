@@ -45,7 +45,7 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
     <!-- Navbar Start-->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid" style="margin:0px 50px">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="homeUser.php">
               <img src="assets/icon.png" alt="icon" height="75px">
               <h1 class="judul">SEPEDAKU</h1>
             </a>

@@ -74,7 +74,7 @@
       <!-- Navbar Start-->
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid" style="margin:0px 50px">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="homeUser.php">
               <img src="assets/icon.png" alt="icon" height="75px">
               <h1 class="judul">SEPEDAKU</h1>
             </a>
@@ -84,7 +84,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link active fw-bold fs-5" aria-current="page" href="#">Home</a>
+                  <a class="nav-link active fw-bold fs-5" aria-current="page" href="homeUser.php">Home</a>
                 </li>
                 </li>
                 <li class="nav-item">
@@ -97,7 +97,7 @@
                 <img src="assets/search.png" alt="search" height="30px">
               </button>
                 <li class="nav-item navbar-nav">
-                  <a class="nav-link fs-5 fw-bold active" href="#"><?php echo $user['nama_customer']?></a>
+                  <a class="nav-link fs-5 fw-bold active" href="homeUser.php"><?php echo $user['nama_customer']?></a>
                 </li>
                 <li class="nav-item navbar-nav">
                   <a class="nav-link fs-5 fw-bold active" href="cart.php">Cart</a>

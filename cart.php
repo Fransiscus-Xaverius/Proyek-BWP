@@ -137,7 +137,7 @@ if(isset($_POST["update"])){
                                     <h3 class="fw-bold fs-2">Total Barang</h3>
                                     <h5 class="fs-3"><?php echo $grandTotal;?></h5>
                                     <h3 class="fw-bold fs-2">Biaya Pengiriman</h3>
-                                    <h5 class="fs-3"><?php echo $biayaPengiriman;?></h5>
+                                    <h5 class="fs-3"><?php if($grandTotal <= 0){$biayaPengiriman = 0;} echo $biayaPengiriman;?></h5>
                                     <h3 class="fw-bold fs-2">Grand Total</h3>
                                     <h5 class="fs-3"><?php echo ($grandTotal+$biayaPengiriman);?></h5>
 

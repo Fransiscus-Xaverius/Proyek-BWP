@@ -154,9 +154,7 @@
           $banyak = mysqli_query($con , "SELECT count(*) as'jumlah' FROM sepeda LIMIT 12 OFFSET ".$dex);
           $banyakPage = mysqli_fetch_array($banyak);
         }
-        echo "<script>alert('dex =".$dex."')</script>";
-        // var_dump($banyak);
-        // var_dump($banyakPage['jumlah']);
+        // echo "<script>alert('dex =".$dex."')</script>";
         foreach ($result as $key => $value) {
           echo 
           '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
@@ -175,7 +173,6 @@
     </div>
     <!-- END OF CATALOGUE-->
     <div class="pagination justify-content-end">
-      
         <?php
           echo "<form action='' method='POST'>";
           if(isset($_SESSION['maks'])){

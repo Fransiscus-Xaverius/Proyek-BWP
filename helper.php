@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$dex = 0;
+
 function alert($message)
 {
     echo "<script>alert(" . $message . ")</script>";

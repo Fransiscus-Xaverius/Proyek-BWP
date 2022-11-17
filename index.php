@@ -1,12 +1,12 @@
 <?php
-  require("helper.php");
-  
-  $dex = 0;
+  require_once("helper.php");
 
   if(isset($_POST["subscribe"])){
     //mailer.
   }
   $banyakPage = 0;
+
+  
 ?>
 
 <!doctype html>
@@ -140,7 +140,7 @@
           $banyak = mysqli_query($con , "SELECT count(*) as'jumlah' FROM sepeda LIMIT 12 OFFSET ".$dex);
           $banyakPage = mysqli_fetch_array($banyak);
         }
-
+        echo "<script>alert('dex =".$dex."')</script>";
         // var_dump($banyak);
         // var_dump($banyakPage['jumlah']);
         foreach ($result as $key => $value) {
@@ -161,12 +161,23 @@
     </div>
     <!-- END OF CATALOGUE-->
     <div class="pagination justify-content-end">
+      <form action="" method="POST">
+        <?php
+          $maksPage = floor($banyakPage['jumlah']/12) + 1;
+          echo "<script>alert('".$maksPage."')</script>";
+          for ($i=0; $i < $maksPage; $i++) { 
+            echo "<button type=submit value=".$i." id=btn".$i." name=btn".$i."'>".($i+1)."</button>";
+          }
+        ?>
+      </form>
       <?php
-        $maksPage = floor($banyakPage['jumlah']/12) + 1;
-        echo "<script>alert('".$maksPage."')</script>";
         for ($i=0; $i < $maksPage; $i++) { 
-          echo "<button>".($i+1)."</button>";
-        }
+          echo "<script>alert('btn".$i."')</script>";
+            if(isset($_POST["btn".$i])){
+              $dex = $i*12;
+              echo '<script>alert("keluar '.$dex.'")</script>';
+            }
+          }
       ?>
     </div>
 

@@ -36,7 +36,12 @@
   
   $temp = $_SESSION['login'];
   $user = mysqli_fetch_array(mysqli_query($con, "select * from customer where id_customer = '".$temp."'"));
-    
+
+  if(isset($_POST["beli"])){
+    $id = $_POST["id"];
+    $_SESSION['barang'] = $id;
+    header("Location: detail.php");
+  }
 ?>
 
 <!doctype html>
@@ -209,7 +214,10 @@
                 <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
                 <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
                 <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
-                <a href="#" class="btn btn-primary">Beli</a>
+                <form method="POST">
+                <input type="hidden" value="'.$value['id_sepeda'].'" name="id">
+                <button type="submit" name="beli">Beli</button>
+                </form>
               </div>
             </div>
           </div>';

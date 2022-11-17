@@ -63,51 +63,50 @@ if(isset($_POST['login'])){
   </head>
   <body>
     <form action="" method="post">
-        <div class="containers row">
-            <div class="kiri col-5" data-tilt>
-                <img src="assets/img.png" alt="img" id="image" class="justify-content-center d-flex ">
-            </div>
-            <div class="kanan col-5">
-                <div class="judul text-center">Login</div>
-                <div class="masuk validate-input">
-                    <span class="focusInput text-center" >Username / Email</span>
-					<input class="input100 text-center" type="text" name="unameEmail">
-				</div>
-
-				<div class="masuk validate-input" data-validate="Enter password">
-				    <span class="focusInput text-center" >Password</span>	
-                    <input class="input100 text-center" type="password" name="pass">
-				</div>
-                <div class="success">
-                    <?php
-                    if (isset($success)) {
-                        if (strlen($success) > 0) {
-                            echo $success;
-                        }
-                    }
-                    ?>
-                </div>
-                <div class="error">
-                    <?php
-                    if (isset($error)) {
-                        if (strlen($error) > 0) {
-                            echo $error;
-                        }
-                    }
-                    ?>
-                </div>
-                <div class="btns">
-                    <button class="loginBtn" type="submit" name="login">Login</button>
-                    <div class="daftar">
-                      Don't have account?
-                        <button type="submit" name="Register" formaction="register.php">
-                            Create Account &rarr;
-                        </button>
-                    </div>
-                </div>
-            </div>
+      <div class="containers row">
+        <div class="kiri col-5" data-tilt>
+          <img src="assets/img.png" alt="img" id="image" class="justify-content-center d-flex ">
         </div>
-    </form>
+        <div class="kanan col-5">
+          <div class="judul text-center">Login</div>
+            <div class="masuk validate-input">
+              <span class="focusInput text-center" >Username / Email</span>
+    					<input class="input100 text-center" type="text" name="unameEmail">
+		    		</div>
+				    <div class="masuk validate-input" data-validate="Enter password">
+				      <span class="focusInput text-center" >Password</span>	
+              <input class="input100 text-center" type="password" name="pass">
+				    </div>
+            <div class="success">
+              <?php
+              if (isset($success)) {
+                if (strlen($success) > 0) {
+                  echo $success;
+                }
+              }
+              ?>
+            </div>
+            <div class="error">
+              <?php
+              if (isset($error)) {
+                if (strlen($error) > 0) {
+                  echo $error;
+                }
+              }
+              ?>
+            </div>
+            <div class="btns">
+              <button class="loginBtn" type="submit" name="login">Login</button>
+              <div class="daftar">
+                Don't have account?
+                <button type="submit" name="Register" formaction="register.php">
+                  Create Account &rarr;
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   </body>
 </html>

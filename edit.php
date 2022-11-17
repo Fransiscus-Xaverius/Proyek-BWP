@@ -90,7 +90,7 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
     <div class="container">
       <div class="row mt-3">
         <div class="col-6">
-          <img src="<?php echo $barang['image_sepeda']?>" alt="gambar" width="600px">
+          <img src="getImages/<?php echo $barang['image_sepeda']?>.png" alt="gambar" width="600px">
         </div>
         <div class="col-6 justify-content-start">
           <h1 class="fw-bold"><?php echo $barang['nama_sepeda']?></h1>

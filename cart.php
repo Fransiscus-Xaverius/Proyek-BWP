@@ -105,7 +105,7 @@ if(isset($_POST["update"])){
                                 <div class='col-12 mb-3' style='border : 1px solid black; border-radius : 10px;'>
                                     <div class='row'>
                                         <div class='col-6'>
-                                            <img src='".$barang['image_sepeda']."' alt='gambar' width='450px'>
+                                            <img src='getImages/".$barang['image_sepeda'].".png' alt='gambar' width='450px'>
                                         </div>
                                         <div class='col-6 mt-5'>
                                             <h3 class='ps-5 fw-bold fs-2'>".$barang['nama_sepeda']."</h3>

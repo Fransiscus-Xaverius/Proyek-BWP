@@ -196,7 +196,7 @@
           echo 
           '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
             <div class="card" style="height=350px">
-              <img src="'.$value["image_sepeda"].'" class="card-img-top" alt="sepeda" style="max-height : 200px">
+              <img src="getImages/'.$value["image_sepeda"].'.png" class="card-img-top" alt="sepeda" style="max-height : 200px">
               <div class="card-body" style = "">
                 <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
                 <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>

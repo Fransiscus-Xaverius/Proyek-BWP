@@ -40,7 +40,7 @@ if(isset($_POST['register'])){
           } else {
             $kueri = mysqli_query($con, "select id_customer from customer order by id_customer desc limit 1");
             $result_row = mysqli_fetch_array($kueri);
-            $temp = substr($result_row['id'], 2, 3);
+            $temp = substr($result_row['id_customer'], 2, 3);
             if ($result_row != NULL) {
               $id = (int)$temp + 1;
             } else {

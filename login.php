@@ -24,7 +24,8 @@ if(isset($_POST['login'])){
           if($result_row['status_customer'] == 1){
             if ($result_row['password_customer'] == $pass) {
               $_SESSION["login"] = $result_row['id_customer'];
-              echo "<script>LOGIN AS USER</script>";
+              // echo "<script>LOGIN AS USER</script>";
+              header("Location: homeUser.php");
               // header("Location: index.php");
             } else {  
               $error = "Password salah";

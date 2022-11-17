@@ -1,14 +1,42 @@
 <?php
-  require("helper.php");
-  
-  $dex = 0;
+  require_once("helper.php");
+
+  if(!isset($_SESSION['login'])){
+    header("Location: index.php");
+  }
 
   if(isset($_POST["subscribe"])){
     //mailer.
   }
-
-  $login = $_SESSION['login'];
   $banyakPage = 0;
+
+  if(isset($_SESSION['maks'])){
+    $maks = $_SESSION["maks"];
+    for ($i=0; $i < $maks; $i++) { 
+      if(isset($_POST['btn'.$i])){
+        $dex = $i*12;
+      }
+    }
+  
+  } else {
+    $maks = 0;
+  }
+
+  if(isset($_POST['prev'])){
+    if($dex-12 >= 0){
+      $dex -= 12;
+    }
+  }
+
+  if(isset($_POST['next'])){
+    if($dex+12 <= ($maks*12)){
+      $dex += 12;
+    }
+  }
+  
+  $temp = $_SESSION['login'];
+  $user = mysqli_fetch_array(mysqli_query($con, "select * from customer where id_customer = '".$temp."'"));
+    
 ?>
 
 <!doctype html>
@@ -19,25 +47,23 @@
     <title>Proyek BWP</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+      .catalog{
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+      }
+
+      .iniKatalog{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+    </style>
   </head>
-
-  <style>
-    .catalog{
-      display: flex;
-      flex-direction: column;
-      justify-items: center;
-      align-items: center;
-    }
-
-    .iniKatalog{
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-  </style>
-
   <body>
     <div class="bg">
       <!-- Navbar Start-->
@@ -66,7 +92,10 @@
                 <img src="assets/search.png" alt="search" height="30px">
               </button>
                 <li class="nav-item navbar-nav">
-                  <a class="nav-link fs-5 fw-bold active" href="login.php">Login</a>
+                  <a class="nav-link fs-5 fw-bold active" href="#"><?php echo $user['nama_customer']?></a>
+                </li>
+                <li class="nav-item navbar-nav">
+                  <a class="nav-link fs-5 fw-bold active" href="index.php">Logout</a>
                 </li>
             </form>
             </div>
@@ -84,27 +113,27 @@
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="4000">
             <img src="assets/img-1.png" class="d-block" height="500px" style="margin:auto" alt="img">
-            <div class="carousel-caption d-none d-md-block">
+            <!-- <div class="carousel-caption d-none d-md-block bg-light">
               <h5>First slide label</h5>
               <p>Some representative placeholder content for the first slide.</p>
               <button>BUY NOW</button>
-            </div>
+            </div> -->
           </div>
           <div class="carousel-item" data-bs-interval="2000">
             <img src="assets/img-2.png" class="d-block" height="500px" alt="img" style="margin:auto">
-            <div class="carousel-caption d-none d-md-block">
+            <!-- <div class="carousel-caption d-none d-md-block">
               <h5>Second slide label</h5>
               <p>Some representative placeholder content for the second slide.</p>
               <button>BUY NOW</button>
-            </div>
+            </div> -->
           </div>
           <div class="carousel-item">
             <img src="assets/img-3.png" height="500px" class="d-block" alt="img" style="margin:auto">
-            <div class="carousel-caption d-none d-md-block">
+            <!-- <div class="carousel-caption d-none d-md-block">
               <h5>Third slide label</h5>
               <p>Some representative placeholder content for the third slide.</p>
               <button>BUY NOW</button>
-            </div>
+            </div> -->
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -123,28 +152,66 @@
     <div class="d-flex flex-wrap iniKatalog justify-content-center">
       <?php
         if(isset($_POST['searchBtn'])){
-            $keyword = $_POST["search"];
+          $keyword = $_POST["search"];
+          
+          if($keyword != ""){
             $searchBrand = $con->query("select * from merk where nama_merk like '%".$keyword."%'");
+            $banyak = $con->query("select count(*) as 'jumlah' from merk where nama_merk like '%".$keyword."%'");
+            $banyakPage = mysqli_fetch_array($banyak);
+            $banyakPage = $banyakPage['jumlah'];
+            if(isset($_SESSION['maks'])){
+              $maks = floor($banyakPage/12) + 1;
+              $_SESSION['maks'] = $maks;
+            } else {
+              $maks = floor($banyakPage/12) + 1;
+              $_SESSION['maks'] = $maks;
+            }
             if($searchBrand->num_rows == 0) {
                 $result = $con->query("select * from sepeda where nama_sepeda like '%".$keyword."%' LIMIT 12 OFFSET ".$dex);
                 $banyak = $con->query("select count(*) as 'jumlah' from sepeda where nama_sepeda like '%".$keyword."%'");
                 $banyakPage = mysqli_fetch_array($banyak);
+                $banyakPage = $banyakPage['jumlah'];
+                if(isset($_SESSION['maks'])){
+                  $maks = floor($banyakPage/12) + 1;
+                  $_SESSION['maks'] = $maks;
+                } else {
+                  $maks = floor($banyakPage/12) + 1;
+                  $_SESSION['maks'] = $maks;
+                }
             } else {
-                $brand = $searchBrand->fetch_assoc();
-                $id = $brand["id_merk"];
+              $brand = $searchBrand->fetch_assoc();
+              $id = $brand["id_merk"];
                 $result = $con->query("select * from sepeda where id_merk like '%".$id."%' LIMIT 12 OFFSET ".$dex);
                 $banyak = $con->query("select count(*) as 'jumlah' from sepeda where id_merk like '%".$id."%'");
                 $banyakPage = mysqli_fetch_array($banyak);
+                $banyakPage = $banyakPage['jumlah'];
+                if(isset($_SESSION['maks'])){
+                  $maks = floor($banyakPage/12) + 1;
+                  $_SESSION['maks'] = $maks;
+                } else {
+                  $maks = floor($banyakPage/12) + 1;
+                  $_SESSION['maks'] = $maks;
+                }
             }
+          } else {
+            $result = mysqli_query($con , "SELECT * FROM sepeda LIMIT 12 OFFSET ".$dex);
+            $banyak = mysqli_query($con , "SELECT count(*) as'jumlah' FROM sepeda LIMIT 12 OFFSET ".$dex);
+            $banyakPage = mysqli_fetch_array($banyak);
+            $banyakPage = $banyakPage['jumlah'];
+            if(isset($_SESSION['maks'])){
+              $maks = floor($banyakPage/12) + 1;
+              $_SESSION['maks'] = $maks;
+            } else {
+              $maks = floor($banyakPage/12) + 1;
+              $_SESSION['maks'] = $maks;
+            }
+          }
         }
         else{
           $result = mysqli_query($con , "SELECT * FROM sepeda LIMIT 12 OFFSET ".$dex);
           $banyak = mysqli_query($con , "SELECT count(*) as'jumlah' FROM sepeda LIMIT 12 OFFSET ".$dex);
           $banyakPage = mysqli_fetch_array($banyak);
         }
-
-        // var_dump($banyak);
-        // var_dump($banyakPage['jumlah']);
         foreach ($result as $key => $value) {
           echo 
           '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
@@ -162,60 +229,76 @@
       ?>
     </div>
     <!-- END OF CATALOGUE-->
-    <div class="pagination justify-content-end">
-      <?php
-        $maksPage = floor($banyakPage['jumlah']/12) + 1;
-        echo "<script>alert('".$maksPage."')</script>";
-        for ($i=0; $i < $maksPage; $i++) { 
-          echo "<button>".($i+1)."</button>";
-        }
-      ?>
+    <div class="pagination col-11 me-5 justify-content-end">
+      <div class="me-4 d-flex">
+        <form action="" method="post">
+          <button type="submit" name='prev'>Previous</button>
+        </form>
+        <?php
+          echo "<form action='' method='POST'>";
+          if(isset($_SESSION['maks'])){
+            $maks = $_SESSION['maks'];
+          } else {
+            $maks = floor($banyakPage['jumlah']/12) + 1;
+            $_SESSION['maks'] = $maks;
+          }
+          // echo "<script>alert('".$maks."')</script>";
+          for ($i=0; $i < $maks; $i++) { 
+            $temp = "btn".$i;
+            echo "<button type='submit' value = '".$i."' name='".$temp."'>".($i+1)."</button>";
+          }
+          echo "</form>";
+        ?>
+        <form action="" method="post">
+          <button type="submit" name='next'>Next</button>
+        </form>
+      </div>
     </div>
 
 
     <!-- Start of Footer-->
     <div class="container">
-  <footer class="py-5">
-    <div class="row">
-      <div class="col-6 col-md-2 mb-3">
-        <h5>Section</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-        </ul>
-      </div>
+      <footer class="py-5">
+        <div class="row">
+          <div class="col-6 col-md-2 mb-3">
+            <h5>Section</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+            </ul>
+          </div>
 
-      <div class="col-md-5 offset-md-1 mb-3">
-        <form>
-          <h5>Subscribe to our newsletter</h5>
-          <p>Monthly digest of what's new and exciting from us.</p>
-          <form action="" method="POST">
-            <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-              <label for="newsletter1" class="visually-hidden">Email address</label>
-              <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-              <button class="btn btn-primary" type="submit" name="subscribe">Subscribe</button>
-            </div>
-          </form>
-        </form>
-      </div>
+          <div class="col-md-5 offset-md-1 mb-3">
+            <form>
+              <h5>Subscribe to our newsletter</h5>
+              <p>Monthly digest of what's new and exciting from us.</p>
+              <form action="" method="POST">
+                <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                  <label for="newsletter1" class="visually-hidden">Email address</label>
+                  <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+                  <button class="btn btn-primary" type="submit" name="subscribe">Subscribe</button>
+                </div>
+              </form>
+            </form>
+          </div>
+        </div>
+
+        <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+          <p>© 2022 Company, Inc. All rights reserved.</p>
+          <ul class="list-unstyled d-flex">
+            <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+            <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+            <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+          </ul>
+        </div>
+      </footer>
+
+      <!-- end of footer -->
+
     </div>
-
-    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-      <p>© 2022 Company, Inc. All rights reserved.</p>
-      <ul class="list-unstyled d-flex">
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-      </ul>
-    </div>
-  </footer>
-
-  <!-- end of footer -->
-
-</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   </body>

@@ -27,6 +27,10 @@ body{
   text-transform: uppercase;
 }
 
+.pagination{
+  margin-top: 15px;
+}
+
 .pagination button{
   background-color: rgb(149, 149, 243);
   border-radius: 5px;
@@ -35,4 +39,9 @@ body{
 
 .pagination button:hover{
   background-color: lightblue;
+}
+
+.iniFooter{
+  margin-top: 35px;
+  background-color: rgb(190, 225, 255);
 }

@@ -26,6 +26,11 @@ if(isset($_POST["keranjang"])){
     }
 }
 
+if(isset($_POST["back"])){
+  header("location: homeUser.php");
+  exit;
+}
+
 $idBarang = $_SESSION['barang'];
 $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$idBarang."'"));
 
@@ -99,6 +104,7 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
             </div><br>
             <input type="hidden" name="id" value="<?php echo $barang['id_sepeda']?>">
             <button type="submit" name="keranjang" class="btn btn-primary">Tambahkan ke Keranjang</button>
+            <button type="submit" name="back" class="btn btn-primary">Back</button>
           </form>
         </div>
       </div>

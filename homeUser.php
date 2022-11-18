@@ -120,13 +120,13 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="4000">
-            <img src="assets/img-1.png" class="d-block" height="500px" style="margin:auto" alt="img">
+            <img src="assets/img-1.png" class="d-block" height="300px" style="margin:auto" alt="img">
           </div>
           <div class="carousel-item" data-bs-interval="2000">
-            <img src="assets/img-2.png" class="d-block" height="500px" alt="img" style="margin:auto">
+            <img src="assets/img-2.png" class="d-block" height="300px" alt="img" style="margin:auto">
           </div>
           <div class="carousel-item">
-            <img src="assets/img-3.png" height="500px" class="d-block" alt="img" style="margin:auto">
+            <img src="assets/img-3.png" height="300px" class="d-block" alt="img" style="margin:auto">
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">

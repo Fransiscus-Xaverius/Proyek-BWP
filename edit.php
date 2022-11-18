@@ -99,7 +99,7 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
           <form method="post">
             <div class="fs-5">
                 jumlah : 
-                <input type="number" name="jumlah" id="jumlah" min="1" max="100" value="1">
+                <input type="number" name="jumlah" id="jumlah" min="1" max="100" value="<?php echo $cart[$idCart]['jumlah']?>">
             </div><br>
             <input type="hidden" name="id" value="<?php echo $barang['id_sepeda']?>">
             <button type="submit" name="keranjang" class="btn btn-primary">SAVE</button>

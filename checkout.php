@@ -11,7 +11,7 @@ if(!isset($_SESSION['barang'])){
 $cart = [];
 if(isset($_SESSION['cart'])){
     $cart = $_SESSION['cart'];
-    print_r($cart);
+    // print_r($cart);
 }
 
 if(isset($_POST["back"])){
@@ -79,9 +79,9 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
     <!-- Navbar END-->
 
     <!-- INVOICE start -->
-    <div class="container" style='border : 1px solid black'>
+    <div class="container mt-2 mb-5" style='border : 1px solid black'>
         <div class="row justify-content-center">
-            <h1 class='text-center fw-bold mb-4'>INVOICE</h1>
+            <h1 class='text-center fw-bold mb-4 mt-3'>INVOICE</h1>
             <div class="col-12">
                 <?php
                     $query = mysqli_query($con, "select nota_jual from h_jual order by nota_jual desc limit 1");
@@ -157,7 +157,7 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
             </div>
             <div style="width:100%; display:flex; flex-direction:column; align-items:center; justify-items:center;">
             <form action="" method="POST">
-                <button type=submit name="back" class="text-white" style='border-radius: 5px; border:none; background-color: red;'>Back to Menu</button>
+                <button type=submit name="back" class="text-white mb-4" style='border-radius: 5px; border:none; background-color: red;'>Back to Menu</button>
             </form>
             </div>
         </div>

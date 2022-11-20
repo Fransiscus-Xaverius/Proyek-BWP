@@ -103,6 +103,9 @@ if(isset($_POST['login'])){
                 <button type="submit" name="Register" formaction="register.php">
                   Create Account &rarr;
                 </button>
+                <button type="submit" name="back" formaction="register.php">
+                  Back to Homepage. &rarr;
+                </button>
               </div>
             </div>
           </div>

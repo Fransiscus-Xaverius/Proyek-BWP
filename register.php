@@ -59,6 +59,10 @@ if(isset($_POST['register'])){
     }
   }
 }
+
+if(isset($_POST['back'])){
+  header("location: index.php");
+}
 ?>
 
 <!DOCTYPE html>

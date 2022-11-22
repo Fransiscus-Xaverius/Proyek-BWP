@@ -1,5 +1,16 @@
 <?php
 require_once("helper.php");
+require_once dirname(__FILE__) . '/Midtrans.php';
+
+// Set your Merchant Server Key
+\Midtrans\Config::$serverKey = 'SB-Mid-server-_VkLv7E_ab9hH4p3yOnyQ73l';
+// Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+\Midtrans\Config::$isProduction = false;
+// Set sanitization on (default)
+\Midtrans\Config::$isSanitized = true;
+// Set 3DS transaction for credit card to true
+\Midtrans\Config::$is3ds = true;
+
 if(!isset($_SESSION['login'])){
   header("Location: index.php");
 }
@@ -29,23 +40,39 @@ if(isset($_POST["update"])){
     exit;
 }
 
-if(isset($_POST["checkout"])){
+  $ft =0;
   $banyakCart = 0;
-  $nominal = $_REQUEST['nominal'];
   for ($i=0; $i < sizeof($cart); $i++) { 
     if($cart[$i]['idUser'] == $temp){
         $banyakCart++;
         $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
-    }
+        $total = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
+        $t = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
+        $ft+=$t;
+      }
   }
+
   if($banyakCart > 0){
-    header("Location: checkout.php?nominal=".$nominal."");
-    exit;
+    $params = array(
+      'transaction_details' => array(
+          'order_id' => rand(),
+          'gross_amount' => $ft,
+      ),
+      'customer_details' => array(
+          'first_name' => $user['nama_customer'],
+          'email' => $user['email_customer'],
+          'phone' => $user['noTelp_customer'],
+      ),
+    );
+    $snapToken = \Midtrans\Snap::getSnapToken($params);
+    echo "<script>
+        var token = '".$snapToken."';
+        var grandTotal = ".$ft.";
+    </script>";
   }
   else{
     echo "<script>alert('Keranjang Kosong')</script>";
   }
-}
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +84,11 @@ if(isset($_POST["checkout"])){
     <title>CART</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-</head>
+    <script type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-gW3E2kSrL-aYdLGv"></script>
+    <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
+  </head>
 <body>
     <!-- Navbar Start-->
     <nav class="navbar navbar-expand-lg">
@@ -153,8 +184,8 @@ if(isset($_POST["checkout"])){
                                     <h5 class="fs-3"><?php $total = ($grandTotal+$biayaPengiriman);echo $total;?></h5>
                                     <form method="post">
                                         <input type="hidden" name="nominal" value='<?php echo $total?>'>
-                                        <button type="submit" name="checkout" class="btn btn-primary ps-5 pe-5">Checkout</button>
                                     </form>
+                                    <button type="submit" name="checkout" id="checkout" class="btn btn-primary ps-5 pe-5">Checkout</button>
                                 </div>
                             </div>
                         </div>
@@ -167,5 +198,31 @@ if(isset($_POST["checkout"])){
     <!-- Daftar Barang end-->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-</body>
+    <script type="text/javascript">
+    
+      // For example trigger on button clicked, or any time you need
+      var payButton = document.getElementById('checkout');
+      payButton.addEventListener('click', function () {
+        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+        window.snap.pay(token, {
+          onSuccess: function(result){
+            alert("payment success!"); console.log(result);
+            window.location.href = "checkout.php?nominal="+grandTotal;
+          },
+          onPending: function(result){
+            /* You may add your own implementation here */
+            alert("wating your payment!"); console.log(result);
+          },
+          onError: function(result){
+            /* You may add your own implementation here */
+            alert("payment failed!"); console.log(result);
+          },
+          onClose: function(){
+            /* You may add your own implementation here */
+            alert('you closed the popup without finishing the payment');
+          }
+        })
+      });
+    </script>
+  </body>
 </html>

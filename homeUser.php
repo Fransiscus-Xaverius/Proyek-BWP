@@ -76,7 +76,7 @@
         <div class="container-fluid" style="margin:0px 50px">
             <a class="navbar-brand" href="homeUser.php">
               <img src="assets/icon.png" alt="icon" height="75px">
-              <h1 class="judul">SEPEDAKU</h1>
+              <h1 class="judul">OURCYCLE</h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

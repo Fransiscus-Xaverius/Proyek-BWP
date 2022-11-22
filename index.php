@@ -68,7 +68,7 @@
         <div class="container-fluid" style="margin:0px 50px">
             <a class="navbar-brand" href="index.php">
               <img src="assets/icon.png" alt="icon" height="75px">
-              <h1 class="judul">SEPEDAKU</h1>
+              <h1 class="judul">OURCYCLE</h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -98,6 +98,7 @@
     <!-- Navbar END-->
 
     <!-- carousel start -->
+    <div class="container">
       <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -106,13 +107,13 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active" data-bs-interval="4000">
-            <img src="assets/img-1.png" class="d-block" height="300px" style="margin:auto" alt="img">
+            <img src="assets/img-1.png" class="d-block" height="500px" style="margin:auto" alt="img">
           </div>
           <div class="carousel-item" data-bs-interval="2000">
-            <img src="assets/img-2.png" class="d-block" height="300px" alt="img" style="margin:auto">
+            <img src="assets/img-2.png" class="d-block" height="500px" alt="img" style="margin:auto">
           </div>
           <div class="carousel-item">
-            <img src="assets/img-3.png" height="300px" class="d-block" alt="img" style="margin:auto">
+            <img src="assets/img-3.png" height="500px" class="d-block" alt="img" style="margin:auto">
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -125,6 +126,8 @@
         </button>
       </div>
     </div>
+    </div>
+
     <!-- carousel end -->
 
     <!-- start of catalog -->
@@ -196,7 +199,7 @@
           echo 
           '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
             <div class="card" style="height=350px">
-              <img src="getImages/'.$value["image_sepeda"].'.png" class="card-img-top" alt="sepeda" style="max-height : 200px">
+              <img src="getImages/'.$value["image_sepeda"].'.png" class="card-img-top" alt="sepeda" style="max-height : 350px;">
               <div class="card-body" style = "">
                 <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
                 <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>

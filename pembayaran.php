@@ -23,10 +23,16 @@
         ),
     );
     
-    $snapToken = \Midtrans\Snap::getSnapToken($params);
-    $snapURL = \Midtrans\Snap::getSnapUrl($params);
-    header("Location: ".$snapURL);
-    echo $snapToken;
+     $snapToken = \Midtrans\Snap::getSnapToken($params);
+    // $snapURL = \Midtrans\Snap::getSnapUrl($params);
+    // header("Location: ".$snapURL);
+    // echo $snapToken;
+
+    echo "<script>
+        var token = '".$snapToken."';
+    </script>"
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,8 +41,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-gW3E2kSrL-aYdLGv"></script>
+    <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
 </head>
 <body>
+<button id="pay-button">Pay!</button>
+<script type="text/javascript">
     
+      // For example trigger on button clicked, or any time you need
+      var payButton = document.getElementById('pay-button');
+      payButton.addEventListener('click', function () {
+        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+        window.snap.pay(token, {
+          onSuccess: function(result){
+            alert("payment success!"); console.log(result);
+            window.location.href = "http://stackoverflow.com";
+          },
+          onPending: function(result){
+            /* You may add your own implementation here */
+            alert("wating your payment!"); console.log(result);
+          },
+          onError: function(result){
+            /* You may add your own implementation here */
+            alert("payment failed!"); console.log(result);
+          },
+          onClose: function(){
+            /* You may add your own implementation here */
+            alert('you closed the popup without finishing the payment');
+          }
+        })
+      });
+    </script>
 </body>
 </html>

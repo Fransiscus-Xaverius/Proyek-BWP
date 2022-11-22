@@ -11,7 +11,6 @@ $user = mysqli_fetch_array(mysqli_query($con, "select * from customer where id_c
 
 if(isset($_POST["keranjang"])){
     if($_POST['jumlah'] > 0){
-        echo "<script>alert('BERHASIL MENAMBAHKAN CART')</script>";
         $id = $_POST["id"];
         $_SESSION['cart'][] = [
             'idUser' => $user['id_customer'],

@@ -107,7 +107,7 @@ if(isset($_POST["update"])){
                 </li>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fs-5 fw-bold" href="#">Get In Touch</a>
+                  <a class="nav-link fs-5 fw-bold" href="#">Transaction</a>
                 </li>
             </ul>
             <form class="d-flex" method="post"> 

@@ -7,10 +7,11 @@
     echo "<th>No</th>";
     echo "<th>ID</th>";
     echo "<th>Nama</th>";
+    echo "<th>Username</th>";
     echo "<th>Email</th>";
     echo "<th>Alamat</th>";
     echo "<th>No. Telp</th>";
-    echo "<th>Username</th>";
+    echo "<th>Jenis Kelamin</th>";
     echo "<th>Action</th>";
     echo "</tr>";
     $no = 1;
@@ -19,10 +20,17 @@
         echo "<td>" . $no . "</td>";
         echo "<td>" . $row['id_customer'] . "</td>";
         echo "<td>" . $row['nama_customer'] . "</td>";
+        echo "<td>" . $row['username_customer'] . "</td>";
         echo "<td>" . $row['email_customer'] . "</td>";
         echo "<td>" . $row['alamat_customer'] . "</td>";
         echo "<td>" . $row['noTelp_customer'] . "</td>";
-        echo "<td>" . $row['username_customer'] . "</td>";
+        echo "<td>";
+        if($row['jk_customer'] == 0){
+            echo "Laki-laki";
+        } else {
+            echo "Perempuan";
+        };
+        echo "</td>";
         echo "<td>";
         // echo "<button class='btn btn-primary' onclick='edit(this)' value='".$row['id_customer']."'>Edit</button>";        
         echo "<button class='btn btn-danger' onclick='delete_user(this)' value='".$row['id_customer']."'>Delete</button>";        

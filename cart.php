@@ -89,7 +89,7 @@ if(isset($_POST["update"])){
       data-client-key="SB-Mid-client-gW3E2kSrL-aYdLGv"></script>
     <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
   </head>
-<body>
+<body onload="loadAjax()">
     <!-- Navbar Start-->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid" style="margin:0px 50px">
@@ -134,40 +134,43 @@ if(isset($_POST["update"])){
     <div class="container">
         <div class="row">
             <div class="col-8">
+              <div id="carts">
+
+              </div>
                 <?php
-                $grandTotal = 0;
-                $biayaPengiriman = 500000;
-                for ($i=0; $i < sizeof($cart); $i++) { 
-                    if($cart[$i]['idUser'] == $temp){
-                        $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
-                        $total = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
-                        echo "
-                        <div class='container'>
-                            <div class='row'>
-                                <div class='col-12 mb-3' style='border : 1px solid black; border-radius : 10px;'>
-                                    <div class='row'>
-                                        <div class='col-6'>
-                                            <img src='getImages/".$barang['image_sepeda'].".png' alt='gambar' width='450px'>
-                                        </div>
-                                        <div class='col-6 mt-5'>
-                                            <h3 class='ps-5 fw-bold fs-2'>".$barang['nama_sepeda']."</h3>
-                                            <h5 class='ps-5'> Harga : ".$barang['harga_sepeda']."</h5>
-                                            <h5 class='ps-5'> Jumlah : ".$cart[$i]['jumlah']."</h5>
-                                            <h5 class='ps-5'> Total : ".$total."</h5>
-                                            <form method='post'>
-                                                <input type='hidden' name='idCart' value='".$i."'>
-                                                <button type='submit' name='update' class='btn btn-danger ms-5'>Update</button>
-                                                <button type='submit' name='hapus' class='btn btn-danger'>Hapus</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        ";
-                        $grandTotal += $total;
-                    }
-                }
+                // $grandTotal = 0;
+                // $biayaPengiriman = 500000;
+                // for ($i=0; $i < sizeof($cart); $i++) { 
+                //     if($cart[$i]['idUser'] == $temp){
+                //         $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
+                //         $total = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
+                //         echo "
+                //         <div class='container'>
+                //             <div class='row'>
+                //                 <div class='col-12 mb-3' style='border : 1px solid black; border-radius : 10px;'>
+                //                     <div class='row'>
+                //                         <div class='col-6'>
+                //                             <img src='getImages/".$barang['image_sepeda'].".png' alt='gambar' width='450px'>
+                //                         </div>
+                //                         <div class='col-6 mt-5'>
+                //                             <h3 class='ps-5 fw-bold fs-2'>".$barang['nama_sepeda']."</h3>
+                //                             <h5 class='ps-5'> Harga : ".$barang['harga_sepeda']."</h5>
+                //                             <h5 class='ps-5'> Jumlah : ".$cart[$i]['jumlah']."</h5>
+                //                             <h5 class='ps-5'> Total : ".$total."</h5>
+                //                             <form method='post'>
+                //                                 <input type='hidden' name='idCart' value='".$i."'>
+                //                                 <button type='submit' name='update' class='btn btn-danger ms-5'>Update</button>
+                //                                 <button type='submit' name='hapus' class='btn btn-danger'>Hapus</button>
+                //                             </form>
+                //                         </div>
+                //                     </div>
+                //                 </div>
+                //             </div>
+                //         </div>
+                //         ";
+                //         $grandTotal += $total;
+                //     }
+                // }
                 ?>
             </div>
             <div class="col-4">
@@ -199,6 +202,22 @@ if(isset($_POST["update"])){
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script type="text/javascript">
+
+      function loadAjax(){
+        cart = document.getElementById('carts');
+        loadCart();
+      }
+
+      function loadCart(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            cart.innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", "loadCart.php", true);
+        xhttp.send();
+      }
     
       // For example trigger on button clicked, or any time you need
       var payButton = document.getElementById('checkout');

@@ -24,22 +24,6 @@ $cart = [];
 if(isset($_SESSION['cart'])){
     $cart = $_SESSION['cart'];
 }
-
-if(isset($_POST["hapus"])){
-    $id = $_POST["idCart"];
-    echo "<script>alert(".$id.")</script>";
-    array_splice($cart, $id, 1);
-    $_SESSION['cart'] = $cart;
-    header("Location: cart.php");
-    exit;
-}
-
-if(isset($_POST["update"])){
-    $id = $_POST["idCart"];
-    header("Location: edit.php?idCart=".$id."");
-    exit;
-}
-
   $ft =0;
   $banyakCart = 0;
   for ($i=0; $i < sizeof($cart); $i++) { 
@@ -190,6 +174,7 @@ if(isset($_POST["update"])){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
             cart.innerHTML = this.responseText;
           }
         };
@@ -207,11 +192,6 @@ if(isset($_POST["update"])){
         r.send(data);
       }
 
-      function like(obj){;
-        update_id = obj.value;
-        likes = obj.getAttribute("likes");
-        ajax_func('GET', `likes_update.php?update_id=${update_id}&likes=${likes}`, refresh);
-      }
 
       function refresh(xhttp){
         if ((xhttp.readyState==4) && (xhttp.status==200)) {
@@ -222,9 +202,12 @@ if(isset($_POST["update"])){
       function tambah(obj){
         update_id = obj.value;
         jumlah = obj.getAttribute("jumlah");
-        alert(jumlah);
-        alert(update_id);
         ajax_func('GET', `updateCart.php?update_id=${update_id}&jumlah=${jumlah}`, refresh);
+      }
+
+      function hapus(obj){
+        update_id = obj.value;
+        ajax_func('GET', `deleteCart.php?update_id=${update_id}`, refresh);
       }
     
       // For example trigger on button clicked, or any time you need

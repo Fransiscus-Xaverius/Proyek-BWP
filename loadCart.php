@@ -25,7 +25,7 @@
                                 <input type='text' value='".$cart[$i]['jumlah']."' style='height:40px; width: 50px;'>
                                 <button name='tambah' class='btn btn-primary' onclick='tambah(this)' jumlah='1' value='".$i."'>+</button> 
                                 </div>  
-                                <button name='hapus' class='btn btn-danger ms-5 mt-2' onclick='delete(this)'>Delete</button>
+                                <button name='hapus' class='btn btn-danger ms-5 mt-2' onclick='hapus(this)' value='".$i."'>Delete</button> 
                             </div>
                         </div>
                     </div>

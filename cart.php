@@ -138,39 +138,15 @@ if(isset($_POST["update"])){
 
               </div>
                 <?php
-                // $grandTotal = 0;
-                // $biayaPengiriman = 500000;
-                // for ($i=0; $i < sizeof($cart); $i++) { 
-                //     if($cart[$i]['idUser'] == $temp){
-                //         $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
-                //         $total = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
-                //         echo "
-                //         <div class='container'>
-                //             <div class='row'>
-                //                 <div class='col-12 mb-3' style='border : 1px solid black; border-radius : 10px;'>
-                //                     <div class='row'>
-                //                         <div class='col-6'>
-                //                             <img src='getImages/".$barang['image_sepeda'].".png' alt='gambar' width='450px'>
-                //                         </div>
-                //                         <div class='col-6 mt-5'>
-                //                             <h3 class='ps-5 fw-bold fs-2'>".$barang['nama_sepeda']."</h3>
-                //                             <h5 class='ps-5'> Harga : ".$barang['harga_sepeda']."</h5>
-                //                             <h5 class='ps-5'> Jumlah : ".$cart[$i]['jumlah']."</h5>
-                //                             <h5 class='ps-5'> Total : ".$total."</h5>
-                //                             <form method='post'>
-                //                                 <input type='hidden' name='idCart' value='".$i."'>
-                //                                 <button type='submit' name='update' class='btn btn-danger ms-5'>Update</button>
-                //                                 <button type='submit' name='hapus' class='btn btn-danger'>Hapus</button>
-                //                             </form>
-                //                         </div>
-                //                     </div>
-                //                 </div>
-                //             </div>
-                //         </div>
-                //         ";
-                //         $grandTotal += $total;
-                //     }
-                // }
+                $grandTotal = 0;
+                $biayaPengiriman = 500000;
+                for ($i=0; $i < sizeof($cart); $i++) { 
+                    if($cart[$i]['idUser'] == $temp){
+                        $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
+                        $total = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
+                        $grandTotal += $total;
+                    }
+                }
                 ?>
             </div>
             <div class="col-4">
@@ -209,14 +185,46 @@ if(isset($_POST["update"])){
       }
 
       function loadCart(){
+        user = "<?php echo $temp;?>";
+        // alert(user);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             cart.innerHTML = this.responseText;
           }
         };
-        xhttp.open("GET", "loadCart.php", true);
+        xhttp.open("GET", `loadCart.php?id=${user}`, true);
         xhttp.send();
+      }
+
+      function ajax_func(method, url, callback, data="") {
+        r = new XMLHttpRequest();
+        r.onreadystatechange = function() {
+          callback(this);
+        }
+        r.open(method, url);
+        if(method.toLowerCase() == "post") r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        r.send(data);
+      }
+
+      function like(obj){;
+        update_id = obj.value;
+        likes = obj.getAttribute("likes");
+        ajax_func('GET', `likes_update.php?update_id=${update_id}&likes=${likes}`, refresh);
+      }
+
+      function refresh(xhttp){
+        if ((xhttp.readyState==4) && (xhttp.status==200)) {
+          loadCart();
+        }
+      }
+
+      function tambah(obj){
+        update_id = obj.value;
+        jumlah = obj.getAttribute("jumlah");
+        alert(jumlah);
+        alert(update_id);
+        ajax_func('GET', `updateCart.php?update_id=${update_id}&jumlah=${jumlah}`, refresh);
       }
     
       // For example trigger on button clicked, or any time you need

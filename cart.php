@@ -36,10 +36,12 @@ if(isset($_SESSION['cart'])){
       }
   }
 
+  $order_id = rand();
+
   if($banyakCart > 0){
     $params = array(
       'transaction_details' => array(
-          'order_id' => rand(),
+          'order_id' => $order_id,
           'gross_amount' => $ft,
       ),
       'customer_details' => array(
@@ -49,9 +51,11 @@ if(isset($_SESSION['cart'])){
       ),
     );
     $snapToken = \Midtrans\Snap::getSnapToken($params);
+    // $payment = \Midtrans\Transaction::status($order_id);
     echo "<script>
         var token = '".$snapToken."';
         var grandTotal = ".$ft.";
+        var orderID = ".$order_id.";
     </script>";
   }
   else{
@@ -209,6 +213,10 @@ if(isset($_SESSION['cart'])){
         update_id = obj.value;
         ajax_func('GET', `deleteCart.php?update_id=${update_id}`, refresh);
       }
+
+      function ajax_payment(grandtotal, ){
+
+      }
     
       // For example trigger on button clicked, or any time you need
       var payButton = document.getElementById('checkout');
@@ -217,7 +225,7 @@ if(isset($_SESSION['cart'])){
         window.snap.pay(token, {
           onSuccess: function(result){
             alert("payment success!"); console.log(result);
-            window.location.href = "checkout.php?nominal="+grandTotal;
+            window.location.href = "checkout.php?nominal="+grandTotal+"&orderID="+orderID;
           },
           onPending: function(result){
             /* You may add your own implementation here */

@@ -18,6 +18,19 @@ if(isset($_POST["back"])){
   header("location: homeUser.php");
 }
 
+if(isset($_REQUEST["orderID"])){
+  $insert = mysqli_query($con, "insert into h_jual (id_customer, harga_total, order_id) VALUES ('".$_SESSION["login"]."','".$_REQUEST["nominal"]."','".$_REQUEST["orderID"]."')");
+  if($insert){
+    echo "<script>alert('Transaksi Berhasil')</script>";
+  }
+  else{
+    echo "<script>alert('Transaksi Tidak Berhasil')</script>";
+  }
+}
+else{
+  echo "<script>alert('asu')</script>";
+}
+
 $temp = $_SESSION['login'];
 $user = mysqli_fetch_array(mysqli_query($con, "select * from customer where id_customer = '".$temp."'"));
 $IDuser = reset($user);

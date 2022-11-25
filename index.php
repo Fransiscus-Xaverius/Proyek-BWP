@@ -60,11 +60,12 @@
         flex-wrap: wrap;
       }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="bg">
       <!-- Navbar Start-->
-      <nav class="navbar navbar-expand-lg">
+      <nav class="navbar" id="nav">
         <div class="container-fluid" style="margin:0px 50px">
             <a class="navbar-brand" href="index.php">
               <img src="assets/icon.png" alt="icon" height="75px">
@@ -106,14 +107,14 @@
           <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active" data-bs-interval="4000">
-            <img src="assets/img-1.png" class="d-block" height="500px" style="margin:auto" alt="img">
+          <div class="carousel-item active" data-bs-interval="4000" >
+            <img src="assets/img-1.png" class="d-block car-img" style="margin:auto" alt="img">
           </div>
           <div class="carousel-item" data-bs-interval="2000">
-            <img src="assets/img-2.png" class="d-block" height="500px" alt="img" style="margin:auto">
+            <img src="assets/img-2.png" class="d-block car-img" alt="img" style="margin:auto">
           </div>
           <div class="carousel-item">
-            <img src="assets/img-3.png" height="500px" class="d-block" alt="img" style="margin:auto">
+            <img src="assets/img-3.png" class="d-block car-img" alt="img" style="margin:auto">
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -286,6 +287,28 @@
         <!-- end of footer -->
       </div>
     </div>
+
+    <script>
+      $(document).ready(
+        function(e){
+            var win = $(this);
+            //navbar class + carousel image change on window size.
+            if (win.width() > 1366) {
+              $('#nav').addClass('navbar-expand-lg');
+              $('.car-img').attr('width','500');
+            } else if(win.width() >= 992){
+              $('#nav').addClass('navbar-expand-md');
+              $('.car-img').attr('width','450');
+            } else if(win.width() >= 768){
+              $('#nav').addClass('navbar-expand-sm');
+              $('.car-img').attr('width','300');
+            } else {
+              $('#nav').addClass('navbar-expand-xs');
+              $('.car-img').attr('width','200');
+            }
+        }
+      )
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   </body>

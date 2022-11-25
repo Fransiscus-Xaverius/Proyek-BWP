@@ -293,18 +293,26 @@
         function(e){
             var win = $(this);
             //navbar class + carousel image change on window size.
+            var win = $(this);
+            //navbar class + carousel image change on window size.
             if (win.width() > 1366) {
-              $('#nav').addClass('navbar-expand-lg');
               $('.car-img').attr('width','500');
             } else if(win.width() >= 992){
-              $('#nav').addClass('navbar-expand-md');
               $('.car-img').attr('width','450');
             } else if(win.width() >= 768){
-              $('#nav').addClass('navbar-expand-sm');
               $('.car-img').attr('width','300');
             } else {
-              $('#nav').addClass('navbar-expand-xs');
               $('.car-img').attr('width','200');
+            }
+
+            if (win.width() > 1200) {
+              $('#nav').addClass('navbar-expand-lg');
+            } else if(win.width() >= 992){
+              $('#nav').addClass('navbar-expand-md');
+            } else if(win.width() >= 768){
+              $('#nav').addClass('navbar-expand-sm');
+            } else {
+              $('#nav').addClass('navbar-expand-xs');
             }
         }
       )

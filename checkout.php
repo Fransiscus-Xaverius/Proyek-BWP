@@ -19,7 +19,19 @@ if(isset($_POST["back"])){
 }
 
 if(isset($_REQUEST["orderID"])){
-  $insert = mysqli_query($con, "insert into h_jual (id_customer, harga_total, order_id) VALUES ('".$_SESSION["login"]."','".$_REQUEST["nominal"]."','".$_REQUEST["orderID"]."')");
+
+  $getCount = mysqli_query($con, "select nota_jual from h_jual order by nota_jual desc limit 1");
+  if($getCount){
+    $getCount = mysqli_fetch_array($getCount);
+    print_r($getCount);
+    $temp = substr($getCount[0],2);
+    $num = intval($temp);
+    $num++;
+  }
+  else{
+    $num=1;
+  }
+  $insert = mysqli_query($con, "insert into h_jual (nota_jual, id_customer, harga_total,subtotal_jual, order_id) VALUES ('n_".$num."','".$_SESSION["login"]."','".$_REQUEST["nominal"]."','".$_REQUEST["nominal"]."','".$_REQUEST["orderID"]."')");
   if($insert){
     echo "<script>alert('Transaksi Berhasil')</script>";
   }
@@ -103,7 +115,7 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                         $nota = 1;
                     }
                     else{
-                        $nota = $nota + 1;
+                        $nota = $nota[0];
                     }
                     $invoice = "INV".str_pad($nota, 4, "0", STR_PAD_LEFT);
                     $tanggal = date("Y-m-d");

@@ -274,24 +274,12 @@
                 $min = $_POST['min'];
                 $max = $_POST['max'];
 
-                // $_SESSION['iniFilter'] = [
-                //   'kategori' => $kategori,
-                //   'merk' => $merk,
-                //   'min' => $min,
-                //   'max' => $max
-                // ];  
-
-                // echo "<pre>";
-                // var_dump($_SESSION['iniFilter']);
-                // echo "</pre>";
-
                 if($kategori != "" && $merk != "" && $min != "" && $max != ""){
                   echo "select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET";
                   $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and '".$merk."' and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
-                  echo $banyakPage;
                   if(isset($_SESSION['maks'])){
                     $maks = floor($banyakPage/12) + 1;
                     $_SESSION['maks'] = $maks;
@@ -352,7 +340,6 @@
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and ".$merk." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
-                  // echo $banyakPage;
                   if(isset($_SESSION['maks'])){
                     $maks = floor($banyakPage/12) + 1;
                     $_SESSION['maks'] = $maks;

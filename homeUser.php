@@ -215,22 +215,23 @@
                 $banyak = mysqli_query($con , "SELECT count(*) as'jumlah' FROM sepeda where status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
                 $banyakPage = mysqli_fetch_array($banyak);
               }
-              
+
               foreach ($result as $key => $value) {
-                echo 
-                '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
-                  <div class="card" style="height=350px">
-                    <img src="getImages/'.$value["image_sepeda"].'.png" class="card-img-top" alt="sepeda" style="max-height : 350px;">
-                    <div class="card-body" style = "">
-                      <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
-                      <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
-                      <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
-                      <form method="POST">
+                  echo 
+                  '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
+                    <div class="card" style="height=350px">
+                      <img src="getImages/'.$value["image_sepeda"].'.png" class="card-img-top" alt="sepeda" style="max-height : 200px">
+                      <div class="card-body" style = "">
+                        <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
+                        <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
+                        <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
+                        <form method="POST">
+                        <input type="hidden" value="'.$value['id_sepeda'].'" name="id">
                         <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>
-                      </form>
+                        </form>
+                      </div>
                     </div>
-                  </div>
-                </div>';
+                  </div>';
               }
             ?>
           </div>

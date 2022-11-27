@@ -143,23 +143,23 @@
             <form action="" method="post">
               <h3 class="pb-4">&nbsp;<img src="assets/filter.png" alt="filter icon" height='27px'>&nbsp;&nbsp;FILTER</h3> 
               <h4 class="">Kategori</h4>
-              <input type="checkbox" name="MTB" id="MTB" value="id_kategori = kat_1">
+              <input type="checkbox" name="MTB" id="MTB" value="id_kategori like '%kat_1%'">
               <label class="fs-5">&nbsp;MTB</label> <br>
-              <input type="checkbox" name="Urban" id="Urban" value="id_kategori = kat_2">
+              <input type="checkbox" name="Urban" id="Urban" value="id_kategori like '%kat_2%'">
               <label class="fs-5">&nbsp;Urban</label> <br>
-              <input type="checkbox" name="BMX" id="BMX" value="id_kategori = kat_3">
+              <input type="checkbox" name="BMX" id="BMX" value="id_kategori like '%kat_3%'">
               <label class="fs-5">&nbsp;BMX</label> <br>
-              <input type="checkbox" name="Junior" id="Junior" value="id_kategori = kat_4">
+              <input type="checkbox" name="Junior" id="Junior" value="id_kategori like '%kat_4%'">
               <label class="fs-5">&nbsp;Junior</label> <br>
-              <input type="checkbox" name="Electric" id="Electric" value="id_kategori = kat_5">
+              <input type="checkbox" name="Electric" id="Electric" value="id_kategori like '%kat_5%'">
               <label class="fs-5">&nbsp;Electric</label> <br>
 
               <hr><h4 class="pt-3">Merk</h4>
-              <input type="checkbox" name="Polygon" id="Polygon" value="id_merk = merk_1">
+              <input type="checkbox" name="Polygon" id="Polygon" value="id_merk like '%merk_1%'">
               <label class="fs-5">&nbsp;Polygon</label> <br>
-              <input type="checkbox" name="Wimcycle" id="Wimcycle" value="id_merk = merk_2">
+              <input type="checkbox" name="Wimcycle" id="Wimcycle" value="id_merk like '%merk_2%'">
               <label class="fs-5">&nbsp;Wimcycle</label> <br>
-              <input type="checkbox" name="KONA" id="KONA" value="id_merk = merk_3">
+              <input type="checkbox" name="KONA" id="KONA" value="id_merk like '%merk_3%'">
               <label class="fs-5">&nbsp;KONA</label> <br>
 
               <hr><h4 class="pt-3">Rentang Harga</h4>
@@ -274,19 +274,20 @@
                 $min = $_POST['min'];
                 $max = $_POST['max'];
 
-                $_SESSION['iniFilter'] = [
-                  'kategori' => $kategori,
-                  'merk' => $merk,
-                  'min' => $min,
-                  'max' => $max
-                ];  
+                // $_SESSION['iniFilter'] = [
+                //   'kategori' => $kategori,
+                //   'merk' => $merk,
+                //   'min' => $min,
+                //   'max' => $max
+                // ];  
 
-                echo "<pre>";
-                var_dump($_SESSION['iniFilter']);
-                echo "</pre>";
+                // echo "<pre>";
+                // var_dump($_SESSION['iniFilter']);
+                // echo "</pre>";
 
                 if($kategori != "" && $merk != "" && $min != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where '".$kategori."' and '".$merk."' and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  echo "select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET";
+                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and '".$merk."' and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -299,8 +300,8 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $merk != "" && $min != ""){
-                  $result = $con->query("select * from sepeda where '".$kategori."' and '".$merk."' and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
-                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and '".$merk."' and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
+                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
                   if(isset($_SESSION['maks'])){
@@ -311,8 +312,8 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $merk != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where '".$kategori."' and '".$merk."' and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
-                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and '".$merk."' and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
+                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
                   if(isset($_SESSION['maks'])){
@@ -323,8 +324,8 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $min != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where '".$kategori."' and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
-                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
+                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
                   if(isset($_SESSION['maks'])){
@@ -335,8 +336,8 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != "" && $min != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where '".$merk."' and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
-                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$merk."' and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
+                  $result = $con->query("select * from sepeda where ".$merk."and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
                   if(isset($_SESSION['maks'])){
@@ -347,12 +348,11 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $merk != ""){
-                  echo "select * from sepeda where ".$kategori." and ".$merk." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET <br>";
-                  $result = $con->query("select * from sepeda where '".$kategori."' and '".$merk."' and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
-                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and '".$merk."' and status_sepeda = 1 and stok_sepeda > 0");
+                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and ".$merk." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
-                  echo $banyakPage;
+                  // echo $banyakPage;
                   if(isset($_SESSION['maks'])){
                     $maks = floor($banyakPage/12) + 1;
                     $_SESSION['maks'] = $maks;
@@ -361,8 +361,8 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $min != ""){
-                  $result = $con->query("select * from sepeda where '".$kategori."' and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
-                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
+                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
                   if(isset($_SESSION['maks'])){
@@ -373,8 +373,8 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where '".$kategori."' and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
-                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
+                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
                   if(isset($_SESSION['maks'])){
@@ -385,8 +385,8 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != "" && $min != ""){
-                  $result = $con->query("select * from sepeda where '".$merk."' and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
-                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$merk."' and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
+                  $result = $con->query("select * from sepeda where ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
                   if(isset($_SESSION['maks'])){
@@ -397,8 +397,8 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where '".$merk."' and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
-                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$merk."' and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
+                  $result = $con->query("select * from sepeda where ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
                   if(isset($_SESSION['maks'])){
@@ -421,8 +421,8 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != ""){
-                  $result = $con->query("select * from sepeda where '".$kategori."' and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
-                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and status_sepeda = 1 and stok_sepeda > 0 ");
+                  $result = $con->query("select * from sepeda where ".$kategori." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
                   if(isset($_SESSION['maks'])){
@@ -433,8 +433,8 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != ""){
-                  $result = $con->query("select * from sepeda where '".$merk."' and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
-                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$merk."' and status_sepeda = 1 and stok_sepeda > 0 ");
+                  $result = $con->query("select * from sepeda where ".$merk." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
                   if(isset($_SESSION['maks'])){
@@ -490,22 +490,26 @@
               if($result->num_rows > 0){
                 foreach ($result as $key => $value) {
                 echo 
-                '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
-                  <div class="card" style="height=350px">
-                    <img src="getImages/'.$value["image_sepeda"].'.png" class="card-img-top" alt="sepeda" style="max-height : 350px;">
-                    <div class="card-body" style = "">
-                      <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
-                      <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
-                      <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
-                      <form method="POST">
-                      <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>
-                      </form>
+                  '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
+                    <div class="card" style="height=350px">
+                      <img src="getImages/'.$value["image_sepeda"].'.png" class="card-img-top" alt="sepeda" style="max-height : 350px;">
+                      <div class="card-body" style = "">
+                        <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
+                        <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
+                        <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
+                        <form method="POST">
+                        <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>
+                        </form>
+                      </div>
                     </div>
-                  </div>
-                </div>';
-              }
+                  </div>';
+                }
               } else {
-                echo '<h1 class="text-center">Sepeda tidak ditemukan</h1>';
+                $banyakPage = 0;
+                $_SESSION['maks'] = "";
+                echo '<div class="alert alert-danger text-center" style="margin-left:30%; margin-top: 50px;" role="alert">
+                        <h1>Sepeda tidak ditemukan</h1>
+                      </div>';
               }
             ?>
           </div>

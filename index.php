@@ -482,7 +482,7 @@
                       <img src="getImages/'.$value["image_sepeda"].'.png" class="card-img-top" alt="sepeda" style="max-height : 350px;">
                       <div class="card-body" style = "">
                         <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
-                        <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
+                        <p class="card-text"> Rp.'.number_format($value['harga_sepeda'], 0, ',', '.').'</p>
                         <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
                         <form method="POST">
                         <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>

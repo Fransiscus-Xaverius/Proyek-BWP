@@ -125,38 +125,10 @@ if(isset($_SESSION['cart'])){
               <div id="carts">
 
               </div>
-                <?php
-                $grandTotal = 0;
-                $biayaPengiriman = 500000;
-                for ($i=0; $i < sizeof($cart); $i++) { 
-                    if($cart[$i]['idUser'] == $temp){
-                        $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
-                        $total = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
-                        $grandTotal += $total;
-                    }
-                }
-                ?>
             </div>
             <div class="col-4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 mb-3" style="border : 1px solid black; border-radius : 10px;">
-                            <div class="row">
-                                <div class="col-12 p-5">
-                                    <h3 class="fw-bold fs-2">Total Barang</h3>
-                                    <h5 class="fs-3"><?php echo $grandTotal;?></h5>
-                                    <h3 class="fw-bold fs-2">Biaya Pengiriman</h3>
-                                    <h5 class="fs-3"><?php if($grandTotal <= 0){$biayaPengiriman = 0;} echo $biayaPengiriman;?></h5>
-                                    <h3 class="fw-bold fs-2">Grand Total</h3>
-                                    <h5 class="fs-3"><?php $total = ($grandTotal+$biayaPengiriman);echo $total;?></h5>
-                                    <form method="post">
-                                        <input type="hidden" name="nominal" value='<?php echo $total?>'>
-                                    </form>
-                                    <button type="submit" name="checkout" id="checkout" class="btn btn-primary ps-5 pe-5">Checkout</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="jumlahCart">
+
                 </div>
             </div>
         </div>
@@ -170,11 +142,11 @@ if(isset($_SESSION['cart'])){
       function loadAjax(){
         cart = document.getElementById('carts');
         loadCart();
+        jumlahCart();
       }
 
       function loadCart(){
         user = "<?php echo $temp;?>";
-        // alert(user);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
@@ -196,10 +168,23 @@ if(isset($_SESSION['cart'])){
         r.send(data);
       }
 
+      function jumlahCart(){
+        user = "<?php echo $temp;?>";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            cart.innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", `totalCart.php?id=${user}`, true);
+        xhttp.send();
+      }
 
       function refresh(xhttp){
         if ((xhttp.readyState==4) && (xhttp.status==200)) {
           loadCart();
+          jumlahCart();
         }
       }
 

@@ -9,19 +9,34 @@ if(!isset($_SESSION['barang'])){
 $temp = $_SESSION['login'];
 $user = mysqli_fetch_array(mysqli_query($con, "select * from customer where id_customer = '".$temp."'"));
 
+$success = "";
+$error = "";
+$sisa = "";
+
+$idBarang = $_SESSION['barang'];
+$barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$idBarang."'"));
+$stok = $barang['stok_sepeda'];
+if($barang['stok_sepeda'] > 0 && $barang['stok_sepeda'] < 10){
+  $sisa = "Sisa ".$barang['stok_sepeda']." Sepeda";
+}
+
 if(isset($_POST["keranjang"])){
     if($_POST['jumlah'] > 0){
         $id = $_POST["id"];
-        $_SESSION['cart'][] = [
+        $jumlah = $_POST['jumlah'];
+        if ($stok - $jumlah > 0){
+          $_SESSION['cart'][] = [
             'idUser' => $user['id_customer'],
             'idBarang' => $id,
             'jumlah' => $_POST["jumlah"]
-        ];
-        header("Location: homeUser.php");
-        exit;
+          ];
+          $success = "Berhasil menambahkan ke keranjang";
+        } else {
+          $error = "Jumlah yang ingin dibeli melebihi stok yang ada";
+        }
     }
     else{
-        echo "<script>alert('JUMLAH HARUS LEBIH DARI 0')</script>";
+        $error = "Jumlah yang dibeli harus lebih dari 0";
     }
 }
 
@@ -29,9 +44,6 @@ if(isset($_POST["back"])){
   header("location: homeUser.php");
   exit;
 }
-
-$idBarang = $_SESSION['barang'];
-$barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$idBarang."'"));
 
 ?>
 
@@ -44,6 +56,15 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
     <title>DETAIL</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        .success{
+          color:green;
+        }
+
+        .error, .sisa{
+          color:red;
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar Start-->
@@ -102,6 +123,33 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                 <input type="number" name="jumlah" id="jumlah" min="1" max="100" value="1">
             </div><br>
             <input type="hidden" name="id" value="<?php echo $barang['id_sepeda']?>">
+            <div class="sisa">
+              <?php 
+                if(isset($sisa)){
+                  if(strlen($sisa) > 0){
+                    echo $sisa;
+                  }
+                }
+              ?>
+            </div>
+            <div class="success">
+              <?php 
+                if(isset($success)){
+                  if(strlen($success) > 0){
+                    echo $success;
+                  }
+                }
+              ?>
+            </div>
+            <div class="error">
+              <?php 
+                if(isset($error)){
+                  if(strlen($error) > 0){
+                    echo $error;
+                  }
+                }
+              ?>
+            </div>
             <button type="submit" name="keranjang" class="btn btn-primary">Tambahkan ke Keranjang</button>
             <button type="submit" name="back" class="btn btn-primary">Back</button>
           </form>

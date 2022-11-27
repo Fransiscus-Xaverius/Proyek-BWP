@@ -40,8 +40,8 @@
   if(isset($_POST["beli"])){
     $id = $_POST["id"];
     $_SESSION['barang'] = $id;
-    print_r($_SESSION['barang']);
-    //header("Location: detail.php");
+    // print_r($_SESSION['barang']);
+    header("Location: detail.php");
   }
 ?>
 

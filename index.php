@@ -132,115 +132,124 @@
     <!-- carousel end -->
 
     <!-- start of catalog -->
-    <div class="d-flex flex-wrap iniKatalog justify-content-center">
-      <?php
-        if(isset($_POST['searchBtn'])){
-          $keyword = $_POST["search"];
-          
-          if($keyword != ""){
-            $searchBrand = $con->query("select * from merk where nama_merk like '%".$keyword."%'");
-            $banyak = $con->query("select count(*) as 'jumlah' from merk where nama_merk like '%".$keyword."%'");
-            $banyakPage = mysqli_fetch_array($banyak);
-            $banyakPage = $banyakPage['jumlah'];
-            if(isset($_SESSION['maks'])){
-              $maks = floor($banyakPage/12) + 1;
-              $_SESSION['maks'] = $maks;
-            } else {
-              $maks = floor($banyakPage/12) + 1;
-              $_SESSION['maks'] = $maks;
-            }
-            if($searchBrand->num_rows == 0) {
-                $result = $con->query("select * from sepeda where nama_sepeda like '%".$keyword."%' LIMIT 12 OFFSET ".$dex);
-                $banyak = $con->query("select count(*) as 'jumlah' from sepeda where nama_sepeda like '%".$keyword."%'");
-                $banyakPage = mysqli_fetch_array($banyak);
-                $banyakPage = $banyakPage['jumlah'];
-                if(isset($_SESSION['maks'])){
-                  $maks = floor($banyakPage/12) + 1;
-                  $_SESSION['maks'] = $maks;
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-3">
+          <div class="mt-3 p-2" style="border: 1px solid lightgray; border-radius:3px; margin-left:125px;"> 
+            <h3 class="">&nbsp;<img src="assets/filter.png" alt="filter icon" height='27px'>&nbsp;&nbsp;FILTER</h3> 
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="d-flex flex-wrap">
+            <?php
+              if(isset($_POST['searchBtn'])){
+                $keyword = $_POST["search"];
+                
+                if($keyword != ""){
+                  $searchBrand = $con->query("select * from merk where nama_merk like '%".$keyword."%' and status_sepeda = 1 and stok_sepeda > 0 ");
+                  $banyak = $con->query("select count(*) as 'jumlah' from merk where nama_merk like '%".$keyword."%' and status_sepeda = 1 and stok_sepeda > 0 ");
+                  $banyakPage = mysqli_fetch_array($banyak);
+                  $banyakPage = $banyakPage['jumlah'];
+                  if(isset($_SESSION['maks'])){
+                    $maks = floor($banyakPage/12) + 1;
+                    $_SESSION['maks'] = $maks;
+                  } else {
+                    $maks = floor($banyakPage/12) + 1;
+                    $_SESSION['maks'] = $maks;
+                  }
+                  if($searchBrand->num_rows == 0) {
+                      $result = $con->query("select * from sepeda where nama_sepeda like '%".$keyword."%' and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                      $banyak = $con->query("select count(*) as 'jumlah' from sepeda where nama_sepeda like '%".$keyword."%' and status_sepeda = 1 and stok_sepeda > 0 ");
+                      $banyakPage = mysqli_fetch_array($banyak);
+                      $banyakPage = $banyakPage['jumlah'];
+                      if(isset($_SESSION['maks'])){
+                        $maks = floor($banyakPage/12) + 1;
+                        $_SESSION['maks'] = $maks;
+                      } else {
+                        $maks = floor($banyakPage/12) + 1;
+                        $_SESSION['maks'] = $maks;
+                      }
+                  } else {
+                    $brand = $searchBrand->fetch_assoc();
+                    $id = $brand["id_merk"];
+                      $result = $con->query("select * from sepeda where id_merk like '%".$id."%' and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                      $banyak = $con->query("select count(*) as 'jumlah' from sepeda where id_merk like '%".$id."%' and status_sepeda = 1 and stok_sepeda > 0 ");
+                      $banyakPage = mysqli_fetch_array($banyak);
+                      $banyakPage = $banyakPage['jumlah'];
+                      if(isset($_SESSION['maks'])){
+                        $maks = floor($banyakPage/12) + 1;
+                        $_SESSION['maks'] = $maks;
+                      } else {
+                        $maks = floor($banyakPage/12) + 1;
+                        $_SESSION['maks'] = $maks;
+                      }
+                  }
                 } else {
-                  $maks = floor($banyakPage/12) + 1;
+                  $result = mysqli_query($con , "SELECT * FROM sepeda where status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyak = mysqli_query($con , "SELECT count(*) as'jumlah' FROM sepeda where status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $banyakPage = mysqli_fetch_array($banyak);
+                  $banyakPage = $banyakPage['jumlah'];
+                  if(isset($_SESSION['maks'])){
+                    $maks = floor($banyakPage/12) + 1;
+                    $_SESSION['maks'] = $maks;
+                  } else {
+                    $maks = floor($banyakPage/12) + 1;
+                    $_SESSION['maks'] = $maks;
+                  }
+                }
+              }
+              else{
+                $result = mysqli_query($con , "SELECT * FROM sepeda where status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                $banyak = mysqli_query($con , "SELECT count(*) as'jumlah' FROM sepeda where status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                $banyakPage = mysqli_fetch_array($banyak);
+              }
+              
+              foreach ($result as $key => $value) {
+                echo 
+                '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
+                  <div class="card" style="height=350px">
+                    <img src="getImages/'.$value["image_sepeda"].'.png" class="card-img-top" alt="sepeda" style="max-height : 350px;">
+                    <div class="card-body" style = "">
+                      <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
+                      <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
+                      <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
+                      <form method="POST">
+                      <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>';
+              }
+            ?>
+          </div>
+          <div class="pagination justify-content-end">
+            <div class="d-flex">
+              <form action="" method="post">
+                <button type="submit" name='prev'>Previous</button>
+              </form>
+              <?php
+                echo "<form action='' method='POST'>";
+                if(isset($_SESSION['maks'])){
+                  $maks = $_SESSION['maks'];
+                } else {
+                  $maks = floor($banyakPage['jumlah']/12) + 1;
                   $_SESSION['maks'] = $maks;
                 }
-            } else {
-              $brand = $searchBrand->fetch_assoc();
-              $id = $brand["id_merk"];
-                $result = $con->query("select * from sepeda where id_merk like '%".$id."%' LIMIT 12 OFFSET ".$dex);
-                $banyak = $con->query("select count(*) as 'jumlah' from sepeda where id_merk like '%".$id."%'");
-                $banyakPage = mysqli_fetch_array($banyak);
-                $banyakPage = $banyakPage['jumlah'];
-                if(isset($_SESSION['maks'])){
-                  $maks = floor($banyakPage/12) + 1;
-                  $_SESSION['maks'] = $maks;
-                } else {
-                  $maks = floor($banyakPage/12) + 1;
-                  $_SESSION['maks'] = $maks;
+                for ($i=0; $i < $maks; $i++) { 
+                  $temp = "btn".$i;
+                  echo "<button type='submit' value = '".$i."' name='".$temp."'>".($i+1)."</button>";
                 }
-            }
-          } else {
-            $result = mysqli_query($con , "SELECT * FROM sepeda LIMIT 12 OFFSET ".$dex);
-            $banyak = mysqli_query($con , "SELECT count(*) as'jumlah' FROM sepeda LIMIT 12 OFFSET ".$dex);
-            $banyakPage = mysqli_fetch_array($banyak);
-            $banyakPage = $banyakPage['jumlah'];
-            if(isset($_SESSION['maks'])){
-              $maks = floor($banyakPage/12) + 1;
-              $_SESSION['maks'] = $maks;
-            } else {
-              $maks = floor($banyakPage/12) + 1;
-              $_SESSION['maks'] = $maks;
-            }
-          }
-        }
-        else{
-          $result = mysqli_query($con , "SELECT * FROM sepeda LIMIT 12 OFFSET ".$dex);
-          $banyak = mysqli_query($con , "SELECT count(*) as'jumlah' FROM sepeda LIMIT 12 OFFSET ".$dex);
-          $banyakPage = mysqli_fetch_array($banyak);
-        }
-        // echo '<form action="" method="post">';
-        foreach ($result as $key => $value) {
-          echo 
-          '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
-            <div class="card" style="height=350px">
-              <img src="getImages/'.$value["image_sepeda"].'.png" class="card-img-top" alt="sepeda" style="max-height : 350px;">
-              <div class="card-body" style = "">
-                <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
-                <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
-                <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
-                <form method="POST">
-                <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>
-                </form>
-              </div>
+                echo "</form>";
+              ?>
+              <form action="" method="post">
+                <button type="submit" name='next'>Next</button>
+              </form>
             </div>
-          </div>';
-        }
-        // echo '</form>';
-      ?>
-    </div>
-    <!-- END OF CATALOGUE-->
-    <div class="pagination col-11 me-5 justify-content-end">
-      <div class="me-4 d-flex">
-        <form action="" method="post">
-          <button type="submit" name='prev'>Previous</button>
-        </form>
-        <?php
-          echo "<form action='' method='POST'>";
-          if(isset($_SESSION['maks'])){
-            $maks = $_SESSION['maks'];
-          } else {
-            $maks = floor($banyakPage['jumlah']/12) + 1;
-            $_SESSION['maks'] = $maks;
-          }
-          // echo "<script>alert('".$maks."')</script>";
-          for ($i=0; $i < $maks; $i++) { 
-            $temp = "btn".$i;
-            echo "<button type='submit' value = '".$i."' name='".$temp."'>".($i+1)."</button>";
-          }
-          echo "</form>";
-        ?>
-        <form action="" method="post">
-          <button type="submit" name='next'>Next</button>
-        </form>
+          </div>
+        </div>
       </div>
     </div>
+    <!-- END OF CATALOGUE-->
 
 
     <!-- Start of Footer-->

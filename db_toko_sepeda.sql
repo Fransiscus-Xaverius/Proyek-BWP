@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2022 at 06:45 PM
+-- Generation Time: Nov 27, 2022 at 06:50 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_toko_sepeda`
 --
+CREATE DATABASE IF NOT EXISTS `db_toko_sepeda` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `db_toko_sepeda`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +29,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `customer`
 --
 
+DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `id_customer` varchar(6) NOT NULL,
   `username_customer` varchar(100) NOT NULL,
@@ -53,6 +56,7 @@ INSERT INTO `customer` (`id_customer`, `username_customer`, `email_customer`, `p
 -- Table structure for table `dtrans`
 --
 
+DROP TABLE IF EXISTS `dtrans`;
 CREATE TABLE `dtrans` (
   `htrans_id` varchar(15) NOT NULL,
   `id_sepeda` varchar(5) NOT NULL,
@@ -66,6 +70,7 @@ CREATE TABLE `dtrans` (
 -- Table structure for table `htrans`
 --
 
+DROP TABLE IF EXISTS `htrans`;
 CREATE TABLE `htrans` (
   `id_customer` varchar(6) NOT NULL,
   `harga_total` int(11) NOT NULL,
@@ -79,6 +84,7 @@ CREATE TABLE `htrans` (
 -- Table structure for table `karyawan`
 --
 
+DROP TABLE IF EXISTS `karyawan`;
 CREATE TABLE `karyawan` (
   `id_karyawan` varchar(6) NOT NULL,
   `username_karyawan` varchar(100) NOT NULL,
@@ -98,6 +104,7 @@ CREATE TABLE `karyawan` (
 -- Table structure for table `kategori`
 --
 
+DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE `kategori` (
   `id_kategori` varchar(5) NOT NULL,
   `nama_kategori` varchar(100) NOT NULL
@@ -120,6 +127,7 @@ INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
 -- Table structure for table `merk`
 --
 
+DROP TABLE IF EXISTS `merk`;
 CREATE TABLE `merk` (
   `id_merk` varchar(10) NOT NULL,
   `nama_merk` varchar(100) NOT NULL
@@ -140,6 +148,7 @@ INSERT INTO `merk` (`id_merk`, `nama_merk`) VALUES
 -- Table structure for table `promo`
 --
 
+DROP TABLE IF EXISTS `promo`;
 CREATE TABLE `promo` (
   `kode_promo` varchar(15) NOT NULL,
   `besar_potongan` int(11) NOT NULL,
@@ -154,6 +163,7 @@ CREATE TABLE `promo` (
 -- Table structure for table `rating_sepeda`
 --
 
+DROP TABLE IF EXISTS `rating_sepeda`;
 CREATE TABLE `rating_sepeda` (
   `nota_jual` varchar(13) NOT NULL,
   `id_sepeda` varchar(6) NOT NULL,
@@ -166,6 +176,7 @@ CREATE TABLE `rating_sepeda` (
 -- Table structure for table `sepeda`
 --
 
+DROP TABLE IF EXISTS `sepeda`;
 CREATE TABLE `sepeda` (
   `id_sepeda` varchar(10) NOT NULL,
   `nama_sepeda` varchar(100) NOT NULL,
@@ -296,6 +307,7 @@ INSERT INTO `sepeda` (`id_sepeda`, `nama_sepeda`, `id_kategori`, `id_merk`, `ima
 -- Table structure for table `supplier`
 --
 
+DROP TABLE IF EXISTS `supplier`;
 CREATE TABLE `supplier` (
   `id_supplier` varchar(5) NOT NULL,
   `nama_supplier` varchar(100) NOT NULL,

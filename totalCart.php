@@ -16,6 +16,8 @@
         $pengiriman = 0;
     }
 
+    $totalSemua = $grandTotal + $pengiriman;
+
     echo '
     <div class="col-12 mb-3" style="border : 1px solid black; border-radius : 10px;">
         <div class="row">
@@ -25,10 +27,7 @@
                 <h3 class="fw-bold fs-2">Biaya Pengiriman</h3>
                 <h5 class="fs-3">'.$pengiriman.'</h5>
                 <h3 class="fw-bold fs-2">Grand Total</h3>
-                <h5 class="fs-3"><?php $total = ($grandTotal+$biayaPengiriman);echo $total;?></h5>
-                <form method="post">
-                    <input type="hidden" name="nominal" value='<?php echo $total?>'>
-                </form>
+                <h5 class="fs-3">'.$totalSemua.'</h5>
                 <button type="submit" name="checkout" id="checkout" class="btn btn-primary ps-5 pe-5">Checkout</button>
                 </div>
             </div>

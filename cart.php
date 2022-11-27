@@ -127,7 +127,7 @@ if(isset($_SESSION['cart'])){
               </div>
             </div>
             <div class="col-4">
-                <div class="jumlahCart">
+                <div id="jumlahCart">
 
                 </div>
             </div>
@@ -141,6 +141,7 @@ if(isset($_SESSION['cart'])){
 
       function loadAjax(){
         cart = document.getElementById('carts');
+        jumcart = document.getElementById('jumlahCart');
         loadCart();
         jumlahCart();
       }
@@ -174,7 +175,7 @@ if(isset($_SESSION['cart'])){
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
-            cart.innerHTML = this.responseText;
+            jumcart.innerHTML = this.responseText;
           }
         };
         xhttp.open("GET", `totalCart.php?id=${user}`, true);

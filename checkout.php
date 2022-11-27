@@ -31,7 +31,7 @@ if(isset($_REQUEST["orderID"])){
   else{
     $num=1;
   }
-  $insert = mysqli_query($con, "insert into h_jual (nota_jual, id_customer, harga_total,subtotal_jual, order_id) VALUES ('n_".$num."','".$_SESSION["login"]."','".$_REQUEST["nominal"]."','".$_REQUEST["nominal"]."','".$_REQUEST["orderID"]."')");
+  $insert = mysqli_query($con, "insert into htrans (id_customer, harga_total,htrans_id, order_id) VALUES ('".$_SESSION["login"]."','".$_REQUEST["nominal"]."','n_".$num."','".$_REQUEST["orderID"]."')");
   if($insert){
     echo "<script>alert('Transaksi Berhasil')</script>";
   }
@@ -40,7 +40,7 @@ if(isset($_REQUEST["orderID"])){
   }
 }
 else{
-  echo "<script>alert('asu')</script>";
+  echo "<script>alert('Order ID Error.')</script>";
 }
 
 $temp = $_SESSION['login'];
@@ -112,19 +112,18 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                     $query = mysqli_query($con, "select nota_jual from h_jual order by nota_jual desc limit 1");
                     $nota = mysqli_fetch_array($query);
                     if($nota == null){
-                        $nota = 1;
+                        $nota = 'n_1';
                     }
                     else{
                         $nota = $nota[0];
                     }
-                    $invoice = "INV".str_pad($nota, 4, "0", STR_PAD_LEFT);
                     $tanggal = date("Y-m-d");
                     $total = $_REQUEST['nominal'];
                     $id = $user['id_customer'];
                     $customer = $user['nama_customer'];
                     echo "<table style='width:30%; font-size:20px'>";
                     echo "<tr>";
-                    echo "<td>Invoice</td>"."<td>:</td>". "<td>".$invoice."</td>";
+                    echo "<td>Invoice</td>"."<td>:</td>". "<td>".$nota."</td>";
                     echo "</tr>";
                     echo "<tr>";
                     echo "<td>Tanggal</td>"."<td>:</td>"."<td>".$tanggal."</td>";
@@ -148,6 +147,10 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                         if($cart[$i]['idUser'] == $temp){
                             $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
                             $subtotal = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
+                            $insert = mysqli_query($con,"INSERT INTO dtrans (htrans_id, id_sepeda, jumlah, subtotal) values ('".$nota."','".$cart[$i]['idBarang']."','".$cart[$i]['jumlah']."','".$subtotal."')");
+                            if($insert){
+                              echo "<script>alert('Berhasil ditambahkan')</script>";
+                            }
                             echo "<tr>";
                             echo "<td class='text-start'>".$barang['nama_sepeda']."</td>"."<td class='text-start'>".$cart[$i]['jumlah']."</td>"."<td class='text-start'>".$barang['harga_sepeda']."</td>"."<td class='ps-3'>".$subtotal."</td>";
                             echo "</tr>";

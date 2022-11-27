@@ -40,7 +40,8 @@
   if(isset($_POST["beli"])){
     $id = $_POST["id"];
     $_SESSION['barang'] = $id;
-    header("Location: detail.php");
+    print_r($_SESSION['barang']);
+    //header("Location: detail.php");
   }
 ?>
 
@@ -225,7 +226,7 @@
                       <p class="card-text"> Rp.'.$value["harga_sepeda"].'</p>
                       <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
                       <form method="POST">
-                      <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>
+                        <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>
                       </form>
                     </div>
                   </div>

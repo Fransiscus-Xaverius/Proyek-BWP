@@ -147,8 +147,35 @@
         <div class="container-fluid">
       <div class="row justify-content-center">
         <div class="col-3">
-          <div class="mt-3 p-2" style="border: 1px solid lightgray; border-radius:3px; margin-left:125px;"> 
-            <h3 class="">&nbsp;<img src="assets/filter.png" alt="filter icon" height='27px'>&nbsp;&nbsp;FILTER</h3> 
+        <div class="mt-3 p-2" style="border: 1px solid lightgray; border-radius:3px; margin-left:125px;"> 
+            <form action="" method="post">
+              <h3 class="pb-4">&nbsp;<img src="assets/filter.png" alt="filter icon" height='27px'>&nbsp;&nbsp;FILTER</h3> 
+              <h4 class="">Kategori</h4>
+              <input type="checkbox" name="MTB" id="MTB" value="MTB">
+              <label class="fs-5">&nbsp;MTB</label> <br>
+              <input type="checkbox" name="Urban" id="Urban" value="Urban">
+              <label class="fs-5">&nbsp;Urban</label> <br>
+              <input type="checkbox" name="BMX" id="BMX" value="BMX">
+              <label class="fs-5">&nbsp;BMX</label> <br>
+              <input type="checkbox" name="Junior" id="Junior" value="Junior">
+              <label class="fs-5">&nbsp;Junior</label> <br>
+              <input type="checkbox" name="Electric" id="Electric" value="Electric">
+              <label class="fs-5">&nbsp;Electric</label> <br>
+
+              <hr><h4 class="pt-3">Merk</h4>
+              <input type="checkbox" name="Polygon" id="Polygon" value="Polygon">
+              <label class="fs-5">&nbsp;Polygon</label> <br>
+              <input type="checkbox" name="Wimcycle" id="Wimcycle" value="Wimcycle">
+              <label class="fs-5">&nbsp;Wimcycle</label> <br>
+              <input type="checkbox" name="KONA" id="KONA" value="KONA">
+              <label class="fs-5">&nbsp;KONA</label> <br>
+
+              <hr><h4 class="pt-3">Rentang Harga</h4>
+              <input type="number" name="min" placeholder='min' style='width:30%'> - 
+              <input type="number" name="max" placeholder='max' style='width:30%'>
+              <br>
+              <button type="submit" class='btn btn-primary mt-3'>Filter</button>
+            </form>
           </div>
         </div>
         <div class="col-8">

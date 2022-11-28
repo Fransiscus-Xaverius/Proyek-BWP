@@ -40,7 +40,7 @@
                     </tr>
                     <tr>
                         <td colspan=3><h4 class=""> 
-                            <button type="submit" name="checkout" id="checkout" class="btn btn-primary ps-5 pe-5">Checkout</button>
+                            <button type="submit" name="checkout" id="checkout" onclick="pay()" class="btn btn-primary ps-5 pe-5">Checkout</button>
                         </h4></td>
                     </tr>
                 </table>

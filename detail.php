@@ -111,12 +111,12 @@ if(isset($_POST["back"])){
     <div class="container">
       <div class="row mt-3">
         <div class="col-6">
-          <img src="getImages/<?php echo $barang['image_sepeda']?>.png" alt="gambar" width="600px">
+          <img src="getImages/<?php echo $barang['image_sepeda']?>" alt="gambar" width="600px">
         </div>
         <div class="col-6 justify-content-start">
           <h1 class="fw-bold"><?php echo $barang['nama_sepeda']?></h1>
           <h3 class="subjudul"><?php echo $barang['deskripsi_sepeda']?></h3>
-          <h3 class="subjudul">Rp. <?php echo $barang['harga_sepeda']?></h3>
+          <h3 class="subjudul">Rp. <?php echo number_format($barang['harga_sepeda'], 0, ',', '.')?></h3>
           <form method="post">
             <div class="fs-5">
                 jumlah : 

@@ -15,17 +15,36 @@
                                 <img src='getImages/".$barang['image_sepeda']."' alt='gambar' width='450px'>
                             </div>
                             <div class='col-6 mt-3'>
-                                <h3 class='ps-5 fw-bold fs-2'>".$barang['nama_sepeda']."</h3>
-                                <h5 class='ps-5'> Harga : ".$barang['harga_sepeda']."</h5>
-                                <h5 class='ps-5'> Total : ".$total."</h5>
-                                <input type='hidden' name='idCart' value='".$i."'>
-                                <div>
-                                <h5 class='ps-5'> Jumlah : </h5>
-                                <button name='kurang' class='btn btn-primary ms-5' onclick='tambah(this)' jumlah='-1' value='".$i."'>-</button>
-                                <input type='text' value='".$cart[$i]['jumlah']."' style='height:40px; width: 50px;'>
-                                <button name='tambah' class='btn btn-primary' onclick='tambah(this)' jumlah='1' value='".$i."'>+</button> 
-                                </div>  
-                                <button name='hapus' class='btn btn-danger ms-5 mt-2' onclick='hapus(this)' value='".$i."'>Delete</button> 
+                                <table class = 'ms-5'>
+                                    <tr><th colspan=3 class=''><h3 class='fw-bold fs-2'>".$barang['nama_sepeda']."</h3></th></tr>
+                                    <tr>
+                                        <td><h5 class=''> Harga </h5></td>
+                                        <td><h5 class=''> : </h5></td>
+                                        <td><h5 class='text-end'>".number_format($barang['harga_sepeda'], 0, ',', '.')."</h5></td>
+                                    </tr>
+                                    <tr>
+                                        <td><h5 class=''> Total </h5></td>
+                                        <td><h5 class=''> : </h5></td>
+                                        <td><h5 class='text-end'>".number_format($total, 0, ',', '.')."</h5></td>
+                                    </tr>
+                                    <input type='hidden' name='idCart' value='".$i."'>
+                                    <tr>
+                                        <td><h5 class=''> Jumlah </h5></td>
+                                        <td><h5 class=''> : </h5></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan=3>
+                                            <button name='kurang' class='btn btn-primary' onclick='tambah(this)' jumlah='-1' value='".$i."'>-</button>
+                                            <input type='text' value='".$cart[$i]['jumlah']."' style='height:40px; width: 50px;'>
+                                            <button name='tambah' class='btn btn-primary' onclick='tambah(this)' jumlah='1' value='".$i."'>+</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan=3>
+                                            <button name='hapus' class='btn btn-danger mt-2' onclick='hapus(this)' value='".$i."'>Delete</button> 
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -33,4 +52,15 @@
             </div>";
         }
     }
+
+    // <h5 class='ps-5'> Harga : ".number_format($barang['harga_sepeda'], 0, ',', '.')."</h5>
+    // <h5 class='ps-5'> Total : ".number_format($total, 0, ',', '.')."</h5>
+    // <input type='hidden' name='idCart' value='".$i."'>
+    // <div>
+    //     <h5 class='ps-5'> Jumlah : </h5>
+    //     <button name='kurang' class='btn btn-primary ms-5' onclick='tambah(this)' jumlah='-1' value='".$i."'>-</button>
+    //     <input type='text' value='".$cart[$i]['jumlah']."' style='height:40px; width: 50px;'>
+    //     <button name='tambah' class='btn btn-primary' onclick='tambah(this)' jumlah='1' value='".$i."'>+</button> 
+    // </div>  
+    // <button name='hapus' class='btn btn-danger ms-5 mt-2' onclick='hapus(this)' value='".$i."'>Delete</button> 
 ?>

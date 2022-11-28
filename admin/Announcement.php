@@ -1,4 +1,7 @@
 <?php
+
+require_once("helper.php"); 
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -21,12 +24,11 @@ try {
     //Recipients
     $mail->setFrom('admin@ourcycle.my.id', 'Mailer');
     $mail->addAddress('xaverius.fransiscus078@gmail.com', 'Fransiscus Xaverius');     //Add a recipient
-
+    $logoUrl = 'https://ourcycle.my.id/assets/icon.png';
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Here is the subject';
-    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->Body    = '<h1>Thanks For your Purchase!</h1><br>Your Items are coming your way!<br><img src='.$logoUrl.'><br>The Ourcyle Team.';
 
     $mail->send();
     echo 'Message has been sent';
@@ -45,6 +47,9 @@ try {
     <title>Document</title>
 </head>
 <body>
-    
+    <form action="" method="POST">
+        <input type="text" name="Subject" id="Subject">
+        <input type="text" name="Body" id="Body">
+    </form>
 </body>
 </html>

@@ -39,6 +39,9 @@ require_once("helper.php");
                 <li class="nav-item">
                   <a class="nav-link fs-5 fw-bold" href="items.php">Items</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link fs-5 fw-bold" href="listUser.php">Users</a>
+                </li>
             </ul>
             <form class="d-flex" method="post"> 
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" style="width:300px">

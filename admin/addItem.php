@@ -1,6 +1,55 @@
 <?php
 require_once("helper.php"); 
-
+if(isset($_POST['post'])){
+    $judul = $_POST['judul'];
+    $deksripsi = $_POST['desc'];
+    
+    if($judul == "" || $deksripsi == ""){
+      echo "<script>alert('judul dan deskripsi tidak boleh kosong')</script>";
+    } else {
+      if (count($_FILES) > 0) {
+        if (is_uploaded_file($_FILES['gambar']['tmp_name'])) {
+          $errors = array();
+          $file_name = $_FILES['gambar']['name'];
+          $file_size = $_FILES['gambar']['size'];
+          $file_tmp = $_FILES['gambar']['tmp_name'];
+          $file_type = $_FILES['gambar']['type'];
+          if ($file_size > 2097152) {
+            $errors[] = 'File size melebihi batas';
+          }
+  
+          if (empty($errors) == true && $file_name != "") {
+            move_uploaded_file($file_tmp, "images/" . $file_name);
+          } else {
+            echo "<script>alert('Ukuran file melebihi batas')</script>";
+          }
+        }
+      }
+  
+      $kueri = mysqli_query($con, "select post_id from post order by post_id desc limit 1");
+      $result = mysqli_fetch_array($kueri);
+  
+      if($result != null){
+        $temp = substr($result['post_id'],2,3);
+        $id = (int)$temp + 1;
+      } else {
+        $id = 1;
+      }
+      $id = "PO".str_pad($id, 3, "0", STR_PAD_LEFT);
+  
+      if(count($_FILES) <= 0){
+        $kueri = mysqli_query($con, "INSERT into post (post_id, us_id, post_judul, post_deskripsi, post_like) values('".$id."', '".$userLogin['us_id']."', '".$judul."', '".$deksripsi."',0)");
+      } else {
+        $kueri = mysqli_query($con, "insert into post values('".$id."', '".$userLogin['us_id']."', '".$judul."', '".$_FILES['gambar']['name']."', '".$deksripsi."',0)");
+      }
+  
+      if(!$kueri){
+        echo "<script>alert('Gagal Post!')</script>";
+      } else {
+        echo "<script>alert('Berhasil Post!')</script>";
+      }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +106,20 @@ require_once("helper.php");
       </nav>
     <!-- Navbar END-->
 
+    <!-- Add Item -->
+    <div class="konten">
+        <div class="isi">
+        <h2 class="fw-bold">Add New Item</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type="text" name="judul" id="input" placeholder="Masukkan Nama Sepeda">
+            <textarea name="desc" id="input" cols="30" rows="8" placeholder="Insert post description here"></textarea>
+            Add Picture 
+            <input type="file" name="gambar" accept="image/*" class="custom-file-input" id="inp" ><br>
+            <button type="submit" name="post" id="tambahPost" style="padding:3px 45px; margin-top:15px">Post</button>
+        </form>
+        </div>
+    </div>
+    <!-- Add Item -->
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

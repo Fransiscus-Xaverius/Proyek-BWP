@@ -57,9 +57,35 @@ require_once("helper.php");
       </nav>
     <!-- Navbar END-->
 
+    <!-- Add Category Start -->
+    
+    <!-- Add Category End -->
+
+    <!-- All Category Start -->
+    <table id="category" border=1 width='10%' style='margin:auto; text-align:center;'>
+
+    </table>
+    <!-- All Category End -->
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
+<script>
+    function loadAjax(){
+        listKategori = document.querySelector("#category");
+        fetchCategory();
+    }
 
+    function fetchCategory(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                listKategori.innerHTML = this.responseText;
+            }
+        }
+        xhttp.open("GET", "fetchCategory.php", true);
+        xhttp.send();
+    }
+
+</script>
 </html>

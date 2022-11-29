@@ -57,6 +57,19 @@ require_once("helper.php");
       </nav>
     <!-- Navbar END-->
 
+    <!-- Add New Item Start -->
+    <form action="" method="post">
+        <button type="submit" class="buttonAdd" formaction="addItem.php">+ Tambah Item Sepeda</button>
+        <button type="submit" class="buttonA" formaction="addCategory.php">+ Tambah Kategori</butzton>
+        <button type="submit" class="buttonA" formaction="addBrand.php">+ Tambah Merk</button>
+    </form>
+    <!-- Add New Item End-->
+
+    <!-- All Item Start -->
+    <table id="listItem" border=1>
+
+    </table>
+    <!-- All Item End-->
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

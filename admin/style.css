@@ -16,3 +16,74 @@ body{
     margin-top: 10px;
     margin-left: 120px;
 }
+
+.buttonAdd{
+    margin-left: 80px;
+    margin-top: 10px;
+    background-color: coral;
+    border: 0px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    outline: none;
+}
+
+.buttonA{
+    margin-left: 25px;
+    margin-top: 10px;
+    background-color: coral;
+    border: 0px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    outline: none;
+}
+
+.konten{
+    width: 40%;
+    margin: 100px auto 100px auto;
+    background-color: rgb(189, 187, 187);
+    min-height: 300px;
+}
+  
+.isi{
+    padding: 30px;
+}
+
+.custom-file-input {
+    color: transparent;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+.custom-file-input::before {
+    background-color: #cecece;
+    content: 'Choose File';
+    color: rgb(100, 98, 98);
+    display: inline-block;
+    border-radius: 5px;
+    padding: 2px 12px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+#input{
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #cecece;
+    border: 0px;
+    padding: 5px 10px;
+    color: gray;
+}
+
+#tambahPost{
+    padding : 5px 47px;
+    border: none;
+    background-color: #82fc77;
+    border-radius: 10px;
+    font-weight: bold;
+    color: rgb(100, 98, 98);
+}

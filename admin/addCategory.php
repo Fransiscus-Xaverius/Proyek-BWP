@@ -58,7 +58,13 @@ require_once("helper.php");
     <!-- Navbar END-->
 
     <!-- Add Category Start -->
-    
+    <div class="kontens">
+        <div class="isi">
+            <h2 class="fw-bold">Tambah Kategori Baru</h2>
+            <input type="text" name="namaCategory" id="namaCategory" placeholder="Masukkan Kategori">
+            <button name="post" id="tambahPost" style="padding:3px 30px; margin-top:10px" onclick="insert()">Tambah</button>
+        </div>
+    </div>
     <!-- Add Category End -->
 
     <!-- All Category Start -->
@@ -73,6 +79,7 @@ require_once("helper.php");
 <script>
     function loadAjax(){
         listKategori = document.querySelector("#category");
+        nama = document.querySelector("#namaCategory");
         fetchCategory();
     }
 
@@ -85,6 +92,23 @@ require_once("helper.php");
         }
         xhttp.open("GET", "fetchCategory.php", true);
         xhttp.send();
+    }
+
+    function insert(){
+        iniKategori = document.querySelector("#namaCategory").value;
+        if(iniKategori=="") return alert("Input field ada yang kosong");
+		r = new XMLHttpRequest();
+		r.onreadystatechange = function() {
+		    if ((this.readyState==4) && (this.status==200)) {
+                console.log(this.responseText)
+				document.querySelector("#namaCategory").value = "";
+				fetchCategory(); 
+			}
+		}
+
+        r.open('POST', 'insertCategory.php');	
+		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		r.send(`kategori=${iniKategori}`);
     }
 
 </script>

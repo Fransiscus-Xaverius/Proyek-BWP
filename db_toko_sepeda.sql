@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2022 at 06:50 PM
+-- Generation Time: Nov 29, 2022 at 06:21 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -47,8 +47,9 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id_customer`, `username_customer`, `email_customer`, `password_customer`, `nama_customer`, `jk_customer`, `alamat_customer`, `noTelp_customer`, `status_customer`) VALUES
-('US001', 'FransTest', 'x@gmail.com', 'Frans', 'Fransiscus Xaverius', 0, 'Ndaktau', 8111111, 1),
-('US002', 'Fransajadeh', 'xaverius.fransiscus078@gmail.com', '1', 'Fransiscus Xaverius', 0, 'Ndaktau no.1', 1, 1);
+('US001', 'FransTest', 'x@gmail.com', 'Frans', 'Fransiscus Xaverius', 0, 'Ndaktau', 8111111, 0),
+('US002', 'Fransajadeh', 'xaverius.fransiscus078@gmail.com', '1', 'Fransiscus Xaverius', 0, 'Ndaktau no.1', 1, 0),
+('US003', 'jees', 'jessicasusanto16@gmail.com', '123', 'Jessica Susanto', 1, 'rumah', 12341232, 0);
 
 -- --------------------------------------------------------
 
@@ -106,7 +107,7 @@ CREATE TABLE `karyawan` (
 
 DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE `kategori` (
-  `id_kategori` varchar(5) NOT NULL,
+  `id_kategori` varchar(6) NOT NULL,
   `nama_kategori` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

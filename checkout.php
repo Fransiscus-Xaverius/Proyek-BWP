@@ -209,18 +209,20 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
     <script>
       function send_email(){
         var invoice = $("#invoice").prop('outerHTML');
-        var url = 'send_invoice.php?invoice=SET&total='+total+'&id'+id+'&customer'+customer;
-        alert(url);
         var msg = $("#emailmsg");
+        var url = 'send_invoice.php?invoice=SET&total='+total+'&id'+id+'&customer'+customer;
         msg.innerHTML = invoice;
+
         r = new XMLHttpRequest();
-        r.open('GET',url);
         r.onreadystatechange = function() {
                 if ((this.readyState==4) && (this.status==200)) {
                     emailmsg.innerHTML = this.responseText;
-                }        
+                    console.log(this.responseText);
+                }
             }
-        r.send();
+        r.open('POST','send_invoice.php');
+        r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        r.send(`invoice=SET&total=${total}&id=${id}&customer=${customer}`);
       }
     </script>
 </body>

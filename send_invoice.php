@@ -21,7 +21,6 @@ $footer = "  </body>
 
 if(isset($_GET["invoice"])){
     $cart = $_SESSION['cart'];
-    $invoice_number = $_GET["invoice"];
 
     $invoice = '<div class="row justify-content-center" id="invoice">
             <h1 class="text-center fw-bold mb-4 mt-3">INVOICE</h1>
@@ -35,9 +34,9 @@ if(isset($_GET["invoice"])){
         $nota = $nota[0];
     }
     $tanggal = date("Y-m-d");
-    $total = $_GET['nominal'];
-    $id = $_GET['id_customer'];
-    $customer = $_GET['nama_customer'];
+    $total = $_POST['nominal'];
+    $id = $_POST['id_customer'];
+    $customer = $_POST['nama_customer'];
                     $invoice = $invoice."<table style='width:30%; font-size:20px'>";
                     $invoice = $invoice."<tr>";
                     $invoice = $invoice."<td>Invoice</td>"."<td>:</td>". "<td>".$nota."</td>";

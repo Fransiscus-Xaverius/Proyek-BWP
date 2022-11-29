@@ -57,9 +57,50 @@ require_once("helper.php");
       </nav>
     <!-- Navbar END-->
 
+    <!-- List User Start -->
+    <table border=1 class="listUser text-center" width='80%' style='margin:auto;'>
+
+    </table>
+    <!-- List User End -->
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
+<script>
+    function loadAjax(){
+        listUser = document.querySelector(".listUser");
+        fetchUser();
+    }
 
+    function fetchUser(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                listUser.innerHTML = this.responseText;
+            }
+        }
+        xhttp.open("GET", "fetchUser.php", true);
+        xhttp.send();
+    }
+
+    function ajax_func(method, url, callback, data="") {
+		r = new XMLHttpRequest();
+		r.onreadystatechange = function() {
+            callback(this);
+        }
+		r.open(method, url);
+		if(method.toLowerCase() == "post") r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		r.send(data);
+	}
+
+    function delete_user(obj){
+		update_id = obj.value;
+		ajax_func('POST', `deleteUser.php`, refresh, `update_id=${update_id}`);
+	}
+    function refresh(xhttp){
+        if ((xhttp.readyState==4) && (xhttp.status==200)) {
+            fetchUser();
+		}
+	}
+</script>
 </html>

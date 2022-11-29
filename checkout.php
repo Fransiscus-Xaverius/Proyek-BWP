@@ -20,10 +20,9 @@ if(isset($_POST["back"])){
 
 if(isset($_REQUEST["orderID"])){
 
-  $getCount = mysqli_query($con, "select nota_jual from h_jual order by nota_jual desc limit 1");
-  if($getCount){
-    $getCount = mysqli_fetch_array($getCount);
-    print_r($getCount);
+  $getCount = mysqli_query($con, "select htrans_id from htrans order by htrans_id desc limit 1");
+  $getCount = mysqli_fetch_array($getCount);
+  if($getCount!=null){
     $temp = substr($getCount[0],2);
     $num = intval($temp);
     $num++;
@@ -31,7 +30,7 @@ if(isset($_REQUEST["orderID"])){
   else{
     $num=1;
   }
-  $insert = mysqli_query($con, "insert into htrans (id_customer, harga_total,htrans_id, order_id) VALUES ('".$_SESSION["login"]."','".$_REQUEST["nominal"]."','n_".$num."','".$_REQUEST["orderID"]."')");
+  $insert = mysqli_query($con, "insert into htrans (id_customer, harga_total,htrans_id, h_date,order_id) VALUES ('".$_SESSION["login"]."','".$_REQUEST["nominal"]."','n_".$num."','".date('Y-m-d H:i:s')."','".$_REQUEST["orderID"]."')");
   if($insert){
     echo "<script>alert('Transaksi Berhasil')</script>";
   }
@@ -50,6 +49,7 @@ $IDuser = reset($user);
 $idBarang = $_SESSION['barang'];
 $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$idBarang."'"));
 
+
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +62,7 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
-<body>
+<body onload="send_email()">
     <!-- Navbar Start-->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid" style="margin:0px 50px">
@@ -105,11 +105,11 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
 
     <!-- INVOICE start -->
     <div class="container mt-2 mb-5" style='border : 1px solid black'>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" id="invoice">
             <h1 class='text-center fw-bold mb-4 mt-3'>INVOICE</h1>
             <div class="col-12">
                 <?php
-                    $query = mysqli_query($con, "select nota_jual from h_jual order by nota_jual desc limit 1");
+                    $query = mysqli_query($con, "select htrans_id from htrans order by htrans_id desc limit 1");
                     $nota = mysqli_fetch_array($query);
                     if($nota == null){
                         $nota = 'n_1';
@@ -188,10 +188,40 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                 <button type=submit name="back" class="text-white mb-4" style='border-radius: 5px; border:none; background-color: red;'>Back to Menu</button>
             </form>
             </div>
+            <div class="emailmsg" id="emailmsg"></div>
         </div>
     </div>
-    <!-- Invoice end -->
 
+    <?php
+      $tanggal = date("Y-m-d");
+      $total = $_REQUEST['nominal'];
+      $id = $user['id_customer'];
+      $customer = $user['nama_customer'];
+      echo "<script>
+      var total = ".$total."
+      var id = '".$id."'
+      var customer = '".$customer."'
+      </script>";
+    ?>
+    <!-- Invoice end -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script>
+      function send_email(){
+        var invoice = $("#invoice").prop('outerHTML');
+        var url = 'send_invoice.php?invoice=SET&total='+total+'&id'+id+'&customer'+customer;
+        alert(url);
+        var msg = $("#emailmsg");
+        msg.innerHTML = invoice;
+        r = new XMLHttpRequest();
+        r.open('GET',url);
+        r.onreadystatechange = function() {
+                if ((this.readyState==4) && (this.status==200)) {
+                    emailmsg.innerHTML = this.responseText;
+                }        
+            }
+        r.send();
+      }
+    </script>
 </body>
 </html>

@@ -2,11 +2,9 @@
 	require("helper.php");
 	$kategori = $_REQUEST['kategori'];
 
-	$query = mysqli_query($con, "select id_kategori from kategori order by id_kategori desc limit 1");
+    $query = mysqli_query($con, "select count(*) as 'jumlah' from kategori");
     $row = mysqli_fetch_array($query);
-    $id = $row['id_kategori'];
-    $id = substr($id, 4);
-    $id = (int)$id;
+    $id = $row['jumlah'];
     $id = $id + 1;
     $id = "kat_" . $id;
     

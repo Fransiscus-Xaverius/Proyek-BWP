@@ -62,7 +62,12 @@ require_once("helper.php");
         <div class="isi">
             <h2 class="fw-bold">Tambah Kategori Baru</h2>
             <input type="text" name="namaCategory" id="namaCategory" placeholder="Masukkan Kategori">
-            <button name="post" id="tambahPost" style="padding:3px 30px; margin-top:10px" onclick="insert()">Tambah</button>
+            <div class="sebelahan">
+              <button name="post" id="tambahPost" onclick="insert()">Tambah</button>
+              <form action="" method="post">
+                <button type="submit" formaction="items.php" id="tambahPost" >Back</button>
+              </form>
+            </div>
         </div>
     </div>
     <!-- Add Category End -->

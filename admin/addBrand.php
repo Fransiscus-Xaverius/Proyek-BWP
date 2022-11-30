@@ -61,8 +61,11 @@ require_once("helper.php");
     <div class="kontens">
         <div class="isi">
             <h2 class="fw-bold">Tambah Merk Baru</h2>
-            <input type="text" name="namaCategory" id="namaCategory" placeholder="Masukkan Kategori">
-            <button name="post" id="tambahPost" style="padding:3px 30px; margin-top:10px" onclick="insert()">Tambah</button>
+            <input type="text" name="namaCategory" id="namaBrand" placeholder="Masukkan Merk">
+            <button name="post" id="tambahPost" onclick="insert()">Tambah</button>
+            <form action="" method="post">
+                <button type="submit" formaction="items.php" id="tambahPost" >Back</button>
+              </form>
         </div>
     </div>
     <!-- Add Brand End -->
@@ -77,7 +80,7 @@ require_once("helper.php");
 </body>
 <script>
   function loadAjax(){
-        listKategori = document.querySelector("#category");
+        listBrand = document.querySelector("#brand");
         nama = document.querySelector("#namaCategory");
         fetchCategory();
     }
@@ -86,28 +89,29 @@ require_once("helper.php");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
-                listKategori.innerHTML = this.responseText;
+                listBrand.innerHTML = this.responseText;
             }
         }
-        xhttp.open("GET", "fetchCategory.php", true);
+        xhttp.open("GET", "fetchBrand.php", true);
         xhttp.send();
     }
 
     function insert(){
-        iniKategori = document.querySelector("#namaCategory").value;
-        if(iniKategori=="") return alert("Input field ada yang kosong");
+        iniBrand = document.querySelector("#namaBrand").value;
+        if(iniBrand=="") return alert("Input field ada yang kosong");
 
         r = new XMLHttpRequest();
         r.onreadystatechange = function() {
 		    if ((this.readyState==4) && (this.status==200)) {
-          document.querySelector("#namaCategory").value = "";
+          console.log(this.responseText);
+          document.querySelector("#namaBrand").value = "";
           fetchCategory(); 
         }
 		}
 
-        r.open('POST', 'insertCategory.php');	
+        r.open('POST', 'insertBrand.php');	
         r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        r.send(`kategori=${iniKategori}`);
+        r.send(`Brand=${iniBrand}`);
     }
 </script>
 </html>

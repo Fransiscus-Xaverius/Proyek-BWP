@@ -97,18 +97,18 @@ require_once("helper.php");
     function insert(){
         iniKategori = document.querySelector("#namaCategory").value;
         if(iniKategori=="") return alert("Input field ada yang kosong");
-		r = new XMLHttpRequest();
-		r.onreadystatechange = function() {
+
+        r = new XMLHttpRequest();
+        r.onreadystatechange = function() {
 		    if ((this.readyState==4) && (this.status==200)) {
-                console.log(this.responseText)
-				document.querySelector("#namaCategory").value = "";
-				fetchCategory(); 
-			}
+          document.querySelector("#namaCategory").value = "";
+          fetchCategory(); 
+        }
 		}
 
         r.open('POST', 'insertCategory.php');	
-		r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		r.send(`kategori=${iniKategori}`);
+        r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        r.send(`kategori=${iniKategori}`);
     }
 
 </script>

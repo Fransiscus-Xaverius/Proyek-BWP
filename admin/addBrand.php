@@ -57,10 +57,57 @@ require_once("helper.php");
       </nav>
     <!-- Navbar END-->
 
+    <!-- Add Brand Start -->
+    <div class="kontens">
+        <div class="isi">
+            <h2 class="fw-bold">Tambah Merk Baru</h2>
+            <input type="text" name="namaCategory" id="namaCategory" placeholder="Masukkan Kategori">
+            <button name="post" id="tambahPost" style="padding:3px 30px; margin-top:10px" onclick="insert()">Tambah</button>
+        </div>
+    </div>
+    <!-- Add Brand End -->
+
     <!-- All Brand Start -->
+    <table id="brand" border=1 width='10%' style='margin:auto; text-align:center;'>
+
+    </table>
     <!-- All Brand End -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
+<script>
+  function loadAjax(){
+        listKategori = document.querySelector("#category");
+        nama = document.querySelector("#namaCategory");
+        fetchCategory();
+    }
 
+    function fetchCategory(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                listKategori.innerHTML = this.responseText;
+            }
+        }
+        xhttp.open("GET", "fetchCategory.php", true);
+        xhttp.send();
+    }
+
+    function insert(){
+        iniKategori = document.querySelector("#namaCategory").value;
+        if(iniKategori=="") return alert("Input field ada yang kosong");
+
+        r = new XMLHttpRequest();
+        r.onreadystatechange = function() {
+		    if ((this.readyState==4) && (this.status==200)) {
+          document.querySelector("#namaCategory").value = "";
+          fetchCategory(); 
+        }
+		}
+
+        r.open('POST', 'insertCategory.php');	
+        r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        r.send(`kategori=${iniKategori}`);
+    }
+</script>
 </html>

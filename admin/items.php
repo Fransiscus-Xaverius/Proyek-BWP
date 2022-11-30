@@ -66,13 +66,31 @@ require_once("helper.php");
     <!-- Add New Item End-->
 
     <!-- All Item Start -->
-    <table id="listItem" border=1>
+    <div style="margin:50px auto; width:80%">
+      <table id="listItem" class="table table-striped table-hover" border=1>
 
-    </table>
+      </table>
+    </div>
     <!-- All Item End-->
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
+<script>
+  function loadAjax(){
+    listItem = document.querySelector("#listItem");
+    fetchItem();
+  }
 
+  function fetchItem(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+      if(this.readyState == 4 && this.status == 200){
+        listItem.innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "fetchItems.php", true);
+    xhttp.send();
+  }
+</script>
 </html>

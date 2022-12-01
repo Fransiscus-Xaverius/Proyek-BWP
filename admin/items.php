@@ -66,7 +66,7 @@ require_once("helper.php");
     <!-- Add New Item End-->
 
     <!-- All Item Start -->
-    <div style="margin:50px auto; width:80%">
+    <div style="margin:50px auto; width:95%">
       <table id="listItem" class="table table-striped table-hover" border=1>
 
       </table>
@@ -86,11 +86,33 @@ require_once("helper.php");
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function(){
       if(this.readyState == 4 && this.status == 200){
+        console.log(this.responseText);
         listItem.innerHTML = this.responseText;
       }
     };
     xhttp.open("GET", "fetchItems.php", true);
     xhttp.send();
   }
+
+  function ajax_func(method, url, callback, data="") {
+		r = new XMLHttpRequest();
+		r.onreadystatechange = function() {
+      callback(this);
+    }
+		r.open(method, url);
+		if(method.toLowerCase() == "post") r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		r.send(data);
+	}
+
+  function ganti_status(obj){
+		update_id = obj.value;
+		ajax_func('POST', `gantiStatus.php`, refresh, `update_id=${update_id}`);
+	}
+
+  function refresh(xhttp){
+    if ((xhttp.readyState==4) && (xhttp.status==200)) {
+      fetchItem();
+		}
+	}
 </script>
 </html>

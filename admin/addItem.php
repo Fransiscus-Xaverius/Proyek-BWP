@@ -3,9 +3,13 @@ require_once("helper.php");
 if(isset($_POST['post'])){
     $judul = $_POST['judul'];
     $deksripsi = $_POST['desc'];
+    $kategori = $_POST['kategori'];
+    $merk = $_POST['merk'];
+    $stok = $_POST['stok'];
+    $harga = $_POST['harga'];
     
-    if($judul == "" || $deksripsi == ""){
-      echo "<script>alert('judul dan deskripsi tidak boleh kosong')</script>";
+    if($judul == "" || $deksripsi == ""|| $kategori == "" || $merk == "" || $stok == ""|| $harga == ""){
+      echo "<script>alert('field tidak boleh kosong')</script>";
     } else {
       if (count($_FILES) > 0) {
         if (is_uploaded_file($_FILES['gambar']['tmp_name'])) {
@@ -19,34 +23,29 @@ if(isset($_POST['post'])){
           }
   
           if (empty($errors) == true && $file_name != "") {
-            move_uploaded_file($file_tmp, "images/" . $file_name);
+            move_uploaded_file($file_tmp, "../getImages/" . $file_name);
+
+            $kueri = mysqli_query($con, "select count(*) as 'jumlah' from sepeda order by id_sepeda");
+            $result = mysqli_fetch_array($kueri);
+            $id = $result['jumlah'];
+            $id = $id + 1;
+            $id = "spd_" . $id;
+              $kueri = mysqli_query($con, "INSERT INTO sepeda VALUES('$id', '$judul', '$kategori', '$merk', '$file_name', '$deksripsi','$stok', '$harga', '1')");
+
+              if(!$kueri){
+                echo "<script>alert('Gagal Menambahkan Item!')</script>";
+              } else {
+                echo "<script>alert('Berhasil Menambahkan Item!')</script>";
+              }
+          
           } else {
             echo "<script>alert('Ukuran file melebihi batas')</script>";
           }
+        } else {
+          echo "<script>alert('File Gambar tidak ada')</script>";
         }
-      }
-  
-      $kueri = mysqli_query($con, "select post_id from post order by post_id desc limit 1");
-      $result = mysqli_fetch_array($kueri);
-  
-      if($result != null){
-        $temp = substr($result['post_id'],2,3);
-        $id = (int)$temp + 1;
       } else {
-        $id = 1;
-      }
-      $id = "PO".str_pad($id, 3, "0", STR_PAD_LEFT);
-  
-      if(count($_FILES) <= 0){
-        $kueri = mysqli_query($con, "INSERT into post (post_id, us_id, post_judul, post_deskripsi, post_like) values('".$id."', '".$userLogin['us_id']."', '".$judul."', '".$deksripsi."',0)");
-      } else {
-        $kueri = mysqli_query($con, "insert into post values('".$id."', '".$userLogin['us_id']."', '".$judul."', '".$_FILES['gambar']['name']."', '".$deksripsi."',0)");
-      }
-  
-      if(!$kueri){
-        echo "<script>alert('Gagal Post!')</script>";
-      } else {
-        echo "<script>alert('Berhasil Post!')</script>";
+        echo "<script>alert('Harus masukkan gambar')</script>";
       }
     }
 }
@@ -109,13 +108,35 @@ if(isset($_POST['post'])){
     <!-- Add Item -->
     <div class="konten">
         <div class="isi">
-        <h2 class="fw-bold">Add New Item</h2>
+        <h2 class="fw-bold">Tambah Item Baru</h2>
         <form action="" method="post" enctype="multipart/form-data">
-            <input type="text" name="judul" id="input" placeholder="Masukkan Nama Sepeda">
-            <textarea name="desc" id="input" cols="30" rows="8" placeholder="Insert post description here"></textarea>
-            Add Picture 
-            <input type="file" name="gambar" accept="image/*" class="custom-file-input" id="inp" ><br>
-            <button type="submit" name="post" id="tambahPost" style="padding:3px 45px; margin-top:15px">Post</button>
+          <input type="text" name="judul" id="input" placeholder="Masukkan Nama Sepeda">
+          <textarea name="desc" id="input" cols="30" rows="8" placeholder="Insert post description here"></textarea>
+          Pilih Kategori : 
+          <select name="kategori" id="input">
+            <?php
+              $kueri = mysqli_query($con, "select * from kategori");
+              while($result = mysqli_fetch_array($kueri)){
+                echo "<option value='".$result['id_kategori']."'>".$result['nama_kategori']."</option>";
+              }
+            ?>
+          </select>
+          Pilih Merk : 
+          <select name="merk" id="input">
+            <?php
+              $kueri = mysqli_query($con, "select * from merk");
+              while($result = mysqli_fetch_array($kueri)){
+                echo "<option value='".$result['id_merk']."'>".$result['nama_merk']."</option>";
+              }
+            ?>
+          </select>
+          Masukkan Stok :
+          <input type="number" name="stok" id="input" min="0" value="0">
+          Masukkan Harga :
+          <input type="number" name="harga" id="input" min="0" value="0">
+          Tambah Gambar : 
+          <input type="file" name="gambar" accept="image/*" class="custom-file-input" id="inp" ><br>
+          <button type="submit" name="post" id="tambahPost" style="padding:3px 45px; margin-top:15px">Tambah</button>
         </form>
         </div>
     </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2022 at 06:21 PM
+-- Generation Time: Dec 01, 2022 at 02:47 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_toko_sepeda`
 --
-CREATE DATABASE IF NOT EXISTS `db_toko_sepeda` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `db_toko_sepeda`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +27,9 @@ USE `db_toko_sepeda`;
 -- Table structure for table `customer`
 --
 
-DROP TABLE IF EXISTS `customer`;
+CREATE DATABASE IF NOT EXISTS `db_toko_sepeda` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `db_toko_sepeda`;
+
 CREATE TABLE `customer` (
   `id_customer` varchar(6) NOT NULL,
   `username_customer` varchar(100) NOT NULL,
@@ -47,9 +47,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id_customer`, `username_customer`, `email_customer`, `password_customer`, `nama_customer`, `jk_customer`, `alamat_customer`, `noTelp_customer`, `status_customer`) VALUES
-('US001', 'FransTest', 'x@gmail.com', 'Frans', 'Fransiscus Xaverius', 0, 'Ndaktau', 8111111, 0),
-('US002', 'Fransajadeh', 'xaverius.fransiscus078@gmail.com', '1', 'Fransiscus Xaverius', 0, 'Ndaktau no.1', 1, 0),
-('US003', 'jees', 'jessicasusanto16@gmail.com', '123', 'Jessica Susanto', 1, 'rumah', 12341232, 0);
+('US001', 'FransTest', 'x@gmail.com', 'Frans', 'Fransiscus Xaverius', 0, 'Ndaktau', 8111111, 1),
+('US002', 'Fransajadeh', 'xaverius.fransiscus078@gmail.com', '1', 'Fransiscus Xaverius', 0, 'Ndaktau no.1', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -57,7 +56,6 @@ INSERT INTO `customer` (`id_customer`, `username_customer`, `email_customer`, `p
 -- Table structure for table `dtrans`
 --
 
-DROP TABLE IF EXISTS `dtrans`;
 CREATE TABLE `dtrans` (
   `htrans_id` varchar(15) NOT NULL,
   `id_sepeda` varchar(5) NOT NULL,
@@ -68,16 +66,42 @@ CREATE TABLE `dtrans` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `email`
+--
+
+CREATE TABLE `email` (
+  `email` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `htrans`
 --
 
-DROP TABLE IF EXISTS `htrans`;
 CREATE TABLE `htrans` (
   `id_customer` varchar(6) NOT NULL,
   `harga_total` int(11) NOT NULL,
   `htrans_id` varchar(128) NOT NULL,
-  `h_date` date NOT NULL
+  `h_date` date NOT NULL,
+  `order_id` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `htrans`
+--
+
+INSERT INTO `htrans` (`id_customer`, `harga_total`, `htrans_id`, `h_date`, `order_id`) VALUES
+('US002', 52684500, 'n_1', '2022-11-29', '1572280554'),
+('US002', 52684500, 'n_10', '2022-11-29', '1572280554'),
+('US002', 52684500, 'n_2', '2022-11-29', '1572280554'),
+('US002', 52684500, 'n_3', '2022-11-29', '1572280554'),
+('US002', 52684500, 'n_4', '2022-11-29', '1572280554'),
+('US002', 52684500, 'n_5', '2022-11-29', '1572280554'),
+('US002', 52684500, 'n_6', '2022-11-29', '1572280554'),
+('US002', 52684500, 'n_7', '2022-11-29', '1572280554'),
+('US002', 52684500, 'n_8', '2022-11-29', '1572280554'),
+('US002', 52684500, 'n_9', '2022-11-29', '1572280554');
 
 -- --------------------------------------------------------
 
@@ -85,7 +109,6 @@ CREATE TABLE `htrans` (
 -- Table structure for table `karyawan`
 --
 
-DROP TABLE IF EXISTS `karyawan`;
 CREATE TABLE `karyawan` (
   `id_karyawan` varchar(6) NOT NULL,
   `username_karyawan` varchar(100) NOT NULL,
@@ -105,9 +128,8 @@ CREATE TABLE `karyawan` (
 -- Table structure for table `kategori`
 --
 
-DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE `kategori` (
-  `id_kategori` varchar(6) NOT NULL,
+  `id_kategori` varchar(5) NOT NULL,
   `nama_kategori` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -128,7 +150,6 @@ INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
 -- Table structure for table `merk`
 --
 
-DROP TABLE IF EXISTS `merk`;
 CREATE TABLE `merk` (
   `id_merk` varchar(10) NOT NULL,
   `nama_merk` varchar(100) NOT NULL
@@ -149,7 +170,6 @@ INSERT INTO `merk` (`id_merk`, `nama_merk`) VALUES
 -- Table structure for table `promo`
 --
 
-DROP TABLE IF EXISTS `promo`;
 CREATE TABLE `promo` (
   `kode_promo` varchar(15) NOT NULL,
   `besar_potongan` int(11) NOT NULL,
@@ -164,7 +184,6 @@ CREATE TABLE `promo` (
 -- Table structure for table `rating_sepeda`
 --
 
-DROP TABLE IF EXISTS `rating_sepeda`;
 CREATE TABLE `rating_sepeda` (
   `nota_jual` varchar(13) NOT NULL,
   `id_sepeda` varchar(6) NOT NULL,
@@ -177,7 +196,6 @@ CREATE TABLE `rating_sepeda` (
 -- Table structure for table `sepeda`
 --
 
-DROP TABLE IF EXISTS `sepeda`;
 CREATE TABLE `sepeda` (
   `id_sepeda` varchar(10) NOT NULL,
   `nama_sepeda` varchar(100) NOT NULL,
@@ -308,7 +326,6 @@ INSERT INTO `sepeda` (`id_sepeda`, `nama_sepeda`, `id_kategori`, `id_merk`, `ima
 -- Table structure for table `supplier`
 --
 
-DROP TABLE IF EXISTS `supplier`;
 CREATE TABLE `supplier` (
   `id_supplier` varchar(5) NOT NULL,
   `nama_supplier` varchar(100) NOT NULL,

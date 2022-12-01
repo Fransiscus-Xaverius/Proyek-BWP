@@ -550,13 +550,11 @@
               <form>
                 <h5>Subscribe to our newsletter</h5>
                 <p>Monthly digest of what's new and exciting from us.</p>
-                <form action="" method="POST">
                   <div class="d-flex flex-column flex-sm-row w-100 gap-2">
                     <label for="newsletter1" class="visually-hidden">Email address</label>
                     <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                    <button class="btn btn-primary" type="submit" name="subscribe">Subscribe</button>
+                    <button class="btn btn-primary" type="button" name="subscribe" onclick="bro()">Subscribe</button>
                   </div>
-                </form>
               </form>
             </div>
           </div>
@@ -576,6 +574,8 @@
     </div>
 
     <script>
+
+      
       $(document).ready(
         function(e){
             var win = $(this);
@@ -602,12 +602,31 @@
               $('#nav').addClass('navbar-expand-xs');
             }
         }
+        
       )
 
       window.addEventListener("load", start, false);
       function start(){
 
       }
+
+      function bro(){
+        mail =document.getElementById("newsletter1").value;
+        if(mail!=""){
+          alert('masuk');
+          $.ajax({
+              url: 'subscribeMail.php?mail=' + mail,
+              type: 'GET',
+              success: function(results) { 
+                  alert(results);
+              }
+          });
+        }
+        else{
+          alert('Tidak ada alamat email yang dimasukkan :(');
+        }
+      }
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

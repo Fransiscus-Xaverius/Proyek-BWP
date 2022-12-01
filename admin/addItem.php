@@ -91,7 +91,7 @@ if(isset($_POST['post'])){
                   <a class="nav-link fs-5 fw-bold" href="listUser.php">Users</a>
                 </li>
             </ul>
-            <form class="d-flex" method="post"> 
+            <!-- <form class="d-flex" method="post"> 
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" style="width:300px">
               <button type="submit" name="searchBtn" class="btn">
                 <img src="../assets/search.png" alt="search" height="30px">
@@ -99,7 +99,7 @@ if(isset($_POST['post'])){
                 <li class="nav-item navbar-nav">
                   <a class="nav-link fs-5 fw-bold active" href="homeUser.php">Admin</a>
                 </li>
-            </form>
+            </form> -->
             </div>
         </div>
       </nav>

@@ -37,7 +37,7 @@ if(isset($_GET["invoice"])){
     $total = $_POST['nominal'];
     $id = $_POST['id_customer'];
     $customer = $_POST['nama_customer'];
-                    $invoice = $invoice."<table style='width:30%; font-size:20px'>";
+    $invoice = $invoice."<table style='width:30%; font-size:20px'>";
                     $invoice = $invoice."<tr>";
                     $invoice = $invoice."<td>Invoice</td>"."<td>:</td>". "<td>".$nota."</td>";
                     $invoice = $invoice."</tr>";

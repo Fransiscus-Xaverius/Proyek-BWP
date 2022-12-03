@@ -61,10 +61,7 @@
       }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-    <link rel="stylesheet"
-    href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> 
   </head>
   <body>
     <div class="bg">
@@ -483,9 +480,8 @@
                       <div class="card-body" style = "">
                         <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
                         <p class="card-text"> Rp. '.number_format($value['harga_sepeda'], 0, ',', '.').'</p>
-                        <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
                         <form method="POST">
-                        <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>
+                        <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Detail</button>
                         </form>
                       </div>
                     </div>
@@ -628,7 +624,8 @@
       }
 
     </script>
-
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   </body>
 </html>

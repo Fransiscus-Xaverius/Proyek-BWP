@@ -490,10 +490,9 @@
                       <div class="card-body" style = "">
                         <h5 class="card-title">'.$value["nama_sepeda"].'</h5>
                         <p class="card-text"> Rp.'.number_format($value['harga_sepeda'], 0, ',', '.').'</p>
-                        <p class="card-text">'.$value["deskripsi_sepeda"].'</p>
                         <form method="POST">
                         <input type="hidden" value="'.$value['id_sepeda'].'" name="id">
-                        <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Beli</button>
+                        <button type="submit" name="beli" style="border:none; background-color:lightgreen; border-radius:5px; padding: 3px 15px;">Detail</button>
                         </form>
                       </div>
                     </div>

@@ -38,37 +38,37 @@ if(isset($_GET["invoice"])){
     $id = $_POST['id_customer'];
     $customer = $_POST['nama_customer'];
     $invoice = $invoice."<table style='width:30%; font-size:20px'>";
-                    $invoice = $invoice."<tr>";
-                    $invoice = $invoice."<td>Invoice</td>"."<td>:</td>". "<td>".$nota."</td>";
-                    $invoice = $invoice."</tr>";
-                    $invoice = $invoice."<tr>";
-                    $invoice = $invoice."<td>Tanggal</td>"."<td>:</td>"."<td>".$tanggal."</td>";
-                    $invoice = $invoice."</tr>";
-                    $invoice = $invoice."<tr>";
-                    $invoice = $invoice."<td>Customer</td>"."<td>:</td>"."<td>".$customer."</td>";
-                    $invoice = $invoice."</tr>";
-                    $invoice = $invoice."<tr>";
-                    $invoice = $invoice."<td>Grand Total</td>"."<td>:</td>"."<td>".$total."</td>";
-                    $invoice = $invoice."</tr>";
-                    $invoice = $invoice."<tr>";
-                    $invoice = $invoice."<td>Status</td>"."<td>:</td>"."<td>Pembayaran Berhasil</td>";
-                    $invoice = $invoice."</tr>";
-                    $invoice = $invoice."</table>";
-                    $invoice = $invoice."<br><br><br><br>";
-                    $invoice = $invoice."<table style='width:70%; margin:auto; font-size:20px' class='text-start'>";
-                    $invoice = $invoice."<tr>";
-                    $invoice = $invoice."<th>Nama Barang</th>"."<th>Jumlah</th>"."<th>Harga</th>"."<th class='ps-3'>Subtotal</th>";
-                    $invoice = $invoice."</tr>";
-                    for ($i=0; $i < sizeof($cart); $i++) { 
-                        if($cart[$i]['idUser'] == $temp){
-                            $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
-                            $subtotal = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
-                            $insert = mysqli_query($con,"INSERT INTO dtrans (htrans_id, id_sepeda, jumlah, subtotal) values ('".$nota."','".$cart[$i]['idBarang']."','".$cart[$i]['jumlah']."','".$subtotal."')");
-                            $invoice = $invoice."<tr>";
-                            $invoice = $invoice."<td class='text-start'>".$barang['nama_sepeda']."</td>"."<td class='text-start'>".$cart[$i]['jumlah']."</td>"."<td class='text-start'>".$barang['harga_sepeda']."</td>"."<td class='ps-3'>".$subtotal."</td>";
-                            $invoice = $invoice."</tr>";
-                        }
-                    }
+    $invoice = $invoice."<tr>";
+    $invoice = $invoice."<td>Invoice</td>"."<td>:</td>". "<td>".$nota."</td>";
+    $invoice = $invoice."</tr>";
+    $invoice = $invoice."<tr>";
+    $invoice = $invoice."<td>Tanggal</td>"."<td>:</td>"."<td>".$tanggal."</td>";
+    $invoice = $invoice."</tr>";
+    $invoice = $invoice."<tr>";
+    $invoice = $invoice."<td>Customer</td>"."<td>:</td>"."<td>".$customer."</td>";
+    $invoice = $invoice."</tr>";
+    $invoice = $invoice."<tr>";
+    $invoice = $invoice."<td>Grand Total</td>"."<td>:</td>"."<td>".$total."</td>";
+    $invoice = $invoice."</tr>";
+    $invoice = $invoice."<tr>";
+    $invoice = $invoice."<td>Status</td>"."<td>:</td>"."<td>Pembayaran Berhasil</td>";
+    $invoice = $invoice."</tr>";
+    $invoice = $invoice."</table>";
+    $invoice = $invoice."<br><br><br><br>";
+    $invoice = $invoice."<table style='width:70%; margin:auto; font-size:20px' class='text-start'>";
+    $invoice = $invoice."<tr>";
+    $invoice = $invoice."<th>Nama Barang</th>"."<th>Jumlah</th>"."<th>Harga</th>"."<th class='ps-3'>Subtotal</th>";
+    $invoice = $invoice."</tr>";
+    for ($i=0; $i < sizeof($cart); $i++) { 
+        if($cart[$i]['idUser'] == $temp){
+            $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
+            $subtotal = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
+            $insert = mysqli_query($con,"INSERT INTO dtrans (htrans_id, id_sepeda, jumlah, subtotal) values ('".$nota."','".$cart[$i]['idBarang']."','".$cart[$i]['jumlah']."','".$subtotal."')");
+            $invoice = $invoice."<tr>";
+            $invoice = $invoice."<td class='text-start'>".$barang['nama_sepeda']."</td>"."<td class='text-start'>".$cart[$i]['jumlah']."</td>"."<td class='text-start'>".$barang['harga_sepeda']."</td>"."<td class='ps-3'>".$subtotal."</td>";
+            $invoice = $invoice."</tr>";
+        }
+    }
 
                     $invoice = $invoice."<tr>";
                     $invoice = $invoice."<td colspan='3' class='text-end'>Ongkos Kirim</td>"."<td class='ps-3'>500000</td>";

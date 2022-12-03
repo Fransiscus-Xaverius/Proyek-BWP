@@ -20,25 +20,26 @@ if($barang['stok_sepeda'] > 0 && $barang['stok_sepeda'] < 10){
   $sisa = "Sisa ".$barang['stok_sepeda']." Sepeda";
 }
 
-if(isset($_POST["keranjang"])){
-    if($_POST['jumlah'] > 0){
-        $id = $_POST["id"];
-        $jumlah = $_POST['jumlah'];
-        if ($stok - $jumlah > 0){
-          $_SESSION['cart'][] = [
-            'idUser' => $user['id_customer'],
-            'idBarang' => $id,
-            'jumlah' => $_POST["jumlah"]
-          ];
-          $success = "Berhasil menambahkan ke keranjang";
-        } else {
-          $error = "Jumlah yang ingin dibeli melebihi stok yang ada";
-        }
-    }
-    else{
-        $error = "Jumlah yang dibeli harus lebih dari 0";
-    }
-}
+
+// if(isset($_POST["keranjang"])){
+//     if($_POST['jumlah'] > 0){
+//         $id = $_POST["id"];
+//         $jumlah = $_POST['jumlah'];
+//         if ($stok - $jumlah > 0){
+//           $_SESSION['cart'][] = [
+//             'idUser' => $user['id_customer'],
+//             'idBarang' => $id,
+//             'jumlah' => $_POST["jumlah"]
+//           ];
+//           $success = "Berhasil menambahkan ke keranjang";
+//         } else {
+//           $error = "Jumlah yang ingin dibeli melebihi stok yang ada";
+//         }
+//     }
+//     else{
+//         $error = "Jumlah yang dibeli harus lebih dari 0";
+//     }
+// }
 
 if(isset($_POST["back"])){
   header("location: homeUser.php");
@@ -107,6 +108,25 @@ if(isset($_POST["back"])){
       </nav>
     <!-- Navbar END-->
 
+    <!-- Popup Modal -->
+    <div class="modal" tabindex="-1" id="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h1>Barang ditambahkan ke cart!</h1>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" name="kembali" id="kembali">Kembali berbelanja</button>
+            <button type="button" class="btn btn-primary" name="checkout" id="checkout">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Konten -->
     <div class="container">
       <div class="row mt-3">
@@ -117,7 +137,6 @@ if(isset($_POST["back"])){
           <h1 class="fw-bold"><?php echo $barang['nama_sepeda']?></h1>
           <h3 class="subjudul"><?php echo $barang['deskripsi_sepeda']?></h3>
           <h3 class="subjudul">Rp. <?php echo number_format($barang['harga_sepeda'], 0, ',', '.')?></h3>
-          <form method="post">
             <div class="fs-5">
                 jumlah : 
                 <input type="number" name="jumlah" id="jumlah" min="1" max="100" value="1">
@@ -150,13 +169,38 @@ if(isset($_POST["back"])){
                 }
               ?>
             </div>
-            <button type="submit" name="keranjang" class="btn btn-primary">Tambahkan ke Keranjang</button>
+            <button type="submit" id="keranjang" name="keranjang" class="btn btn-primary" >Tambahkan ke Keranjang</button>
             <button type="submit" name="back" class="btn btn-primary">Back</button>
-          </form>
         </div>
       </div>
     <!-- Konten -->
-
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-</body>
+    <script>
+      document.getElementById ("keranjang").addEventListener ("click", pop);
+      function pop(){
+        id = '<?php echo $barang['id_sepeda'] ?>';
+        jumlah = document.getElementById("jumlah").value;
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+          }
+        };
+        xhttp.open("GET", `addToCart.php?id=${id}&jumlah=${jumlah}`, true);
+        xhttp.send();
+        $('#modal').modal('show');
+      }
+
+      $(document).on("click", "#kembali", function(event){
+        window.location.href = "homeUser.php";
+      });
+
+      $(document).on("click", "#checkout", function(event){
+        window.location.href = "cart.php";
+      });
+
+    </script>            
+  </body>
 </html>

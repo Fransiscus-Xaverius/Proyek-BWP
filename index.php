@@ -139,6 +139,13 @@
           <div class="mt-3 p-2" style="border: 1px solid lightgray; border-radius:3px; margin-left:125px;"> 
             <form action="" method="post">
               <h3 class="pb-4">&nbsp;<img src="assets/filter.png" alt="filter icon" height='27px'>&nbsp;&nbsp;FILTER</h3> 
+              <h4>Order Price</h4>
+              <fieldset id="orderby">
+                <input type="radio" name="order" id="" value="asc">
+                <label class="fs-5">&nbsp;Ascending</label> <br>
+                <input type="radio" name="order" id="" value="desc">
+                <label class="fs-5">&nbsp;Descending</label> <br>
+              </fieldset>
               <h4 class="">Kategori</h4>
               <input type="checkbox" name="MTB" id="MTB" value="id_kategori like '%kat_1%'">
               <label class="fs-5">&nbsp;MTB</label> <br>
@@ -270,6 +277,9 @@
                 }
                 $min = $_POST['min'];
                 $max = $_POST['max'];
+                if(isset($_POST['order'])){
+                  $order_by = $_POST['order'];
+                }
 
                 if($kategori != "" && $merk != "" && $min != "" && $max != ""){
                   echo "select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET";

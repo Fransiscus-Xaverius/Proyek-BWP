@@ -20,27 +20,6 @@ if($barang['stok_sepeda'] > 0 && $barang['stok_sepeda'] < 10){
   $sisa = "Sisa ".$barang['stok_sepeda']." Sepeda";
 }
 
-
-// if(isset($_POST["keranjang"])){
-//     if($_POST['jumlah'] > 0){
-//         $id = $_POST["id"];
-//         $jumlah = $_POST['jumlah'];
-//         if ($stok - $jumlah > 0){
-//           $_SESSION['cart'][] = [
-//             'idUser' => $user['id_customer'],
-//             'idBarang' => $id,
-//             'jumlah' => $_POST["jumlah"]
-//           ];
-//           $success = "Berhasil menambahkan ke keranjang";
-//         } else {
-//           $error = "Jumlah yang ingin dibeli melebihi stok yang ada";
-//         }
-//     }
-//     else{
-//         $error = "Jumlah yang dibeli harus lebih dari 0";
-//     }
-// }
-
 if(isset($_POST["back"])){
   header("location: homeUser.php");
   exit;

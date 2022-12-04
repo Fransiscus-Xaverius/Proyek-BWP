@@ -107,10 +107,10 @@ if(isset($_POST["back"])){
     </div>
 
     <!-- Konten -->
-    <div class="container">
+    <div class="container" style="min-height: 700px;">
       <div class="row mt-3">
         <div class="col-6">
-          <img src="getImages/<?php echo $barang['image_sepeda']?>" alt="gambar" width="600px">
+          <img src="getImages/<?php echo $barang['image_sepeda']?>" alt="gambar" width="600px" id="gambar">
         </div>
         <div class="col-6 justify-content-start">
           <h1 class="fw-bold"><?php echo $barang['nama_sepeda']?></h1>
@@ -152,6 +152,50 @@ if(isset($_POST["back"])){
             <button type="submit" name="back" class="btn btn-primary">Back</button>
         </div>
       </div>
+    </div>
+    <!-- Start of Footer-->
+    <div class="container-fluid iniFooter">
+      <div class="container">
+        <footer class="py-5">
+          <div class="row">
+            <div class="col-6 col-md-2 mb-3">
+              <h5>Section</h5>
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+              </ul>
+            </div>
+
+            <div class="col-md-5 offset-md-1 mb-3">
+              <form>
+                <h5>Subscribe to our newsletter</h5>
+                <p>Monthly digest of what's new and exciting from us.</p>
+                  <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                    <label for="newsletter1" class="visually-hidden">Email address</label>
+                    <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+                    <button class="btn btn-primary" type="button" name="subscribe" onclick="bro()">Subscribe</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+            <p>© 2022 Company, Inc. All rights reserved.</p>
+            <ul class="list-unstyled d-flex">
+              <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+              <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+              <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+            </ul>
+          </div>
+        </footer>
+
+        <!-- end of footer -->
+      </div>
+    </div>
+
     <!-- Konten -->
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -171,7 +215,59 @@ if(isset($_POST["back"])){
         xhttp.send();
         $('#modal').modal('show');
       }
+      $(window).resize(function() {
+        var win = $(this);
+        //navbar class + carousel image change on window size.
+            var win = $(this);
+            //navbar class + carousel image change on window size.
+            if (win.width() > 1366) {
+              $('#gambar').attr('width','500');
+            } else if(win.width() >= 992){
+              $('#gambar').attr('width','450');
+            } else if(win.width() >= 768){
+              $('#gambar').attr('width','300');
+            } else {
+              $('#gambar').attr('width','200');
+            }
 
+            if (win.width() > 1200) {
+              $('#nav').addClass('navbar-expand-lg');
+            } else if(win.width() >= 992){
+              $('#nav').addClass('navbar-expand-md');
+            } else if(win.width() >= 768){
+              $('#nav').addClass('navbar-expand-sm');
+            } else {
+              $('#nav').addClass('navbar-expand-xs');
+            }
+      });
+
+      $(document).ready(
+        function(e){
+            var win = $(this);
+            //navbar class + carousel image change on window size.
+            var win = $(this);
+            //navbar class + carousel image change on window size.
+            if (win.width() > 1366) {
+              $('#gambar').attr('width','500');
+            } else if(win.width() >= 992){
+              $('#gambar').attr('width','450');
+            } else if(win.width() >= 768){
+              $('#gambar').attr('width','300');
+            } else {
+              $('#gambar').attr('width','200');
+            }
+
+            if (win.width() > 1200) {
+              $('#nav').addClass('navbar-expand-lg');
+            } else if(win.width() >= 992){
+              $('#nav').addClass('navbar-expand-md');
+            } else if(win.width() >= 768){
+              $('#nav').addClass('navbar-expand-sm');
+            } else {
+              $('#nav').addClass('navbar-expand-xs');
+            }
+        }
+      );
       $(document).on("click", "#kembali", function(event){
         window.location.href = "homeUser.php";
       });

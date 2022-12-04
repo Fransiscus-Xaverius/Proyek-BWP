@@ -576,6 +576,33 @@
     </div>
 
     <script>
+
+      $(window).resize(function() {
+        var win = $(this);
+        //navbar class + carousel image change on window size.
+            var win = $(this);
+            //navbar class + carousel image change on window size.
+            if (win.width() > 1366) {
+              $('.car-img').attr('width','500');
+            } else if(win.width() >= 992){
+              $('.car-img').attr('width','450');
+            } else if(win.width() >= 768){
+              $('.car-img').attr('width','300');
+            } else {
+              $('.car-img').attr('width','200');
+            }
+
+            if (win.width() > 1200) {
+              $('#nav').addClass('navbar-expand-lg');
+            } else if(win.width() >= 992){
+              $('#nav').addClass('navbar-expand-md');
+            } else if(win.width() >= 768){
+              $('#nav').addClass('navbar-expand-sm');
+            } else {
+              $('#nav').addClass('navbar-expand-xs');
+            }
+      });
+
       $(document).ready(
         function(e){
             var win = $(this);

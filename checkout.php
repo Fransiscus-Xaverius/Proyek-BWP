@@ -143,18 +143,34 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                     echo "<tr>";
                     echo "<th>Nama Barang</th>"."<th>Jumlah</th>"."<th>Harga</th>"."<th class='ps-3'>Subtotal</th>";
                     echo "</tr>";
+                    $berhasil = true;
                     for ($i=0; $i < sizeof($cart); $i++) { 
                         if($cart[$i]['idUser'] == $temp){
                             $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
                             $subtotal = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
                             $insert = mysqli_query($con,"INSERT INTO dtrans (htrans_id, id_sepeda, jumlah, subtotal) values ('".$nota."','".$cart[$i]['idBarang']."','".$cart[$i]['jumlah']."','".$subtotal."')");
-                            if($insert){
-                              echo "<script>alert('Berhasil ditambahkan')</script>";
+                            if(!$insert){
+                              $berhasil=false;
+                            }
+                            $stock = mysqli_query($con, "select stok_sepeda from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'");
+                            if($stock){
+                              $stock = $stock->fetch_assoc();
+                              $stock["stok_sepeda"] = intval($stock["stok_sepeda"])-intval($cart[$i]['jumlah']);
+                              $alter = mysqli_query($con, "UPDATE `sepeda` SET `stok_sepeda` = ".$stock["stok_sepeda"]." where id_sepeda = '".$cart[$i]['idBarang']."'");
+                              if(!$alter){
+                                $berhasil = false;
+                              }
+                            }
+                            else{
+                              $berhasil=false;
                             }
                             echo "<tr>";
                             echo "<td class='text-start'>".$barang['nama_sepeda']."</td>"."<td class='text-start'>".$cart[$i]['jumlah']."</td>"."<td class='text-start'>".$barang['harga_sepeda']."</td>"."<td class='ps-3'>".$subtotal."</td>";
                             echo "</tr>";
                         }
+                    }
+                    if(!$berhasil){
+                      echo "<script>alert('Error Checkout..')</script>";
                     }
 
                     echo "<tr>";

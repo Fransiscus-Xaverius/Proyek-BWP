@@ -118,7 +118,7 @@ if(isset($_POST["back"])){
           <h3 class="subjudul">Rp. <?php echo number_format($barang['harga_sepeda'], 0, ',', '.')?></h3>
             <div class="fs-5">
                 jumlah : 
-                <input type="number" name="jumlah" id="jumlah" min="1" max="100" value="1">
+                <input type="number" name="jumlah" id="jumlah" min="1" max="<?php echo $stok?>" value="1">
             </div><br>
             <input type="hidden" name="id" value="<?php echo $barang['id_sepeda']?>">
             <div class="sisa">

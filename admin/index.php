@@ -1,6 +1,6 @@
 <?php
-require_once("helper.php"); 
-
+  require_once("helper.php");
+  
 ?>
 
 <!DOCTYPE html>
@@ -11,8 +11,22 @@ require_once("helper.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-</head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">  
+    <style>
+      .per3{
+        display: flex;
+        flex-direction: column;
+        width: 33%;
+        height: 100%;
+      }
+
+      .column{
+        display: flex;
+        flex-direction: row;
+      }
+
+    </style>
+  </head>
 <body onload="loadAjax()">
     <!-- Navbar Start-->
     <nav class="navbar navbar-expand-lg">
@@ -56,7 +70,38 @@ require_once("helper.php");
         </div>
       </nav>
     <!-- Navbar END-->
-
+    <div class="container-fluid column">
+      <div class="container per3">
+        <h1>Penjualan Hari ini</h1>
+        <?php
+          $hasil = mysqli_query($con, "SELECT SUM(harga_total) from htrans where DATE(h_date) = CURDATE()");
+          //$hasil = $hasil->fetch_assoc();
+          $row = $hasil->fetch_assoc();
+          if (is_null($row["SUM(harga_total)"])) {
+            echo "Rp. 0";
+          }
+          else{
+            echo $row["SUM(harga_total)"];
+          }
+        ?>
+      </div>
+      <div class="container per3">
+        <h1>Penjualan Kemarin</h1>
+        <?php
+          $hasil = mysqli_query($con, "SELECT SUM(harga_total) from htrans where DATE(h_date) = CURDATE() -1");
+          $hasil = $hasil->fetch_assoc();
+          echo $hasil["SUM(harga_total)"];
+        ?>
+      </div>
+      <div class="container per3">
+        <h1>Penjualan Bulan ini</h1>
+        <?php
+          $hasil = mysqli_query($con, "SELECT SUM(harga_total) from htrans WHERE MONTH(h_date) = MONTH(NOW()) AND YEAR(h_date) = YEAR(NOW())");
+          $hasil = $hasil->fetch_assoc();
+          echo $hasil["SUM(harga_total)"];
+        ?>
+      </div>
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

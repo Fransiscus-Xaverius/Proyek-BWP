@@ -282,7 +282,7 @@
                 }
 
                 if($kategori != "" && $merk != "" && $min != "" && $max != ""){
-                  echo "select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET";
+                  echo "select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda >= ".$min." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET";
                   $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and '".$merk."' and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);

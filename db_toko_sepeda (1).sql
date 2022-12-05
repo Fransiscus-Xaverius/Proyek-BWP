@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2022 at 05:14 PM
+-- Generation Time: Dec 05, 2022 at 12:56 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_toko_sepeda`
 --
-CREATE DATABASE IF NOT EXISTS `db_toko_sepeda` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `db_toko_sepeda`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +27,9 @@ USE `db_toko_sepeda`;
 -- Table structure for table `customer`
 --
 
-DROP TABLE IF EXISTS `customer`;
+CREATE DATABASE IF NOT EXISTS `db_toko_sepeda` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `db_toko_sepeda`;
+
 CREATE TABLE `customer` (
   `id_customer` varchar(6) NOT NULL,
   `username_customer` varchar(100) NOT NULL,
@@ -56,7 +56,6 @@ INSERT INTO `customer` (`id_customer`, `username_customer`, `email_customer`, `p
 -- Table structure for table `dtrans`
 --
 
-DROP TABLE IF EXISTS `dtrans`;
 CREATE TABLE `dtrans` (
   `htrans_id` varchar(15) NOT NULL,
   `id_sepeda` varchar(5) NOT NULL,
@@ -64,16 +63,30 @@ CREATE TABLE `dtrans` (
   `subtotal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `dtrans`
+--
+
+INSERT INTO `dtrans` (`htrans_id`, `id_sepeda`, `jumlah`, `subtotal`) VALUES
+('n_1', 'spd_0', 1, 52684500),
+('n_2', 'spd_0', 1, 52684500);
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `email`
 --
 
-DROP TABLE IF EXISTS `email`;
 CREATE TABLE `email` (
   `email` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `email`
+--
+
+INSERT INTO `email` (`email`) VALUES
+('fransxav02@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -81,7 +94,6 @@ CREATE TABLE `email` (
 -- Table structure for table `htrans`
 --
 
-DROP TABLE IF EXISTS `htrans`;
 CREATE TABLE `htrans` (
   `id_customer` varchar(6) NOT NULL,
   `harga_total` int(11) NOT NULL,
@@ -95,16 +107,8 @@ CREATE TABLE `htrans` (
 --
 
 INSERT INTO `htrans` (`id_customer`, `harga_total`, `htrans_id`, `h_date`, `order_id`) VALUES
-('US002', 52684500, 'n_1', '2022-11-29', '1572280554'),
-('US002', 52684500, 'n_10', '2022-11-29', '1572280554'),
-('US002', 52684500, 'n_2', '2022-11-29', '1572280554'),
-('US002', 52684500, 'n_3', '2022-11-29', '1572280554'),
-('US002', 52684500, 'n_4', '2022-11-29', '1572280554'),
-('US002', 52684500, 'n_5', '2022-11-29', '1572280554'),
-('US002', 52684500, 'n_6', '2022-11-29', '1572280554'),
-('US002', 52684500, 'n_7', '2022-11-29', '1572280554'),
-('US002', 52684500, 'n_8', '2022-11-29', '1572280554'),
-('US002', 52684500, 'n_9', '2022-11-29', '1572280554');
+('US002', 52684500, 'n_1', '2022-12-05', '1527453318'),
+('US002', 52684500, 'n_2', '2022-12-05', '654689181');
 
 -- --------------------------------------------------------
 
@@ -112,7 +116,6 @@ INSERT INTO `htrans` (`id_customer`, `harga_total`, `htrans_id`, `h_date`, `orde
 -- Table structure for table `karyawan`
 --
 
-DROP TABLE IF EXISTS `karyawan`;
 CREATE TABLE `karyawan` (
   `id_karyawan` varchar(6) NOT NULL,
   `username_karyawan` varchar(100) NOT NULL,
@@ -132,7 +135,6 @@ CREATE TABLE `karyawan` (
 -- Table structure for table `kategori`
 --
 
-DROP TABLE IF EXISTS `kategori`;
 CREATE TABLE `kategori` (
   `id_kategori` varchar(5) NOT NULL,
   `nama_kategori` varchar(100) NOT NULL
@@ -155,7 +157,6 @@ INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
 -- Table structure for table `merk`
 --
 
-DROP TABLE IF EXISTS `merk`;
 CREATE TABLE `merk` (
   `id_merk` varchar(10) NOT NULL,
   `nama_merk` varchar(100) NOT NULL
@@ -176,7 +177,6 @@ INSERT INTO `merk` (`id_merk`, `nama_merk`) VALUES
 -- Table structure for table `promo`
 --
 
-DROP TABLE IF EXISTS `promo`;
 CREATE TABLE `promo` (
   `kode_promo` varchar(15) NOT NULL,
   `besar_potongan` int(11) NOT NULL,
@@ -191,7 +191,6 @@ CREATE TABLE `promo` (
 -- Table structure for table `rating_sepeda`
 --
 
-DROP TABLE IF EXISTS `rating_sepeda`;
 CREATE TABLE `rating_sepeda` (
   `nota_jual` varchar(13) NOT NULL,
   `id_sepeda` varchar(6) NOT NULL,
@@ -204,7 +203,6 @@ CREATE TABLE `rating_sepeda` (
 -- Table structure for table `sepeda`
 --
 
-DROP TABLE IF EXISTS `sepeda`;
 CREATE TABLE `sepeda` (
   `id_sepeda` varchar(10) NOT NULL,
   `nama_sepeda` varchar(100) NOT NULL,
@@ -222,8 +220,8 @@ CREATE TABLE `sepeda` (
 --
 
 INSERT INTO `sepeda` (`id_sepeda`, `nama_sepeda`, `id_kategori`, `id_merk`, `image_sepeda`, `deskripsi_sepeda`, `stok_sepeda`, `harga_sepeda`, `status_sepeda`) VALUES
-('spd_0', 'SISKIU N	', 'kat_1', 'merk_1', 'logo0.png', 'A burly machine that beats any steepest terrain																			', 32, 52684500, 1),
-('spd_1', 'SISKIU T', 'kat_1', 'merk_1', 'logo1.png', 'Tackle any steep climbs and confident on any technical descents.																			', 77, 33309500, 1),
+('spd_0', 'SISKIU N	', 'kat_1', 'merk_1', 'logo0.png', 'A burly machine that beats any steepest terrain																			', 99, 52684500, 1),
+('spd_1', 'SISKIU T', 'kat_1', 'merk_1', 'logo1.png', 'Tackle any steep climbs and confident on any technical descents.																			', 100, 33309500, 1),
 ('spd_10', 'KALOSI', 'kat_1', 'merk_1', 'logo10.png', 'Your all-day choice for all-urban terrains', 35, 32534500, 1),
 ('spd_100', 'Dew-E', 'kat_5', 'merk_3', 'logo100.png', 'THE UPTOWN, DOWNTOWN, COMMUTE-FRIENDLY, INTERURBAN PATH-CRUISING, GROCERY-GETTING WORKHORSE', 71, 4769448, 1),
 ('spd_101', 'Ecoco', 'kat_5', 'merk_3', 'logo101.png', 'THE UPTOWN, DOWNTOWN, COMMUTE-FRIENDLY, INTERURBAN PATH-CRUISING, GROCERY-GETTING WORKHORSE', 63, 5969304, 1),
@@ -335,7 +333,6 @@ INSERT INTO `sepeda` (`id_sepeda`, `nama_sepeda`, `id_kategori`, `id_merk`, `ima
 -- Table structure for table `supplier`
 --
 
-DROP TABLE IF EXISTS `supplier`;
 CREATE TABLE `supplier` (
   `id_supplier` varchar(5) NOT NULL,
   `nama_supplier` varchar(100) NOT NULL,
@@ -359,6 +356,12 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `dtrans`
   ADD PRIMARY KEY (`htrans_id`);
+
+--
+-- Indexes for table `email`
+--
+ALTER TABLE `email`
+  ADD PRIMARY KEY (`email`);
 
 --
 -- Indexes for table `htrans`

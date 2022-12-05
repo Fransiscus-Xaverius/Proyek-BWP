@@ -8,8 +8,11 @@ use PHPMailer\PHPMailer\Exception;
 require 'Exception.php';
 require 'PHPMailer.php';
 require 'SMTP.php';
+$mails = mysqli_query($con, "SELECT * from email ");
 
 if(isset($_POST["send"])){
+  $sent = true;
+  foreach ($mails as $key => $value) {
     $mail = new PHPMailer(true);
     $body =  $_POST["Body"];
     $Subject = $_POST["Subject"];
@@ -28,17 +31,22 @@ if(isset($_POST["send"])){
     
         //Recipients
         $mail->setFrom('admin@ourcycle.my.id', 'Mailer');
-        $mail->addAddress('xaverius.fransiscus078@gmail.com', 'Fransiscus Xaverius');     //Add a recipient
+        $mail->addAddress($value["email"]);     //Add a recipient
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = $Subject;
         $mail->Body    = $body;
-    
         $mail->send();
-        echo '<script>alert("Message has been sent")</script>';
     } catch (Exception $e) {
-        echo "<script>alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}')</script>";
+        $sent = false;
     }
+  }
+  if($sent){
+    echo '<script>alert("Message has been sent")</script>';
+  }
+  else{
+    echo "<script>alert('Message could not be sent.')</script>";
+  }
 }
 
 ?>

@@ -52,6 +52,7 @@ if(isset($_POST['register'])){
               $error = "Gagal mendaftar";
             } else {
               $success = "Berhasil mendaftar";
+              $insertMail = mysqli_query($con, "insert into email values ('" .$email. "')");
             }
           }
         }

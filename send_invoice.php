@@ -10,12 +10,12 @@ require 'admin/PHPMailer.php';
 require 'admin/SMTP.php';
 
 if(isset($_GET["total"])){
-  echo "masuk";
+  $user = mysqli_query($con, "SELECT * from customer where id_customer='".$_SESSION["login"] ."'");
+  $user = $user->fetch_assoc();
   //print_r($_SESSION['cart']);
   $invoice = "<div><h1>Thank you for your purchase!</h1><br><h2>Here's your invoice!<br>Total: Rp.".number_format($_GET['total'], 0, ',', '.')."</h2></div>";
   $invoice = $invoice."<hr style='border:1px solid black; width: 90%;'><br>";
   for ($i=0; $i < count($_SESSION['cart']); $i++) { 
-    echo $_SESSION['cart'][$i]['idBarang']."<br>";
     $getHarga = mysqli_query($con, "SELECT * from sepeda where id_sepeda = '".$_SESSION['cart'][$i]['idBarang']."'");
       $getHarga = $getHarga->fetch_assoc();
       $invoice = $invoice."<h3>".$getHarga['nama_sepeda']." x ".$_SESSION['cart'][$i]['jumlah']."<br>Rp. ".number_format(($_SESSION['cart'][$i]['jumlah']*$getHarga['harga_sepeda']),0, ',', '.')."<h3><br>";
@@ -40,7 +40,7 @@ if(isset($_GET["total"])){
     
         //Recipients
         $mail->setFrom('admin@ourcycle.my.id', 'Mailer');
-        $mail->addAddress('xaverius.fransiscus078@gmail.com', 'Fransiscus Xaverius');     //Add a recipient
+        $mail->addAddress($user['email_customer'],$user['nama_customer']);     //Add a recipient
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = "Purchase Invoice";

@@ -65,6 +65,23 @@ require_once("helper.php");
     </form>
     <!-- Add New Item End-->
 
+    <!-- UPDATE start-->
+    <div class="konten" style="background-color: transparent">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Update Item</h3>
+              </div>
+              <div class="card-body">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- UPDATE end-->
+
     <!-- All Item Start -->
     <div style="margin:50px auto; width:95%">
       <table id="listItem" class="table table-striped table-hover" border=1>
@@ -114,5 +131,10 @@ require_once("helper.php");
       fetchItem();
 		}
 	}
+
+  function updateItem(obj){
+    // update_id = obj.value;
+    // ajax_func('POST', `updateItem.php`, refresh, `update_id=${update_id}`);
+  }
 </script>
 </html>

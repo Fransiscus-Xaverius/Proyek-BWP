@@ -20,11 +20,10 @@ if(isset($_POST["back"])){
 
 if(isset($_REQUEST["orderID"])){
 
-  $getCount = mysqli_query($con, "select htrans_id from htrans order by htrans_id desc limit 1");
+  $getCount = mysqli_query($con, "select count(htrans_id) from htrans");
   $getCount = mysqli_fetch_array($getCount);
   if($getCount!=null){
-    $temp = substr($getCount[0],2);
-    $num = intval($temp);
+    $num = $getCount[0];
     $num++;
   }
   else{
@@ -109,13 +108,13 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
             <h1 class='text-center fw-bold mb-4 mt-3'>INVOICE</h1>
             <div class="col-12">
                 <?php
-                    $query = mysqli_query($con, "select htrans_id from htrans order by htrans_id desc limit 1");
+                    $query = mysqli_query($con, "select count(*) from htrans order by htrans_id desc limit 1");
                     $nota = mysqli_fetch_array($query);
                     if($nota == null){
                         $nota = 'n_1';
                     }
                     else{
-                        $nota = $nota[0];
+                        $nota = 'n_'.$nota[0];
                     }
                     $tanggal = date("Y-m-d");
                     $total = $_REQUEST['nominal'];
@@ -158,10 +157,12 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                               $stock["stok_sepeda"] = intval($stock["stok_sepeda"])-intval($cart[$i]['jumlah']);
                               $alter = mysqli_query($con, "UPDATE `sepeda` SET `stok_sepeda` = ".$stock["stok_sepeda"]." where id_sepeda = '".$cart[$i]['idBarang']."'");
                               if(!$alter){
+                                echo "<script>alert('Error Update stock..')</script>";
                                 $berhasil = false;
                               }
                             }
                             else{
+                              "<script>alert('Error Update DTrans..')</script>";
                               $berhasil=false;
                             }
                             echo "<tr>";
@@ -236,9 +237,7 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                     console.log(this.responseText);
                 }
             }
-        r.open('POST','send_invoice.php');
-        r.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        r.send(`invoice=SET&total=${total}&id=${id}&customer=${customer}`);
+        r.open('GET','send_invoice.php?total='+total);
       }
     </script>
 </body>

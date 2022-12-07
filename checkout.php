@@ -29,7 +29,7 @@ if(isset($_REQUEST["orderID"])){
   else{
     $num=1;
   }
-  $insert = mysqli_query($con, "insert into htrans (id_customer, harga_total,htrans_id, h_date,order_id) VALUES ('".$_SESSION["login"]."','".$_REQUEST["nominal"]."','n_".$num."','".date('Y-m-d H:i:s')."','".$_REQUEST["orderID"]."')");
+  $insert = mysqli_query($con, "insert into htrans (htrans_id, id_customer, harga_total, h_date,order_id) VALUES ('n_".$num."','".$_SESSION["login"]."','".$_REQUEST["nominal"]."','".date('Y-m-d H:i:s')."','".$_REQUEST["orderID"]."')");
   if($insert){
     echo "<script>alert('Transaksi Berhasil')</script>";
   }
@@ -201,8 +201,10 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                 ?>
             </div>
             <div style="width:100%; display:flex; flex-direction:column; align-items:center; justify-items:center;">
+            <button onclick="send_email()" class="btn btn-danger text-white">Kirim Invoice</button>
+            <br>
             <form action="" method="POST">
-                <button type=submit name="back" class="text-white mb-4" style='border-radius: 5px; border:none; background-color: red;'>Back to Menu</button>
+                <button type=submit name="back" class="btn btn-danger text-white">Back to Menu</button>
             </form>
             </div>
             <div class="emailmsg" id="emailmsg"></div>
@@ -225,19 +227,15 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script>
       function send_email(){
-        var invoice = $("#invoice").prop('outerHTML');
-        var msg = $("#emailmsg");
-        var url = 'send_invoice.php?invoice=SET&total='+total+'&id'+id+'&customer'+customer;
-        msg.innerHTML = invoice;
-
+        
         r = new XMLHttpRequest();
         r.onreadystatechange = function() {
                 if ((this.readyState==4) && (this.status==200)) {
-                    emailmsg.innerHTML = this.responseText;
-                    console.log(this.responseText);
+                    alert(this.responseText);
                 }
             }
-        r.open('GET','send_invoice.php?total='+total);
+        r.open('GET','send_invoice.php?total='+total,true);
+        r.send();
       }
     </script>
 </body>

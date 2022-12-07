@@ -157,12 +157,12 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                               $stock["stok_sepeda"] = intval($stock["stok_sepeda"])-intval($cart[$i]['jumlah']);
                               $alter = mysqli_query($con, "UPDATE `sepeda` SET `stok_sepeda` = ".$stock["stok_sepeda"]." where id_sepeda = '".$cart[$i]['idBarang']."'");
                               if(!$alter){
-                                echo "<script>alert('Error Update stock..')</script>"
+                                echo "<script>alert('Error Update stock..')</script>";
                                 $berhasil = false;
                               }
                             }
                             else{
-                              "<script>alert('Error Update DTrans..')</script>"
+                              "<script>alert('Error Update DTrans..')</script>";
                               $berhasil=false;
                             }
                             echo "<tr>";

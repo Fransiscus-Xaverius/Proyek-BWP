@@ -14,17 +14,15 @@ require_once dirname(__FILE__) . '/Midtrans.php';
 if(!isset($_SESSION['login'])){
   header("Location: index.php");
 }
-// if(!isset($_SESSION['barang'])){
-//   header("Location: homeUser.php");
-// }
+if(!isset($_SESSION['barang'])){
+  header("Location: homeUser.php");
+}
 $temp = $_SESSION['login'];
 $user = mysqli_fetch_array(mysqli_query($con, "select * from customer where id_customer = '".$temp."'"));
 
 $cart = [];
 if(isset($_SESSION['cart'])){
   $cart = $_SESSION['cart'];
-// } else {
-  // echo "TIDAK ADA BARANG";
 }
   $ft =0;
   $banyakCart = 0;

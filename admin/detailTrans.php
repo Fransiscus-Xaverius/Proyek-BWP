@@ -15,6 +15,10 @@
         $dtrans = mysqli_query($con, "SELECT * from dtrans where htrans_id = '".$trans['htrans_id']."'");
     }
     
+    if(isset($_POST['back'])){
+        header("location: trans.php");
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,6 +101,11 @@
                 <div class="btn btn-warning m-1" onclick="changeStatus(3)">Reject</div>
                 <div class="btn btn-success m-1" onclick="changeStatus(1)">Accept</div>
                 <div class="btn btn-primary m-1" onclick="changeStatus(2)">Pending</div>
+            </div>
+            <div style="display:flex; flex-direction: column; align-items: center;">
+                <form action="" method="POST">
+                    <button type="submit" name="back" class="btn btn-danger">Back</button>
+                </form>
             </div>
         </div>
     </div>

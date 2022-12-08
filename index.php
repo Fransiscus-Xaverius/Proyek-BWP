@@ -179,7 +179,7 @@
     <div class="container-fluid filter">
       <div class="row justify-content-center">
         <div class="col-3">
-          <div class="mt-3 p-2" style="border: 1px solid lightgray; border-radius:3px; margin-left:125px;"> 
+          <div class="mt-3 p-2" style="border: 1px solid lightgray; border-radius:3px; margin-left:125px;" id="navbarToggleExternalContent"> 
             <form action="" method="post">
               <h3 class="pb-4">&nbsp;<img src="assets/filter.png" alt="filter icon" height='27px'>&nbsp;&nbsp;FILTER</h3> 
               

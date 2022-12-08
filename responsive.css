@@ -1,5 +1,11 @@
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+    body{
+        border: 0px;
+        box-sizing: border-box;
+        margin:0px;
+        padding:0px;
+    }
     .bg{
         background-size: cover;
         height: 85vh;
@@ -36,15 +42,6 @@
     .pagination{
         margin-top: 15px;
         margin-right: 0px;
-    }
-
-    .containers{
-        width: 140%;
-        margin: 200px 5px;
-    }
-
-    .kiri{
-        height: 100px;
     }
 }
 

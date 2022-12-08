@@ -59,7 +59,7 @@ body {
 
 .kiri img{
   margin: 0px auto;
-  display: block;
+  display: inline-block;
   padding: 150px 50px;
 }
 
@@ -147,32 +147,151 @@ body {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  .judul{
+      font-size: 60px;
+      margin-top: 50px;
+      margin-left: 50px;
+      text-align: center;
+  }
+
   .containers{
-      width: 140%;
-      margin: 200px 5px;
+      width: 95%;
+      margin: 50px auto;
   }
 
   .kiri{
-      height: 100px;
+      height: 500px;
+      width: 0px;
   }
+
+  .kiri img{
+      width: 0%;
+  }
+
+  .masuk{
+      width: 100%;
+      margin-left: 0px;
+  }
+
+  .masuk input{
+      width: 260px;
+      margin-top: 30px;
+  }
+
+  .btns{
+      width: 100%;
+      margin-left: 0px;
+  }
+
+  .loginBtn{
+      width: 100%;
+      margin-top: 0px;
+  }
+
+  .daftar{
+      width: 80%;
+      margin-left: auto;
+  } 
+
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+  .judul{
+    font-size: 60px;
+    margin-top: 50px;
+    margin-left: 50px;
+    text-align: center;
+  }
+
+  .containers{
+      width: 70%;
+      margin: 50px auto;
+  }
+
+  .kiri{
+      height: 500px;
+      width: 0px;
+  }
+
+  .kiri img{
+      width: 0%;
+  }
+
+  .masuk{
+      width: 100%;
+      margin-left: 15px;
+  }
+
+  .masuk input{
+      width: 410px;
+      margin-top: 30px;
+  }
+
+  .btns{
+      width: 100%;
+      margin-left: 15px;
+  }
+
+  .loginBtn{
+      width: 100%;
+      margin-top: 15px;
+  }
+
+  .daftar{
+      width: 50%;
+      margin: 20px auto;
+  } 
 
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+  .judul{
+    font-size: 60px;
+    margin-top: 50px;
+    margin-left: 50px;
+    text-align: center;
+  }
 
-}
+  .containers{
+      width: 60%;
+      margin: 50px auto;
+  }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
+  .kiri{
+      height: 500px;
+      width: 500px;
+  }
 
-}
+  .kiri img{
+      width: 100%;
+  }
 
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
+  .masuk{
+      width: 100%;
+      margin-left: 15px;
+  }
 
+  .masuk input{
+      width: 460px;
+      margin-top: 30px;
+  }
+
+  .btns{
+      width: 100%;
+      margin-left: 15px;
+  }
+
+  .loginBtn{
+      width: 100%;
+      margin-top: 15px;
+  }
+
+  .daftar{
+      width: 50%;
+      margin: auto;
+      padding-left: 50px;
+      padding-top: 20px;
+  } 
 }

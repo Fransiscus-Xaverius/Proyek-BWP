@@ -89,15 +89,14 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  
-}
+    .bg{
+        background-size: cover;
+        height: 60vh;
+        padding-top: 100px;
+    }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-  
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-  
+    .img-box {
+        width: 90%;
+        margin: 20px auto 0px auto;
+    }
 }

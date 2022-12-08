@@ -68,10 +68,10 @@ if(isset($_POST['login'])){
   <body>
     <form action="" method="post">
       <div class="containers row">
-        <div class="kiri col-5" data-tilt>
+        <div class="kiri col-10 col-lg-5" data-tilt>
           <img src="assets/img.png" alt="img" id="image" class="justify-content-center d-flex ">
         </div>
-        <div class="kanan col-5">
+        <div class="kanan col-10 col-lg-5">
           <div class="judul text-center">Login</div>
             <div class="masuk validate-input">
               <span class="focusInput text-center" >Username / Email</span>

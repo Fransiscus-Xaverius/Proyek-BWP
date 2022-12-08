@@ -4,8 +4,56 @@ $idB = $_SESSION['idBarang'];
 $sepeda = mysqli_query($con, "SELECT * FROM sepeda WHERE id_sepeda = '$idB'");
 $sepeda = mysqli_fetch_array($sepeda);
 
-if(isset($_POST['tambahPost'])){
+if(isset($_POST['post'])){
+  $judul = $_POST['judul'];
+  $deksripsi = $_POST['desc'];
+  $kategori = $_POST['kategori'];
+  $merk = $_POST['merk'];
+  $stok = $_POST['stok'];
+  $harga = $_POST['harga'];
+  
+  if($judul == "" || $deksripsi == ""|| $kategori == "" || $merk == "" || $stok == ""|| $harga == ""){
+    echo "<script>alert('field tidak boleh kosong')</script>";
+  } else {
+    if (count($_FILES) > 0) {
+      if (is_uploaded_file($_FILES['gambar']['tmp_name'])) {
+        $errors = array();
+        $file_name = $_FILES['gambar']['name'];
+        $file_size = $_FILES['gambar']['size'];
+        $file_tmp = $_FILES['gambar']['tmp_name'];
+        $file_type = $_FILES['gambar']['type'];
+        if ($file_size > 2097152) {
+          $errors[] = 'File size melebihi batas';
+        }
 
+        if (empty($errors) == true && $file_name != "") {
+            move_uploaded_file($file_tmp, "../getImages/" . $file_name);
+            $kueri = mysqli_query($con, "UPDATE sepeda SET nama_sepeda = '$judul', id_kategori = '$kategori', id_merk = '$merk', image_sepeda = '$file_name', deskripsi_sepeda = '$deksripsi', stok_sepeda = '$stok', harga_sepeda = '$harga' WHERE id_sepeda = '$idB'");
+            header("location: updateBarang.php");
+            exit;
+
+            // if(!$kueri){
+            //   echo "<script>alert('Gagal Update Item!')</script>";
+            // } else {
+            //   echo "<script>alert('Berhasil Update Item!')</script>";
+            // }
+        
+        } else {
+          echo "<script>alert('Ukuran file melebihi batas')</script>";
+        }
+      } else {
+        $kueri = mysqli_query($con, "UPDATE sepeda SET nama_sepeda = '$judul', id_kategori = '$kategori', id_merk = '$merk', deskripsi_sepeda = '$deksripsi', stok_sepeda = '$stok', harga_sepeda = '$harga' WHERE id_sepeda = '$idB'");
+        header("location: updateBarang.php");
+        exit;
+
+        // if(!$kueri){
+        //   echo "<script>alert('Gagal Update Item!')</script>";
+        // } else {
+        //   echo "<script>alert('Berhasil Update Item!')</script>";
+        // }
+      }
+    }
+  }
 }
 ?>
 
@@ -123,6 +171,11 @@ if(isset($_POST['tambahPost'])){
                   ?>
                 </select>
               </td>
+            </tr>
+            <tr>
+              <td><label for="input">Stok</label></td>
+              <td><label for="input">:</label></td>
+              <td><input type="text" name="stok" id="input" placeholder="Masukkan Harga" value="<?php echo $sepeda['stok_sepeda']?>"></td>
             </tr>
             <tr>
               <td><label for="input">Harga</label></td>

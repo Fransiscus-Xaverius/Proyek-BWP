@@ -184,11 +184,14 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                     }
                     if($_REQUEST['status']==2){
                       for ($i=0; $i < sizeof($cart); $i++) {
-                        $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
-                        $subtotal = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
-                        echo "<tr>";
-                        echo "<td class='text-start'>".$barang['nama_sepeda']."</td>"."<td class='text-start'>".$cart[$i]['jumlah']."</td>"."<td class='text-start'>".$barang['harga_sepeda']."</td>"."<td class='ps-3'>".$subtotal."</td>";
-                        echo "</tr>";
+                        if($cart[$i]['idUser'] == $temp){
+                          $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
+                          $subtotal = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
+                          $insert = mysqli_query($con,"INSERT INTO dtrans (htrans_id, id_sepeda, jumlah, subtotal) values ('".$nota."','".$cart[$i]['idBarang']."','".$cart[$i]['jumlah']."','".$subtotal."')");
+                          echo "<tr>";
+                          echo "<td class='text-start'>".$barang['nama_sepeda']."</td>"."<td class='text-start'>".$cart[$i]['jumlah']."</td>"."<td class='text-start'>".$barang['harga_sepeda']."</td>"."<td class='ps-3'>".$subtotal."</td>";
+                          echo "</tr>";
+                        }
                       }
                     }
                     if(!$berhasil){

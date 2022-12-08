@@ -64,7 +64,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> 
   </head>
   <body>
-    <div class="">
+    <div class="semua">
       <!-- Navbar Start-->
       <nav class="navbar" id="nav">
         <div class="container-fluid" style="margin:0px 50px">
@@ -122,7 +122,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                               <div class="img-box">
-                                  <figure><img src="assets/img-1.png"  alt ="bruh" style="max-width: 100%;"/></figure>
+                                  <figure><img src="assets/img-1.png"  alt ="bruh" class="" style="max-width: 100%;"/></figure>
                               </div>
                             </div>
                         </div>
@@ -177,10 +177,10 @@
     </div>
 
     <!-- start of catalog -->
-    <div class="container-fluid filter">
+    <div class="container-fluid">
       <div class="row justify-content-center">
-        <div class="col-3">
-          <div class="mt-3 p-2" style="border: 1px solid lightgray; border-radius:3px; margin-left:125px;" id="navbarToggleExternalContent"> 
+        <div class="col-lg-2 col-sm-10 col-md-4 col-6 filter">
+          <div class="mt-3 p-2 iniFilter" style="border: 1px solid lightgray; border-radius:3px;" id="navbarToggleExternalContent"> 
             <form action="" method="post">
               <h3 class="pb-4">&nbsp;<img src="assets/filter.png" alt="filter icon" height='27px'>&nbsp;&nbsp;FILTER</h3> 
               
@@ -530,7 +530,7 @@
               if($result->num_rows > 0){
                 foreach ($result as $key => $value) {
                 echo 
-                  '<div class="col-lg-3 col-md-4 col-6 ms-3 me-3 mt-3 mb-3">
+                  '<div class="col-lg-3 col-md-4 col-11 ms-3 me-3 mt-3 mb-3">
                     <div class="card" style="height=350px">
                       <img src="getImages/'.$value["image_sepeda"].'" class="card-img-top" alt="sepeda" style="max-height : 350px;">
                       <div class="card-body" style = "">

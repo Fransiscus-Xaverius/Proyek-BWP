@@ -67,3 +67,7 @@ body{
   margin-top: 35px;
   background-color: rgb(190, 225, 255);
 }
+
+#navbarToggleExternalContent{
+  margin-left: 125px;
+}

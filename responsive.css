@@ -1,11 +1,93 @@
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    
+    .bg{
+        background-size: cover;
+        height: 85vh;
+        padding-top: 100px;
+    }
+
+    .img-box {
+        margin-top: 20px;
+    }
+
+    .semua{
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+    }
+
+    .navbar-brand img{
+        margin-left: -50px;
+        height:50px;    
+    }
+
+    .judul{
+        margin-left: 0px;
+    }
+
+    .filter{
+        margin-left: 0px;
+    }
+
+    #navbarToggleExternalContent{
+        margin-left: 0px;
+    }
+
+    .pagination{
+        margin-top: 15px;
+        margin-right: 0px;
+    }
+
+    .containers{
+        width: 140%;
+        margin: 200px 5px;
+    }
+
+    .kiri{
+        height: 100px;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  
+    .bg{
+        background-size: cover;
+        height: 150vh;
+        padding-top: 20px;
+    }
+
+    .img-box {
+        width: 70%;
+        margin: 20px auto 0px auto;
+    }
+
+    .semua{
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+    }
+
+    .navbar-brand img{
+        margin-left: -20px;
+        height:60px;    
+    }
+
+    .judul{
+        margin-left: 60px;
+    }
+
+    .filter{
+        margin-left: 0px;
+    }
+
+    #navbarToggleExternalContent{
+        margin-left: 0px;
+    }
+
+    .pagination{
+        margin-top: 15px;
+        margin-right: 0px;
+    }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */

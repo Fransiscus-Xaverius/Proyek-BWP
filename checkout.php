@@ -82,7 +82,7 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                 </li>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fs-5 fw-bold" href="#">Transaction</a>
+                  <a class="nav-link fs-5 fw-bold" href="trans.php">Transaction</a>
                 </li>
             </ul>
             <form class="d-flex" method="post"> 

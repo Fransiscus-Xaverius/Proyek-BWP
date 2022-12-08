@@ -1,38 +1,6 @@
 <?php
-require_once("helper.php");
-if(!isset($_SESSION['login'])){
-  header("Location: index.php");
-}
-if(!isset($_SESSION['barang'])){
-  header("Location: homeUser.php");
-}
-$temp = $_SESSION['login'];
-$user = mysqli_fetch_array(mysqli_query($con, "select * from customer where id_customer = '".$temp."'"));
+require_once("helper.php"); 
 
-$idCart = $_REQUEST['idCart'];
-$cart = [];
-if(isset($_SESSION['cart'])){
-    $cart = $_SESSION['cart'];
-}
-
-
-if(isset($_POST["keranjang"])){
-    echo "<script>alert('BERHASIL SAVE')</script>";
-    if($_POST['jumlah'] > 0){
-        $cart[$idCart]['jumlah'] = $_POST['jumlah'];
-        $_SESSION['cart'] = $cart;
-        header("Location: cart.php");
-        exit;
-    }
-    else{
-        echo "<script>alert('JUMLAH TIDAK BOLEH 0')</script>";
-    }
-}
-
-$idBarang = $_SESSION['cart'][$idCart]['idBarang'];
-// $idBarang = $_SESSION['barang'];
-echo $idBarang;
-$barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$idBarang."'"));
 ?>
 
 <!DOCTYPE html>
@@ -41,13 +9,13 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DETAIL</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
-<body>
+<body onload="loadAjax()">
     <!-- Navbar Start-->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar" id="nav" style="fixed">
         <div class="container-fluid" style="margin:0px 50px">
             <a class="navbar-brand" href="homeUser.php">
               <img src="assets/icon.png" alt="icon" height="75px">
@@ -86,28 +54,38 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
       </nav>
     <!-- Navbar END-->
 
-    <!-- Konten -->
-    <div class="container">
-      <div class="row mt-3">
-        <div class="col-6">
-          <img src="getImages/<?php echo $barang['image_sepeda']?>.png" alt="gambar" width="600px">
-        </div>
-        <div class="col-6 justify-content-start">
-          <h1 class="fw-bold"><?php echo $barang['nama_sepeda']?></h1>
-          <h3 class="subjudul"><?php echo $barang['deskripsi_sepeda']?></h3>
-          <h3 class="subjudul">Rp. <?php echo $barang['harga_sepeda']?></h3>
-          <form method="post">
-            <div class="fs-5">
-                jumlah : 
-                <input type="number" name="jumlah" id="jumlah" min="1" max="100" value="<?php echo $cart[$idCart]['jumlah']?>">
-            </div><br>
-            <input type="hidden" name="id" value="<?php echo $barang['id_sepeda']?>">
-            <button type="submit" name="keranjang" class="btn btn-primary">SAVE</button>
-          </form>
-        </div>
-      </div>
-    <!-- Konten -->
+    <!-- All Item Start -->
+    <div style="margin:50px auto; width:95%">
+      <table id="listTrans" class="table table-striped table-hover" border=1>
+
+      </table>
+    </div>
+    <!-- All Item End-->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-</body>
+  </body>
+  <script>
+    function loadAjax(){
+      listItem = document.querySelector("#listTrans");
+      fetchTrans();
+    }
+
+    function fetchTrans(){
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+          console.log(this.responseText);
+          listItem.innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "fetchTrans.php", true);
+      xhttp.send();
+    }
+
+    function details(obj){
+      detail_id = obj.value;
+      window.location.href = './detailTrans.php?id='+detail_id;
+    }
+
+  </script>
 </html>

@@ -1,5 +1,4 @@
 <?php
-
     require("helper.php");
 
     $allTrans = mysqli_query($con, "SELECT * from htrans h, customer c where h.id_customer = c.id_customer");

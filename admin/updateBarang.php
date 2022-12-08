@@ -1,5 +1,6 @@
 <?php
 require_once("helper.php"); 
+echo $_SESSION['idBarang'];
 ?>
 
 <!DOCTYPE html>

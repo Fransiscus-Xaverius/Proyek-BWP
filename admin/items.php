@@ -124,7 +124,7 @@ require_once("helper.php");
   function updateItem(obj){
     update_id = obj.value;
     // alert(update_id);
-    ajax_func('POST', `updateItem.php`, refresh, `update_id=${update_id}`);
+    window.location.href = './updateItem.php?id='+update_id;
   }
 </script>
 </html>

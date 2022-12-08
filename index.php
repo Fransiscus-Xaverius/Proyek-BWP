@@ -63,7 +63,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> 
   </head>
   <body>
-    <div class="bg">
+    <div class="">
       <!-- Navbar Start-->
       <nav class="navbar" id="nav">
         <div class="container-fluid" style="margin:0px 50px">
@@ -96,40 +96,84 @@
             </div>
         </div>
       </nav>
-    <!-- Navbar END-->
+      <!-- Navbar END-->
 
-    <!-- carousel start -->
-    <div class="container">
-      <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active" data-bs-interval="4000" >
-            <img src="assets/img-1.png" class="d-block car-img" style="margin:auto" alt="img">
-          </div>
-          <div class="carousel-item" data-bs-interval="2000">
-            <img src="assets/img-2.png" class="d-block car-img" alt="img" style="margin:auto">
-          </div>
-          <div class="carousel-item">
-            <img src="assets/img-3.png" class="d-block car-img" alt="img" style="margin:auto">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+      <!-- carousel start -->
+      <div class="container-fluid bg">
+          <section >
+            <div id="main_slider" class="section carousel slide banner-main" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#main_slider" data-slide-to="0" class="active"></li>
+                  <li data-target="#main_slider" data-slide-to="1"></li>
+                  <li data-target="#main_slider" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                      <div class="container">
+                        <div class="row marginii">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="carousel-sporrt_text ">
+                                  <h1 class="sport_text"><strong>Sports<br><span style="color: #fff;">Cycle</span></strong></h1>
+                                  <p class="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content</p>
+                                  <button class="boynow_bt">Buy Now</button>
+                                  <button class="contact_bt">Contact Us</button>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="img-box">
+                                  <figure><img src="assets/img-1.png"  alt ="bruh" style="max-width: 100%;"/></figure>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="carousel-item">
+                      <div class="container">
+                        <div class="container">
+                        <div class="row marginii">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="carousel-sporrt_text ">
+                                  <h1 class="sport_text"><strong>Sports<br><span style="color: #fff;">Cycle</span></strong></h1>
+                                  <p class="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content</p>
+                                  <button class="boynow_bt">Buy Now</button>
+                                  <button class="contact_bt">Contact Us</button>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="img-box">
+                                  <figure><img src="assets/img-1.png"  alt ="bruh" style="max-width: 100%;"/></figure>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+                  <div class="carousel-item">
+                      <div class="container">
+                        <div class="row marginii">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="carousel-sporrt_text ">
+                                  <h1 class="sport_text"><strong>Sports<br><span style="color: #fff;">Cycle</span></strong></h1>
+                                  <p class="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content</p>
+                                  <button class="boynow_bt">Buy Now</button>
+                                  <button class="contact_bt">Contact Us</button>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="img-box">
+                                  <figure><img src="assets/img-1.png" style="max-width: 100%;" alt ="bruh"></figure>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </section>
       </div>
+      <!-- carousel end -->
     </div>
     </div>
-
-    <!-- carousel end -->
 
     <!-- start of catalog -->
     <div class="container-fluid filter">
@@ -165,7 +209,7 @@
               
               <hr><h4>Order Price</h4>
               <fieldset id="orderby">
-                <input type="radio" name="order" id="" value="asc">
+                <input type="radio" name="order" id="" value="asc" checked>
                 <label class="fs-5">&nbsp;Ascending</label> <br>
                 <input type="radio" name="order" id="" value="desc">
                 <label class="fs-5">&nbsp;Descending</label> <br>
@@ -280,12 +324,11 @@
                 $min = $_POST['min'];
                 $max = $_POST['max'];
                 if(isset($_POST['order'])){
-                  $order_by = $_POST['order'];
+                  $order = $_POST['order'];
                 }
 
                 if($kategori != "" && $merk != "" && $min != "" && $max != ""){
-                  echo "select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda >= ".$min." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET";
-                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and '".$merk."' and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -297,7 +340,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $merk != "" && $min != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -309,7 +352,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $merk != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -321,7 +364,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $min != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -333,7 +376,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != "" && $min != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where ".$merk."and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$merk."and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -345,7 +388,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $merk != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and ".$merk." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -357,7 +400,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $min != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -369,7 +412,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -381,7 +424,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != "" && $min != ""){
-                  $result = $con->query("select * from sepeda where ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -393,7 +436,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -405,7 +448,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($min != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -417,7 +460,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -429,7 +472,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != ""){
-                  $result = $con->query("select * from sepeda where ".$merk." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$merk." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -441,7 +484,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($min != ""){
-                  $result = $con->query("select * from sepeda where harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -453,7 +496,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($max != ""){
-                  $result = $con->query("select * from sepeda where harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -465,7 +508,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else {
-                  $result = $con->query("select * from sepeda where status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];

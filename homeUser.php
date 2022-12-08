@@ -72,9 +72,9 @@
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div class="bg">
+    <div class="">
       <!-- Navbar Start-->
-      <nav class="navbar" id="nav">
+      <nav class="navbar" id="nav" style="fixed">
         <div class="container-fluid" style="margin:0px 50px">
             <a class="navbar-brand" href="homeUser.php">
               <img src="assets/icon.png" alt="icon" height="75px">
@@ -114,31 +114,77 @@
     <!-- Navbar END-->
 
     <!-- carousel start -->
-      <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active" data-bs-interval="4000">
-            <img src="assets/img-1.png" class="d-block car-img" style="margin:auto" alt="img">
-          </div>
-          <div class="carousel-item" data-bs-interval="2000">
-            <img src="assets/img-2.png" class="d-block car-img" alt="img" style="margin:auto">
-          </div>
-          <div class="carousel-item">
-            <img src="assets/img-3.png" class="d-block car-img" alt="img" style="margin:auto">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+    <div class="container-fluid bg">
+          <section >
+            <div id="main_slider" class="section carousel slide banner-main" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#main_slider" data-slide-to="0" class="active"></li>
+                  <li data-target="#main_slider" data-slide-to="1"></li>
+                  <li data-target="#main_slider" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                      <div class="container">
+                        <div class="row marginii">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="carousel-sporrt_text ">
+                                  <h1 class="sport_text"><strong>Sports<br><span style="color: #fff;">Cycle</span></strong></h1>
+                                  <p class="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content</p>
+                                  <button class="boynow_bt">Buy Now</button>
+                                  <button class="contact_bt">Contact Us</button>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="img-box">
+                                  <figure><img src="assets/img-1.png"  alt ="bruh" style="max-width: 100%;"/></figure>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="carousel-item">
+                      <div class="container">
+                        <div class="container">
+                        <div class="row marginii">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="carousel-sporrt_text ">
+                                  <h1 class="sport_text"><strong>Sports<br><span style="color: #fff;">Cycle</span></strong></h1>
+                                  <p class="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content</p>
+                                  <button class="boynow_bt">Buy Now</button>
+                                  <button class="contact_bt">Contact Us</button>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="img-box">
+                                  <figure><img src="assets/img-1.png"  alt ="bruh" style="max-width: 100%;"/></figure>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+                  <div class="carousel-item">
+                      <div class="container">
+                        <div class="row marginii">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="carousel-sporrt_text ">
+                                  <h1 class="sport_text"><strong>Sports<br><span style="color: #fff;">Cycle</span></strong></h1>
+                                  <p class="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content</p>
+                                  <button class="boynow_bt">Buy Now</button>
+                                  <button class="contact_bt">Contact Us</button>
+                              </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                              <div class="img-box">
+                                  <figure><img src="assets/img-1.png" style="max-width: 100%;" alt ="bruh"></figure>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </section>
       </div>
     </div>
     <!-- carousel end -->

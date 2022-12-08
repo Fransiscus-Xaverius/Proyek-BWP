@@ -129,26 +129,26 @@ if(isset($_POST['back'])){
               </div>
             </div>
           </div>
-          <div class="success">
-            <?php
-              if (isset($success)) {
-                if (strlen($success) > 0) {
-                  echo $success;
-                }
-              }
-            ?>
-          </div>
-          <div class="error">
-            <?php
-              if (isset($error)) {
-                if (strlen($error) > 0) {
-                  echo $error;
-                }
-              }
-            ?>
-          </div>
           <div class="btns">
             <button class="registBtn" type="submit" name="register">Register</button>
+            <div class="success">
+              <?php
+                if (isset($success)) {
+                  if (strlen($success) > 0) {
+                    echo $success;
+                  }
+                }
+              ?>
+            </div>
+            <div class="error">
+              <?php
+                if (isset($error)) {
+                  if (strlen($error) > 0) {
+                    echo $error;
+                  }
+                }
+              ?>
+            </div>
             <div class="daftar">
               <label style="margin-left:-40px; margin-top:10px">Already Have Account? </label><br>
               <button type="submit" name="login" formaction="login.php">Sign In &rarr;</button>

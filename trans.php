@@ -1,6 +1,10 @@
 <?php
 require_once("helper.php"); 
-
+if(!isset($_SESSION['login'])){
+    header("Location: index.php");
+}
+$temp = $_SESSION['login'];
+$user = mysqli_fetch_array(mysqli_query($con, "select * from customer where id_customer = '".$temp."'"));
 ?>
 
 <!DOCTYPE html>
@@ -9,13 +13,14 @@ require_once("helper.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Transaction</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body onload="loadAjax()">
+    <div class="container-fluid">
     <!-- Navbar Start-->
-    <nav class="navbar" id="nav" style="fixed">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid" style="margin:0px 50px">
             <a class="navbar-brand" href="homeUser.php">
               <img src="assets/icon.png" alt="icon" height="75px">
@@ -71,14 +76,14 @@ require_once("helper.php");
     }
 
     function fetchTrans(){
+      $id = '<?php echo $user['id_customer']?>';
       var xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-          console.log(this.responseText);
           listItem.innerHTML = this.responseText;
         }
       };
-      xhttp.open("GET", "fetchTrans.php", true);
+      xhttp.open("GET", `fetchTrans.php?id=${$id}`, true);
       xhttp.send();
     }
 

@@ -53,12 +53,14 @@ if(isset($_POST['login'])){
             color: green;
             margin-left : 80px;
             text-align : center;
+            font : 15px;
         }
 
         .error {
             color: red;
             margin-left : 80px;
             text-align : center;
+            font : 15px;
         }
     </style>
   </head>
@@ -78,26 +80,26 @@ if(isset($_POST['login'])){
 				      <span class="focusInput text-center" >Password</span>	
               <input class="input100 text-center" type="password" name="pass">
 				    </div>
-            <div class="success">
-              <?php
-              if (isset($success)) {
-                if (strlen($success) > 0) {
-                  echo $success;
-                }
-              }
-              ?>
-            </div>
-            <div class="error">
-              <?php
-              if (isset($error)) {
-                if (strlen($error) > 0) {
-                  echo $error;
-                }
-              }
-              ?>
-            </div>
             <div class="btns">
               <button class="loginBtn" type="submit" name="login">Login</button>
+              <div class="success">
+                <?php
+                if (isset($success)) {
+                  if (strlen($success) > 0) {
+                    echo $success;
+                  }
+                }
+                ?>
+              </div>
+              <div class="error">
+                <?php
+                if (isset($error)) {
+                  if (strlen($error) > 0) {
+                    echo $error;
+                  }
+                }
+                ?>
+              </div>
               <div class="daftar">
                 Don't have account?
                 <button type="submit" name="Register" formaction="register.php">

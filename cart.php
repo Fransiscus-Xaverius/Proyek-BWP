@@ -211,10 +211,11 @@ if(isset($_SESSION['cart'])){
         snap.pay(token, {
           onSuccess: function(result){
             alert("payment success!"); console.log(result);
-            window.location.href = "checkout.php?nominal="+grandTotal+"&orderID="+orderID;
+            window.location.href = "checkout.php?nominal="+grandTotal+"&orderID="+orderID+"&status="+1;
           },
           onPending: function(result){
             alert("wating your payment!"); console.log(result);
+            window.location.href = "checkout.php?nominal="+grandTotal+"&orderID="+orderID+"&status="+2;
           },
           onError: function(result){
             alert("payment failed!"); console.log(result);

@@ -81,7 +81,7 @@
             echo "Rp. 0";
           }
           else{
-            echo $row["SUM(harga_total)"];
+            echo "<h2>Rp.".number_format($row["SUM(harga_total)"], 0, ',', '.')."</h2>";
           }
         ?>
       </div>
@@ -89,16 +89,26 @@
         <h1>Penjualan Kemarin</h1>
         <?php
           $hasil = mysqli_query($con, "SELECT SUM(harga_total) from htrans where DATE(h_date) = CURDATE() -1");
-          $hasil = $hasil->fetch_assoc();
-          echo $hasil["SUM(harga_total)"];
+          $row = $hasil->fetch_assoc();
+          if (is_null($row["SUM(harga_total)"])) {
+            echo "Rp. 0";
+          }
+          else{
+            echo "<h2>Rp.".number_format($row["SUM(harga_total)"], 0, ',', '.')."</h2>";
+          }
         ?>
       </div>
       <div class="container per3">
         <h1>Penjualan Bulan ini</h1>
         <?php
           $hasil = mysqli_query($con, "SELECT SUM(harga_total) from htrans WHERE MONTH(h_date) = MONTH(NOW()) AND YEAR(h_date) = YEAR(NOW())");
-          $hasil = $hasil->fetch_assoc();
-          echo $hasil["SUM(harga_total)"];
+          $row = $hasil->fetch_assoc();
+          if (is_null($row["SUM(harga_total)"])) {
+            echo "Rp. 0";
+          }
+          else{
+            echo "<h2>Rp.".number_format($row["SUM(harga_total)"], 0, ',', '.')."</h2>";
+          }
         ?>
       </div>
     </div>

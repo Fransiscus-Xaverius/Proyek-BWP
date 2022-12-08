@@ -1,6 +1,12 @@
 <?php
 require_once("helper.php"); 
-echo $_SESSION['idBarang'];
+$idB = $_SESSION['idBarang'];
+$sepeda = mysqli_query($con, "SELECT * FROM sepeda WHERE id_sepeda = '$idB'");
+$sepeda = mysqli_fetch_array($sepeda);
+
+if(isset($_POST['tambahPost'])){
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,27 +63,84 @@ echo $_SESSION['idBarang'];
       </nav>
     <!-- Navbar END-->
 
-    <!-- Add New Item Start -->
-    <form action="" method="post">
-        <button type="submit" class="buttonAdd" formaction="addItem.php">+ Tambah Item Sepeda</button>
-        <button type="submit" class="buttonA" formaction="addCategory.php">+ Tambah Kategori</butzton>
-        <button type="submit" class="buttonA" formaction="addBrand.php">+ Tambah Merk</button>
-    </form>
-    <!-- Add New Item End-->
-
-    <!-- Popup Modal -->
-    <div class="modal" tabindex="-1" id="modal">
-      
+    <!-- Add Item -->
+    <div class="konten">
+        <div class="isi">
+        <h2 class="fw-bold">Update Item</h2><br>
+        <img src="../getImages/<?php echo $sepeda['image_sepeda']?>" alt="Gambar Sepeda" width="75%">
+        <br><br>
+        <form action="" method="post" enctype="multipart/form-data">
+          <table width="100%">
+            <tr>
+              <td><label for="input">ID</label></td>
+              <td><label for="input">:</label></td>
+              <td><input type="text" name="judul" id="input" placeholder="Masukkan Nama Sepeda" value="<?php echo $sepeda['id_sepeda']?>" disabled></td>
+            </tr>
+            <tr>
+              <td><label for="input">Nama</label></td>
+              <td><label for="input">:</label></td>
+              <td><input type="text" name="judul" id="input" placeholder="Masukkan Nama Sepeda" value="<?php echo $sepeda['nama_sepeda']?>"></td>
+            </tr>
+            <tr>
+              <td><label for="input">Deskripsi</label></td>
+              <td><label for="input">:</label></td>
+              <td><textarea name="desc" id="input" cols="30" rows="8" placeholder="Insert post description here"><?php echo $sepeda['deskripsi_sepeda']?></textarea></td>
+            </tr>
+            <tr>
+              <td><label for="input">Kategori</label></td>
+              <td><label for="input">:</label></td>
+              <td>
+                <select name="kategori" id="input">
+                  <?php
+                    $kueri = mysqli_query($con, "select * from kategori");
+                    while($result = mysqli_fetch_array($kueri)){
+                      if($result['id_kategori'] == $sepeda['id_kategori']){
+                        echo "<option value='".$result['id_kategori']."' selected>".$result['nama_kategori']."</option>";
+                        continue;
+                      } else {
+                        echo "<option value='".$result['id_kategori']."'>".$result['nama_kategori']."</option>";
+                      }
+                    }
+                  ?>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="input">Merk</label></td>
+              <td><label for="input">:</label></td>
+              <td>
+                <select name="merk" id="input">
+                  <?php
+                    $kueri = mysqli_query($con, "select * from merk");
+                    while($result = mysqli_fetch_array($kueri)){
+                      if($result['id_merk'] == $sepeda['id_merk']){
+                        echo "<option value='".$result['id_merk']."' selected>".$result['nama_merk']."</option>";
+                        continue;
+                      } else {
+                        echo "<option value='".$result['id_merk']."'>".$result['nama_merk']."</option>";
+                      }
+                    }
+                  ?>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><label for="input">Harga</label></td>
+              <td><label for="input">:</label></td>
+              <td><input type="text" name="harga" id="input" placeholder="Masukkan Harga" value="<?php echo $sepeda['harga_sepeda']?>"></td>
+            </tr>
+            <tr>
+              <td><label for="input">Gambar</label></td>
+              <td><label for="input">:</label></td>
+              <td><input type="file" name="gambar" accept="image/*" class="custom-file-input" id="inp" ><br></td>
+            </tr>
+          </table>
+          <button type="submit" name="post" id="kembali" style="padding:3px 45px; margin-top:15px; margin-right:10px" formaction="items.php">Back</button>
+          <button type="submit" name="post" id="tambahPost" style="padding:3px 45px; margin-top:15px">Save</button>
+        </form>
+        </div>
     </div>
-
-    <!-- All Item Start -->
-    <div style="margin:50px auto; width:95%">
-      <table id="listItem" class="table table-striped table-hover" border=1>
-
-      </table>
-    </div>
-    <!-- All Item End-->
-
+    <!-- Add Item -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>

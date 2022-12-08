@@ -65,11 +65,6 @@ require_once("helper.php");
     </form>
     <!-- Add New Item End-->
 
-    <!-- Popup Modal -->
-    <div class="modal" tabindex="-1" id="modal">
-      
-    </div>
-
     <!-- All Item Start -->
     <div style="margin:50px auto; width:95%">
       <table id="listItem" class="table table-striped table-hover" border=1>

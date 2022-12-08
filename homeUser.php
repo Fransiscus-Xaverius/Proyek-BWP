@@ -221,7 +221,7 @@
               <input type="number" name="max" placeholder='max' style='width:30%'>
               <hr><h4>Order Price</h4>
               <fieldset id="orderby">
-                <input type="radio" name="order" id="" value="asc">
+                <input type="radio" name="order" id="" value="asc" checked>
                 <label class="fs-5">&nbsp;Ascending</label> <br>
                 <input type="radio" name="order" id="" value="desc">
                 <label class="fs-5">&nbsp;Descending</label> <br>
@@ -333,9 +333,12 @@
                 }
                 $min = $_POST['min'];
                 $max = $_POST['max'];
+                if(isset($_POST['order'])){
+                  $order = $_POST['order'];
+                }
 
                 if($kategori != "" && $merk != "" && $min != "" && $max != ""){
-                  echo "select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET";
+                  echo "select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET";
                   $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where '".$kategori."' and '".$merk."' and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
@@ -348,7 +351,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $merk != "" && $min != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -360,7 +363,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $merk != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -372,7 +375,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $min != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -384,7 +387,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != "" && $min != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where ".$merk."and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$merk."and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -396,7 +399,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $merk != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and ".$merk." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and ".$merk." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -408,7 +411,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $min != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -420,7 +423,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -432,7 +435,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != "" && $min != ""){
-                  $result = $con->query("select * from sepeda where ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -444,7 +447,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -456,7 +459,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($min != "" && $max != ""){
-                  $result = $con->query("select * from sepeda where harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where harga_sepeda between ".$min." and ".$max." and status_sepeda = 1 and stok_sepeda > 0");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -468,7 +471,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($kategori != ""){
-                  $result = $con->query("select * from sepeda where ".$kategori." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$kategori." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$kategori." and status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -480,7 +483,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($merk != ""){
-                  $result = $con->query("select * from sepeda where ".$merk." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where ".$merk." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where ".$merk." and status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -492,7 +495,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($min != ""){
-                  $result = $con->query("select * from sepeda where harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where harga_sepeda >= ".$min." and status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -504,7 +507,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else if($max != ""){
-                  $result = $con->query("select * from sepeda where harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where harga_sepeda <= ".$max." and status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];
@@ -516,7 +519,7 @@
                     $_SESSION['maks'] = $maks;
                   }
                 } else {
-                  $result = $con->query("select * from sepeda where status_sepeda = 1 and stok_sepeda > 0 LIMIT 12 OFFSET ".$dex);
+                  $result = $con->query("select * from sepeda where status_sepeda = 1 and stok_sepeda > 0 order by harga_sepeda ".$order." LIMIT 12 OFFSET ".$dex);
                   $banyak = $con->query("select count(*) as 'jumlah' from sepeda where status_sepeda = 1 and stok_sepeda > 0 ");
                   $banyakPage = mysqli_fetch_array($banyak);
                   $banyakPage = $banyakPage['jumlah'];

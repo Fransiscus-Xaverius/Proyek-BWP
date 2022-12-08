@@ -93,6 +93,11 @@
                 }
             ?>
             <div class="" style="display:flex; flex-direction:column; align-items: center"><h2>Status<div class="" id='status'></div></h2></div>
+            <div class="container" style="width:100%; display: flex; flex-direction: row; align-items: center;">
+                <div class="btn btn-warning m-1" onclick="changeStatus(3)">Reject</div>
+                <div class="btn btn-success m-1" onclick="changeStatus(1)">Accept</div>
+                <div class="btn btn-primary m-1" onclick="changeStatus(2)">Pending</div>
+            </div>
         </div>
     </div>
 
@@ -114,5 +119,25 @@
         xhttp.open('GET','StatusTrans.php?id=<?php echo $idT?>',true);
         xhttp.send();
     }
+
+    function changeStatus(x){
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('GET','changeStatusTrans.php?id=<?php echo $idT?>&status='+x,true);
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                alert(this.responseText);
+            }
+        };
+        xhttp.send();
+        xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                statusdiv.innerHTML = this.responseText;
+            }
+        };
+        xhttp.open('GET','StatusTrans.php?id=<?php echo $idT?>',true);
+        xhttp.send();
+    }
+
 </script>
 </html>

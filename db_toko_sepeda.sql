@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2022 at 12:56 PM
+-- Generation Time: Dec 08, 2022 at 02:07 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -11,6 +11,8 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+create database if not exists db_toko_sepeda;
+use db_toko_sepeda;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,9 +28,6 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `customer`
 --
-
-CREATE DATABASE IF NOT EXISTS `db_toko_sepeda` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `db_toko_sepeda`;
 
 CREATE TABLE `customer` (
   `id_customer` varchar(6) NOT NULL,
@@ -57,10 +56,10 @@ INSERT INTO `customer` (`id_customer`, `username_customer`, `email_customer`, `p
 --
 
 CREATE TABLE `dtrans` (
-  `htrans_id` varchar(15) NOT NULL,
-  `id_sepeda` varchar(5) NOT NULL,
+  `htrans_id` varchar(128) NOT NULL,
+  `id_sepeda` varchar(128) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `subtotal` int(11) NOT NULL
+  `subtotal` int(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -69,7 +68,8 @@ CREATE TABLE `dtrans` (
 
 INSERT INTO `dtrans` (`htrans_id`, `id_sepeda`, `jumlah`, `subtotal`) VALUES
 ('n_1', 'spd_0', 1, 52684500),
-('n_2', 'spd_0', 1, 52684500);
+('n_3', 'spd_0', 1, 52684500),
+('n_6', 'spd_0', 1, 52684500);
 
 -- --------------------------------------------------------
 
@@ -99,16 +99,21 @@ CREATE TABLE `htrans` (
   `harga_total` int(11) NOT NULL,
   `htrans_id` varchar(128) NOT NULL,
   `h_date` date NOT NULL,
-  `order_id` varchar(128) NOT NULL
+  `order_id` varchar(128) NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `htrans`
 --
 
-INSERT INTO `htrans` (`id_customer`, `harga_total`, `htrans_id`, `h_date`, `order_id`) VALUES
-('US002', 52684500, 'n_1', '2022-12-05', '1527453318'),
-('US002', 52684500, 'n_2', '2022-12-05', '654689181');
+INSERT INTO `htrans` (`id_customer`, `harga_total`, `htrans_id`, `h_date`, `order_id`, `status`) VALUES
+('US001', 52684500, 'n_1', '2022-12-08', '1036541694', 1),
+('US001', 52684500, 'n_2', '2022-12-08', '1036541694', 1),
+('US001', 52684500, 'n_3', '2022-12-08', '1115749266', 1),
+('US001', 52684500, 'n_4', '2022-12-08', '1008149146', 2),
+('US001', 52684500, 'n_5', '2022-12-08', '621654973', 2),
+('US001', 52684500, 'n_6', '2022-12-08', '1422275112', 1);
 
 -- --------------------------------------------------------
 
@@ -220,7 +225,7 @@ CREATE TABLE `sepeda` (
 --
 
 INSERT INTO `sepeda` (`id_sepeda`, `nama_sepeda`, `id_kategori`, `id_merk`, `image_sepeda`, `deskripsi_sepeda`, `stok_sepeda`, `harga_sepeda`, `status_sepeda`) VALUES
-('spd_0', 'SISKIU N	', 'kat_1', 'merk_1', 'logo0.png', 'A burly machine that beats any steepest terrain																			', 99, 52684500, 1),
+('spd_0', 'SISKIU N	', 'kat_1', 'merk_1', 'logo0.png', 'A burly machine that beats any steepest terrain																			', 80, 52684500, 1),
 ('spd_1', 'SISKIU T', 'kat_1', 'merk_1', 'logo1.png', 'Tackle any steep climbs and confident on any technical descents.																			', 100, 33309500, 1),
 ('spd_10', 'KALOSI', 'kat_1', 'merk_1', 'logo10.png', 'Your all-day choice for all-urban terrains', 35, 32534500, 1),
 ('spd_100', 'Dew-E', 'kat_5', 'merk_3', 'logo100.png', 'THE UPTOWN, DOWNTOWN, COMMUTE-FRIENDLY, INTERURBAN PATH-CRUISING, GROCERY-GETTING WORKHORSE', 71, 4769448, 1),
@@ -355,7 +360,8 @@ ALTER TABLE `customer`
 -- Indexes for table `dtrans`
 --
 ALTER TABLE `dtrans`
-  ADD PRIMARY KEY (`htrans_id`);
+  ADD KEY `id_sepeda` (`id_sepeda`),
+  ADD KEY `htrans_id` (`htrans_id`);
 
 --
 -- Indexes for table `email`
@@ -413,6 +419,17 @@ ALTER TABLE `sepeda`
 --
 ALTER TABLE `supplier`
   ADD PRIMARY KEY (`id_supplier`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `dtrans`
+--
+ALTER TABLE `dtrans`
+  ADD CONSTRAINT `dtrans_ibfk_1` FOREIGN KEY (`id_sepeda`) REFERENCES `sepeda` (`id_sepeda`),
+  ADD CONSTRAINT `dtrans_ibfk_2` FOREIGN KEY (`htrans_id`) REFERENCES `htrans` (`htrans_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

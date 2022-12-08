@@ -8,6 +8,9 @@ if(!isset($_SESSION['barang'])){
   header("Location: homeUser.php");
 }
 
+if(isset($_REQUEST['status'])){
+}
+
 $cart = [];
 if(isset($_SESSION['cart'])){
     $cart = $_SESSION['cart'];
@@ -29,7 +32,7 @@ if(isset($_REQUEST["orderID"])){
   else{
     $num=1;
   }
-  $insert = mysqli_query($con, "insert into htrans (htrans_id, id_customer, harga_total, h_date,order_id) VALUES ('n_".$num."','".$_SESSION["login"]."','".$_REQUEST["nominal"]."','".date('Y-m-d H:i:s')."','".$_REQUEST["orderID"]."')");
+  $insert = mysqli_query($con, "insert into htrans (htrans_id, id_customer, harga_total, h_date,order_id,status) VALUES ('n_".$num."','".$_SESSION["login"]."','".$_REQUEST["nominal"]."','".date('Y-m-d H:i:s')."','".$_REQUEST["orderID"]."','".$_REQUEST['status']."')");
   if($insert){
     echo "<script>alert('Transaksi Berhasil')</script>";
   }
@@ -134,7 +137,14 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                     echo "<td>Grand Total</td>"."<td>:</td>"."<td>".$total."</td>";
                     echo "</tr>";
                     echo "<tr>";
-                    echo "<td>Status</td>"."<td>:</td>"."<td>Pembayaran Berhasil</td>";
+                    echo "<td>Status</td>"."<td>:</td>"."<td>";
+                    if($_REQUEST['status']==1){
+                      echo "Pembayaran Berhasil";
+                    }
+                    else if($_REQUEST['status']==2){
+                      echo "Pembayaran Pending";
+                    }
+                    echo "</td>";
                     echo "</tr>";
                     echo "</table>";
                     echo "<br><br><br><br>";
@@ -143,32 +153,43 @@ $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_s
                     echo "<th>Nama Barang</th>"."<th>Jumlah</th>"."<th>Harga</th>"."<th class='ps-3'>Subtotal</th>";
                     echo "</tr>";
                     $berhasil = true;
-                    for ($i=0; $i < sizeof($cart); $i++) { 
-                        if($cart[$i]['idUser'] == $temp){
-                            $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
-                            $subtotal = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
-                            $insert = mysqli_query($con,"INSERT INTO dtrans (htrans_id, id_sepeda, jumlah, subtotal) values ('".$nota."','".$cart[$i]['idBarang']."','".$cart[$i]['jumlah']."','".$subtotal."')");
-                            if(!$insert){
-                              $berhasil=false;
-                            }
-                            $stock = mysqli_query($con, "select stok_sepeda from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'");
-                            if($stock){
-                              $stock = $stock->fetch_assoc();
-                              $stock["stok_sepeda"] = intval($stock["stok_sepeda"])-intval($cart[$i]['jumlah']);
-                              $alter = mysqli_query($con, "UPDATE `sepeda` SET `stok_sepeda` = ".$stock["stok_sepeda"]." where id_sepeda = '".$cart[$i]['idBarang']."'");
-                              if(!$alter){
-                                echo "<script>alert('Error Update stock..')</script>";
-                                $berhasil = false;
+                    if($_REQUEST['status']==1){
+                      for ($i=0; $i < sizeof($cart); $i++) { 
+                          if($cart[$i]['idUser'] == $temp){
+                              $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
+                              $subtotal = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
+                              $insert = mysqli_query($con,"INSERT INTO dtrans (htrans_id, id_sepeda, jumlah, subtotal) values ('".$nota."','".$cart[$i]['idBarang']."','".$cart[$i]['jumlah']."','".$subtotal."')");
+                              if(!$insert){
+                                $berhasil=false;
                               }
-                            }
-                            else{
-                              "<script>alert('Error Update DTrans..')</script>";
-                              $berhasil=false;
-                            }
-                            echo "<tr>";
-                            echo "<td class='text-start'>".$barang['nama_sepeda']."</td>"."<td class='text-start'>".$cart[$i]['jumlah']."</td>"."<td class='text-start'>".$barang['harga_sepeda']."</td>"."<td class='ps-3'>".$subtotal."</td>";
-                            echo "</tr>";
-                        }
+                              $stock = mysqli_query($con, "select stok_sepeda from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'");
+                              if($stock){
+                                $stock = $stock->fetch_assoc();
+                                $stock["stok_sepeda"] = intval($stock["stok_sepeda"])-intval($cart[$i]['jumlah']);
+                                $alter = mysqli_query($con, "UPDATE `sepeda` SET `stok_sepeda` = ".$stock["stok_sepeda"]." where id_sepeda = '".$cart[$i]['idBarang']."'");
+                                if(!$alter){
+                                  echo "<script>alert('Error Update stock..')</script>";
+                                  $berhasil = false;
+                                }
+                              }
+                              else{
+                                "<script>alert('Error Update DTrans..')</script>";
+                                $berhasil=false;
+                              }
+                              echo "<tr>";
+                              echo "<td class='text-start'>".$barang['nama_sepeda']."</td>"."<td class='text-start'>".$cart[$i]['jumlah']."</td>"."<td class='text-start'>".$barang['harga_sepeda']."</td>"."<td class='ps-3'>".$subtotal."</td>";
+                              echo "</tr>";
+                          }
+                      }
+                    }
+                    if($_REQUEST['status']==2){
+                      for ($i=0; $i < sizeof($cart); $i++) {
+                        $barang = mysqli_fetch_array(mysqli_query($con, "select * from sepeda where id_sepeda = '".$cart[$i]['idBarang']."'"));
+                        $subtotal = $barang['harga_sepeda'] * $cart[$i]['jumlah'];
+                        echo "<tr>";
+                        echo "<td class='text-start'>".$barang['nama_sepeda']."</td>"."<td class='text-start'>".$cart[$i]['jumlah']."</td>"."<td class='text-start'>".$barang['harga_sepeda']."</td>"."<td class='ps-3'>".$subtotal."</td>";
+                        echo "</tr>";
+                      }
                     }
                     if(!$berhasil){
                       echo "<script>alert('Error Checkout..')</script>";

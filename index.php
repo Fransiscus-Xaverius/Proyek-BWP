@@ -81,7 +81,7 @@
                 </li>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fs-5 fw-bold" href="#">Get In Touch</a>
+                  <a class="nav-link fs-5 fw-bold" href="about.php">Get In Touch</a>
                 </li>
             </ul>
             <form class="d-flex" method="post"> 
@@ -116,7 +116,7 @@
                                   <h1 class="sport_text"><strong>Sports<br><span style="color: #fff;">Cycle</span></strong></h1>
                                   <p class="lorem_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content</p>
                                   <button class="boynow_bt">Buy Now</button>
-                                  <button class="contact_bt">Contact Us</button>
+                                  <button class="contact_bt" onclick="location.href='./about.php';">Contact Us</button>
                               </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">

@@ -12,6 +12,7 @@
     echo "<th>Harga Total</th>";
     echo "<th>Tanggal Transaksi</th>";
     echo "<th>Order ID</th>";
+    echo "<th>Status Transaksi</th>";
     echo "<th>Detail Transaksi</th>";
     echo "</tr>";
     $no = 1;
@@ -24,6 +25,17 @@
         echo "<td> Rp. " . number_format($row['harga_total'], 0, ',', '.') . "</td>";        
         echo "<td>" . $row['h_date'] . "</td>";
         echo "<td>" . $row['order_id'] . "</td>";
+        echo "<td>";
+        if($row['status']==1){
+            echo "Accepted";
+        }
+        else if($row['status']==2){
+            echo "Pending";
+        }
+        else{
+            echo "Rejected";
+        }
+        echo"</td>";
         echo "<td>";     
             echo "<button class='btn btn-primary' onclick='details(this)' value='".$row['htrans_id']."'>Details</button>";        
         echo "</td>";
